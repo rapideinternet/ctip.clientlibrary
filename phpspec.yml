@@ -1,0 +1,4 @@
+suites:
+  library_suite:
+    namespace: Iza\Test
+    psr4_prefix: Iza\Test
