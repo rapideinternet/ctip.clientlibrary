@@ -1,0 +1,8 @@
+{
+  "name": "Iza/Datacentralisatie",
+  "autoload": {
+    "psr-4": {
+      "Iza\\Datacentralisatie\\": "src/"
+    }
+  }
+}
