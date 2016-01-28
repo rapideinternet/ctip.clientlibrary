@@ -2,7 +2,7 @@
 
 interface IDatacentralisatieClient
 {
-    CONST USERNAME = 'username';
+    CONST EMAIL = 'email';
     CONST PASSWORD = 'password';
     CONST TENANT_ID = 'tenant_id';
 }

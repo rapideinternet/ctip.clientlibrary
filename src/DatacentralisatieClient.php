@@ -2,7 +2,11 @@
 
 namespace Iza\Datacentralisatie;
 
+use Iza\Datacentralisatie\Clients\AuthClient;
+use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Exceptions\FormatException;
 use Iza\Datacentralisatie\Providers\ClientProvider;
+use Iza\Datacentralisatie\RestClient\Response;
 
 class DatacentralisatieClient implements IDatacentralisatieClient
 {
@@ -10,23 +14,27 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var string
      */
     protected $url;
-
     /**
      * @var array
      */
     protected $credentials;
-
     /**
      * @var string
      */
     protected $token;
-
     /**
      * @var string
      */
     protected $version = 'v1';
 
-    protected $clients;
+    /**
+     * @var bool
+     */
+    protected $isAuthenticated = false;
+    /**
+     * @var array
+     */
+    protected $clients = [];
 
     /**
      * DatacentralisatieClient constructor
@@ -37,12 +45,33 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     {
         $this->url = $url;
         $this->registerClients();
-        $this->credentials = $this->setCredentials($credentials);
+        $this->setCredentials($credentials);
     }
 
     public function authenticate()
     {
+        /** @var Response $response */
+        $response = (new AuthClient($this))->login();
 
+        if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
+            $this->isAuthenticated = true;
+            $this->token = $response->getParsedResponse()->data->token;
+        } else {
+            //todo this is crappy
+            throw new Exception('Something went wrong during authentication');
+        }
+    }
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function isAuthenticated()
+    {
+        if (!$this->isAuthenticated) {
+            $this->authenticate();
+        }
     }
 
     public function registerClients()
@@ -50,14 +79,20 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $this->clients = (new ClientProvider())->clients();
     }
 
+    public function getCredentials()
+    {
+        return $this->credentials;
+    }
+
+
     protected function setCredentials($credentials)
     {
-        if (!isset($credentials[self::USERNAME])) {
-            //throw exception
+        if (!isset($credentials[self::EMAIL])) {
+            throw new FormatException('No email/username set');
         }
 
         if (!isset($credentials[self::PASSWORD])) {
-            //throw exception
+            throw new FormatException('No password set');
         }
 
         $this->credentials = $credentials;
@@ -72,6 +107,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         if (method_exists($this, $method)) {
             call_user_func([$this, $method], $arguments);
         }
+
+        $this->isAuthenticated();
 
         if (isset($this->clients[$method])) {
             //todo optimize with static storage?
@@ -89,15 +126,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
             return $this->{$property};
         }
 
+        $this->isAuthenticated();
+
         if (isset($this->clients[$property])) {
             //todo optimize with static storage?
             return new $this->clients[$property]($this);
         }
-    }
-
-    public function __set($name, $value)
-    {
-
     }
 
     public function getUrl()

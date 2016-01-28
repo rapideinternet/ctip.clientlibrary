@@ -22,10 +22,17 @@ abstract class BaseClient
         $this->restClient = RestClient::instance($client->getUrl());
     }
 
-    public function newRequest($path, $method = 'GET', $data = null, $headers = [])
+    public function request($path, $method = 'GET', $data = null, $headers = [])
     {
-        $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data, $headers)->getResponse();
+        $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data, array_merge($headers, $this->getAuthorizationHeader()))->getResponse();
         return $this->parseResponse($response);
+    }
+
+    protected function getAuthorizationHeader()
+    {
+        return [
+            'Authorization' => sprintf('Bearer %s', $this->client->getToken())
+        ];
     }
 
     public function parseResponse($response)
@@ -36,6 +43,6 @@ abstract class BaseClient
 
     public function formatUrl($path)
     {
-        return sprintf('%s/%s', $this->client->version, $path);
+        return sprintf('%s/%s', $this->client->version, ltrim($path, '/'));
     }
 }

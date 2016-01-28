@@ -11,7 +11,10 @@ use Iza\Datacentralisatie\Exceptions\ResponseException;
 class Response implements IResponse
 {
 
-    /** @var  resource */
+    const CONTENT_TYPE = 'content_type';
+    const JSON_TYPE = 'application/json';
+
+    /** @var resource */
     private $curlResource;
 
     /** @var string */
@@ -77,6 +80,10 @@ class Response implements IResponse
             $this->parseResponseHeaderLine($line);
         }
         $this->parsedResponse = strtok("");
+
+        if ($this->getHeader(self::CONTENT_TYPE) == self::JSON_TYPE) {
+            $this->parsedResponse = json_decode($this->parsedResponse);
+        }
     }
 
     /**

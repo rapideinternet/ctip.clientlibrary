@@ -20,7 +20,7 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function byId($id)
     {
-        return $this->newRequest(sprintf('object/%s', $id), 'GET');
+        return $this->request(sprintf('object/%s', $id), 'GET');
     }
 
     public function offsetExists($offset)
