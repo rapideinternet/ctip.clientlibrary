@@ -6,11 +6,6 @@ use Iza\Datacentralisatie\IDatacentralisatieClient;
 
 class AuthClient extends BaseClient
 {
-    public function setPerPage($perPage)
-    {
-        return $this->perPage = $perPage;
-    }
-
     public function login()
     {
         $credentials = $this->client->getCredentials();

@@ -3,24 +3,24 @@
 namespace Iza\Datacentralisatie\Clients;
 
 use ArrayAccess;
+use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Traits\PerPage;
 
 class ObjectClient extends BaseClient implements ArrayAccess
 {
-    protected $perPage = 15;
-
-    public function setPerPage($perPage)
-    {
-        return $this->perPage = $perPage;
-    }
+    use PerPage;
 
     public function all($filter)
     {
-        return 'all';
+        $this->addParameter('include', implode(',', $filter));
+        $this->addParameter('perPage', $this->perPage);
+
+        return $this->request('object', 'GET');
     }
 
     public function byId($id)
     {
-        return $this->request(sprintf('object/%s', $id), 'GET');
+        return $this->request(vsprintf('object/%s', $id), 'GET');
     }
 
     public function offsetExists($offset)
@@ -30,12 +30,12 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return $this->byId($offset);
+        return new SelectedObjectClient($this->client, $offset);
     }
 
     public function offsetSet($offset, $value)
     {
-        // TODO: Implement offsetSet() method.
+        //
     }
 
     public function offsetUnset($offset)

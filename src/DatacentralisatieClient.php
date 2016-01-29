@@ -8,6 +8,12 @@ use Iza\Datacentralisatie\Exceptions\FormatException;
 use Iza\Datacentralisatie\Providers\ClientProvider;
 use Iza\Datacentralisatie\RestClient\Response;
 
+/**
+ * Class DatacentralisatieClient
+ * @package Iza\Datacentralisatie
+ * @property-read \Iza\Datacentralisatie\Clients\ObjectClient $object
+ * @property-read \Iza\Datacentralisatie\Clients\AuthClient $auth
+ */
 class DatacentralisatieClient implements IDatacentralisatieClient
 {
     /**
@@ -26,7 +32,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var string
      */
     protected $version = 'v1';
-
     /**
      * @var bool
      */
@@ -105,7 +110,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         }
 
         if (method_exists($this, $method)) {
-            call_user_func([$this, $method], $arguments);
+            return call_user_func([$this, $method], $arguments);
         }
 
         $this->isAuthenticated();
@@ -118,10 +123,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
     public function __get($property)
     {
-        if (!isset($this->clients[$property]) && !property_exists($this, $property)) {
-            throw new \Exception("unknown method [$property]");
-        }
-
         if (property_exists($this, $property)) {
             return $this->{$property};
         }
@@ -132,6 +133,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
             //todo optimize with static storage?
             return new $this->clients[$property]($this);
         }
+
+        throw new \Exception("unknown method [$property]");
     }
 
     public function getUrl()
