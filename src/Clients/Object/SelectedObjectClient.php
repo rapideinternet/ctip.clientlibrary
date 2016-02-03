@@ -10,19 +10,18 @@ class SelectedObjectClient extends NestedClient
 {
     use PerPage;
 
-    protected $object = null;
+    protected $nestedObjects = [
+        'children' => \Iza\Datacentralisatie\Clients\ChildrenObjectClient::class
+    ];
 
     public function children($filter = [])
     {
-        $this->addParameter('include', implode(',', $filter));
-        $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('object/%s/children', $this->selectedId));
     }
 
     public function update($data)
     {
-        return $this->request(vsprintf('object/%s', $this->selectedIds));
+        return $this->request(vsprintf('object/%s', $this->selectedIds), $data);
     }
 
     public function byId($id)
