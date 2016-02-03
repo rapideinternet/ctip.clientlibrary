@@ -1,6 +1,22 @@
 {
   "name": "iza/datacentralisatie",
+  "version": "0.1.0",
+  "type": "library",
+  "description": "Client library for IZA Software data API",
+  "keywords": [
+    "REST",
+    "API",
+    "Client"
+  ],
+  "homepage": "http://iza.software",
   "license": "Proprietary",
+  "authors": [
+    {
+      "name": "Peter Mein",
+      "email": "peter@iza.software",
+      "role": "Developer"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "iza\\datacentralisatie\\": "src/"
