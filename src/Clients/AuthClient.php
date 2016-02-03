@@ -19,6 +19,6 @@ class AuthClient extends BaseClient
             $data['tenant_id'] = $credentials[IDatacentralisatieClient::TENANT_ID];
         }
 
-        return $this->request('/auth', 'POST', $data);
+        return $this->request('auth', 'POST', $data);
     }
 }

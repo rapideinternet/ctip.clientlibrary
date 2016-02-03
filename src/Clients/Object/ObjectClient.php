@@ -1,9 +1,11 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients;
+namespace Iza\Datacentralisatie\Clients\Object;
 
 use ArrayAccess;
+use Iza\Datacentralisatie\Clients\BaseClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 class ObjectClient extends BaseClient implements ArrayAccess
@@ -23,9 +25,14 @@ class ObjectClient extends BaseClient implements ArrayAccess
         return $this->request(vsprintf('object/%s', $id), 'GET');
     }
 
+    public function create($data)
+    {
+        return $this->request('object', 'POST', $data);
+    }
+
     public function offsetExists($offset)
     {
-        return "exists";
+        throw new NotImplementedException;
     }
 
     public function offsetGet($offset)
@@ -35,11 +42,11 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        //
+        throw new NotImplementedException;
     }
 
     public function offsetUnset($offset)
     {
-        // TODO: Implement offsetUnset() method.
+        throw new NotImplementedException;
     }
 }

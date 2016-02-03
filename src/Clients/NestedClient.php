@@ -22,7 +22,7 @@ abstract class NestedClient extends BaseClient
 
     public function setSelectedIds($ids)
     {
-        if (is_array($this)) {
+        if (is_array($ids)) {
             foreach ($ids as $id) {
                 $this->selectedId[] = $id;
             }
@@ -53,8 +53,8 @@ abstract class NestedClient extends BaseClient
     {
         //TODO maybe confusing
 
-        if (in_array($parameter, $this->nestedObjects)) {
-            return new $this->nestedObjects[$parameter];
+        if (isset($this->nestedObjects[$parameter])) {
+            return new $this->nestedObjects[$parameter]($this->client, $this->selectedId);
         }
 
         return $this->getObject()->{$parameter};

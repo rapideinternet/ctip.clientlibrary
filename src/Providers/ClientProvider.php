@@ -8,9 +8,9 @@ class ClientProvider
     {
 
         return [
-            'object' => \Iza\Datacentralisatie\Clients\ObjectClient::class,
-            'auth' => \Iza\Datacentralisatie\Clients\AuthClient::class
-
+            'object' => \Iza\Datacentralisatie\Clients\Object\ObjectClient::class,
+            'auth' => \Iza\Datacentralisatie\Clients\AuthClient::class,
+            'me' => \Iza\Datacentralisatie\Clients\Me\MeClient::class
         ];
 
     }

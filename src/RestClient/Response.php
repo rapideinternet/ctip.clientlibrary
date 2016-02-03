@@ -176,4 +176,17 @@ class Response implements IResponse
         }
         return null;
     }
+
+    public function __get($name)
+    {
+        if (property_exists($this->getInfo(), $name)) {
+            return $this->getInfo()->{$name};
+        }
+
+        if (property_exists($this->getParsedResponse(), $name)) {
+            return $this->getParsedResponse()->{$name};
+        }
+
+        return null;
+    }
 }
