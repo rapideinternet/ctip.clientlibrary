@@ -29,10 +29,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      */
     protected $token;
     /**
-     * @var array
-     */
-    protected $userData;
-    /**
      * @var string
      */
     protected $version = 'v1';
@@ -78,11 +74,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
             $this->is_authenticated = true;
             $this->token = $response->getParsedResponse()->data->token;
-            $this->userData = [];
-            $this->userData['email'] = $response->getParsedResponse()->data->email;
-            $this->userData['name'] = $response->getParsedResponse()->data->name;
-            $this->userData['user_id'] = $response->getParsedResponse()->data->user_id;
-            $this->userData['tenant_id'] = $response->getParsedResponse()->data->tenant_id;
         }
         else {
             //todo this is crappy
@@ -92,10 +83,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
     public function getToken() {
         return $this->token;
-    }
-
-    public function getUserData() {
-        return $this->userData;
     }
 
     public function isAuthenticated() {
