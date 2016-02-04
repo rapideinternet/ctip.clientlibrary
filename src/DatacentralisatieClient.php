@@ -28,10 +28,10 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var string
      */
     protected $token;
-    protected $email;
-    protected $name;
-    protected $user_id;
-    protected $tenant_id;
+    /**
+     * @var array
+     */
+    protected $userData;
     /**
      * @var string
      */
@@ -39,7 +39,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     /**
      * @var bool
      */
-    protected $isAuthenticated = false;
+    protected $is_authenticated = false;
     /**
      * @var array
      */
@@ -50,8 +50,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @param $url
      * @param $credentials
      */
-    public function __construct($url, $credentials = null)
-    {
+    public function __construct($url, $credentials = null) {
         $this->url = $url;
         $this->registerClients();
         if(!$credentials == null)
@@ -61,11 +60,10 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     /**
      * @return DatacentralisatieClient
      */
-    public static function instance()
-    {
+    public static function instance() {
         static $instance;
 
-        if ($instance instanceof self) {
+        if($instance instanceof self) {
             return $instance;
         }
 
@@ -73,43 +71,44 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $instance;
     }
 
-    public function authenticate()
-    {
+    public function authenticate() {
         /** @var Response $response */
         $response = (new AuthClient($this))->login();
 
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
-            $this->isAuthenticated = true;
+            $this->is_authenticated = true;
             $this->token = $response->getParsedResponse()->data->token;
-            $this->email = $response->getParsedResponse()->data->email;
-            $this->name = $response->getParsedResponse()->data->name;
-            $this->user_id = $response->getParsedResponse()->data->user_id;
-            $this->tenant_id = $response->getParsedResponse()->data->tenant_id;
-        } else {
+            $this->userData = [];
+            $this->userData['email'] = $response->getParsedResponse()->data->email;
+            $this->userData['name'] = $response->getParsedResponse()->data->name;
+            $this->userData['user_id'] = $response->getParsedResponse()->data->user_id;
+            $this->userData['tenant_id'] = $response->getParsedResponse()->data->tenant_id;
+        }
+        else {
             //todo this is crappy
             throw new Exception('Something went wrong during authentication');
         }
     }
 
-    public function getToken()
-    {
+    public function getToken() {
         return $this->token;
     }
 
-    public function isAuthenticated()
-    {
-        if (!$this->isAuthenticated) {
+    public function getUserData() {
+        return $this->userData;
+    }
+
+    public function isAuthenticated() {
+        if (!$this->is_authenticated) {
             $this->authenticate();
         }
     }
 
-    public function registerClients()
-    {
+    public function registerClients() {
         $this->clients = (new ClientProvider())->clients();
     }
 
-    public function getCredentials()
-    {
+    public function getCredentials() {
         return $this->credentials;
     }
 
@@ -118,13 +117,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @return $this
      * @throws FormatException
      */
-    public function setCredentials($credentials)
-    {
-        if (!isset($credentials[self::EMAIL])) {
+    public function setCredentials($credentials)   {
+        if(!isset($credentials[self::EMAIL])) {
             throw new FormatException('No email/username set');
         }
 
-        if (!isset($credentials[self::PASSWORD])) {
+        if(!isset($credentials[self::PASSWORD])) {
             throw new FormatException('No password set');
         }
 
@@ -132,42 +130,38 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this;
     }
 
-    public function __call($method, $arguments)
-    {
-        if (!isset($this->clients[$method]) && !method_exists($this, $method)) {
+    public function __call($method, $arguments) {
+        if(!isset($this->clients[$method]) && !method_exists($this, $method)) {
             throw new \Exception("unknown method [$method]");
         }
 
-        if (method_exists($this, $method)) {
+        if(method_exists($this, $method)) {
             return call_user_func([$this, $method], $arguments);
         }
 
         $this->isAuthenticated();
 
-        if (isset($this->clients[$method])) {
+        if(isset($this->clients[$method])) {
             //todo optimize with static storage?
             return new $this->clients[$method]($this);
         }
     }
 
-    public function __get($property)
-    {
-        if (property_exists($this, $property)) {
+    public function __get($property) {
+        if(property_exists($this, $property)) {
             return $this->{$property};
         }
 
         $this->isAuthenticated();
 
-        if (isset($this->clients[$property])) {
+        if(isset($this->clients[$property])) {
             //todo optimize with static storage?
             return new $this->clients[$property]($this);
         }
-
         throw new \Exception("unknown method [$property]");
     }
 
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -175,8 +169,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @param $url
      * @return $this
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
         return $this;
     }
