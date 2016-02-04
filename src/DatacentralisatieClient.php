@@ -46,11 +46,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @param $url
      * @param $credentials
      */
-    public function __construct($url, $credentials = [])
+    public function __construct($url, $credentials = null)
     {
         $this->url = $url;
         $this->registerClients();
-        $this->setCredentials($credentials);
+        if(!$credentials == null)
+            $this->setCredentials($credentials);
     }
 
     /**
