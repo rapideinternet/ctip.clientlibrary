@@ -53,6 +53,18 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $this->setCredentials($credentials);
     }
 
+    public static function instance()
+    {
+        static $instance;
+
+        if ($instance instanceof self) {
+            return $instance;
+        }
+
+        //TODO Ugly as fuck
+        return new self('');
+    }
+
     public function authenticate()
     {
         /** @var Response $response */
@@ -89,8 +101,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this->credentials;
     }
 
-
-    protected function setCredentials($credentials)
+    /**
+     * @param $credentials
+     * @return $this
+     * @throws FormatException
+     */
+    public function setCredentials($credentials)
     {
         if (!isset($credentials[self::EMAIL])) {
             throw new FormatException('No email/username set');
@@ -101,6 +117,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         }
 
         $this->credentials = $credentials;
+        return $this;
     }
 
     public function __call($method, $arguments)
@@ -140,5 +157,15 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @param $url
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
     }
 }
