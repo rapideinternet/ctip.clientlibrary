@@ -28,6 +28,10 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var string
      */
     protected $token;
+    protected $email;
+    protected $name;
+    protected $user_id;
+    protected $tenant_id;
     /**
      * @var string
      */
@@ -77,6 +81,10 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
             $this->isAuthenticated = true;
             $this->token = $response->getParsedResponse()->data->token;
+            $this->email = $response->getParsedResponse()->data->email;
+            $this->name = $response->getParsedResponse()->data->name;
+            $this->user_id = $response->getParsedResponse()->data->user_id;
+            $this->tenant_id = $response->getParsedResponse()->data->tenant_id;
         } else {
             //todo this is crappy
             throw new Exception('Something went wrong during authentication');
