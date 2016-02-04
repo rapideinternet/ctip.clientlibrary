@@ -9,10 +9,6 @@ class SelectedTenantClient extends NestedClient
 {
     use PerPage;
 
-    protected $nestedTenants = [
-        'children' => \Iza\Datacentralisatie\Clients\Tenant\ChildrenTenantClient::class
-    ];
-
     public function update($data)
     {
         return $this->request(vsprintf('tenant/%s', $this->selectedIds), 'PATCH', $data);

@@ -9,10 +9,6 @@ class SelectedUserClient extends NestedClient
 {
     use PerPage;
 
-    protected $nestedUsers = [
-        'children' => \Iza\Datacentralisatie\Clients\User\ChildrenUserClient::class
-    ];
-
     public function update($data)
     {
         return $this->request(vsprintf('user/%s', $this->selectedIds), 'PATCH', $data);
