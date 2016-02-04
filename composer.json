@@ -19,7 +19,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "iza\\datacentralisatie\\": "src/"
+      "Iza\\Datacentralisatie\\": "src/"
     }
   },
   "require-dev": {
@@ -28,7 +28,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "iza\\datacentralisatie\\Tests\\": "tests/"
+      "Iza\\Datacentralisatie\\Tests\\": "tests/"
     }
   }
 }

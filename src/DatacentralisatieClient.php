@@ -53,6 +53,9 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $this->setCredentials($credentials);
     }
 
+    /**
+     * @return DatacentralisatieClient
+     */
     public static function instance()
     {
         static $instance;
