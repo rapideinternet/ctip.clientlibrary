@@ -61,8 +61,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
             return $instance;
         }
 
-        //TODO Ugly as fuck
-        return new self('');
+        $instance = new self('');
+        return $instance;
     }
 
     public function authenticate()
