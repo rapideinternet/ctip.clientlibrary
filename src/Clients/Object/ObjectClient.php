@@ -14,7 +14,7 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function all($include = [], $filter = [])
     {
-        $this->addParameter('filter', implode(',', $filter));
+        $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 

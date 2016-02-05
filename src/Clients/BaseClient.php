@@ -50,6 +50,13 @@ abstract class BaseClient
         $this->parameters[$key] = $value;
     }
 
+    public function addFilters(array $filters)
+    {
+        foreach ($filters as $key => $value) {
+            $this->addParameter($key, $value);
+        }
+    }
+
     public function getParameters()
     {
         return $this->getParameters();
