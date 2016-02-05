@@ -12,18 +12,19 @@ class ObjectClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function all($include = [], $filter = [])
     {
-        if (!empty($filter)) {
-            $this->addParameter('include', implode(',', $filter));
-        }
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request('object', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('object/%s', $id), 'GET');
     }
 
