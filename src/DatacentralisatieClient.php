@@ -23,11 +23,10 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     /**
      * @var array
      */
-    protected $credentials;
-    /**
-     * @var string
-     */
-    protected $token;
+    protected $credentials = [
+        'token' => null
+    ];
+
     /**
      * @var string
      */
@@ -77,7 +76,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
             $this->is_authenticated = true;
-            $this->token = $response->getParsedResponse()->data->token;
+            $this->setToken($response->getParsedResponse()->data->token);
         } else {
             //todo this is crappy
             throw new Exception('Something went wrong during authentication');
@@ -86,12 +85,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
     public function getToken()
     {
-        return $this->token;
+        return $this->getCredentials()[self::TOKEN];
     }
 
     public function setToken($token)
     {
-        $this->token = $token;
+        $this->credentials[self::TOKEN] = $token;
         $this->is_authenticated = true;
     }
 
@@ -119,15 +118,17 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      */
     public function setCredentials($credentials)
     {
-        if (!isset($credentials[self::EMAIL])) {
-            throw new FormatException('No email/username set');
+        if (!isset($credentials[self::TOKEN])) {
+            if (!isset($credentials[self::EMAIL])) {
+                throw new FormatException('No email/username set');
+            }
+
+            if (!isset($credentials[self::PASSWORD])) {
+                throw new FormatException('No password set');
+            }
         }
 
-        if (!isset($credentials[self::PASSWORD])) {
-            throw new FormatException('No password set');
-        }
-
-        $this->credentials = $credentials;
+        $this->credentials = array_merge($this->credentials, $credentials);
         return $this;
     }
 
