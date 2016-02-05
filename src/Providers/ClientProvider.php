@@ -8,6 +8,7 @@ class ClientProvider
     {
 
         return [
+            'action' => \Iza\Datacentralisatie\Clients\Action\ActionClient::class,
             'auth' => \Iza\Datacentralisatie\Clients\AuthClient::class,
             'dynamicActionType' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeClient::class,
             'me' => \Iza\Datacentralisatie\Clients\Me\MeClient::class,

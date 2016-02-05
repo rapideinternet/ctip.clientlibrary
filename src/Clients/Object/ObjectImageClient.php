@@ -7,7 +7,7 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ChildrenObjectClient extends NestedClient
+class ObjectImageClient extends NestedClient
 {
     use PerPage;
 
@@ -21,6 +21,12 @@ class ChildrenObjectClient extends NestedClient
     {
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('object/%s/children', $this->selectedId));
+        return $this->request(vsprintf('object/%s/image', $this->selectedId));
+    }
+
+    public function create($data)
+    {
+        return $this->request(vsprintf('object/%s/image', $this->selectedId), 'POST',
+            json_encode($data))->getParsedResponse();
     }
 }
