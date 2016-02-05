@@ -75,7 +75,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $response = (new AuthClient($this))->login();
 
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
-            $this->is_authenticated = true;
             $this->setToken($response->getParsedResponse()->data->token);
         } else {
             //todo this is crappy
