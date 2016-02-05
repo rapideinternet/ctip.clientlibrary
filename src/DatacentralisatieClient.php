@@ -118,6 +118,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      */
     public function setCredentials($credentials)
     {
+        $this->credentials = array_merge($this->credentials, $credentials);
+
         if (!isset($credentials[self::TOKEN])) {
             if (!isset($credentials[self::EMAIL])) {
                 throw new FormatException('No email/username set');
@@ -126,9 +128,10 @@ class DatacentralisatieClient implements IDatacentralisatieClient
             if (!isset($credentials[self::PASSWORD])) {
                 throw new FormatException('No password set');
             }
+        } else {
+            $this->setToken($credentials[self::TOKEN]);
         }
 
-        $this->credentials = array_merge($this->credentials, $credentials);
         return $this;
     }
 
