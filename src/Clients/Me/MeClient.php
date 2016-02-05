@@ -14,8 +14,10 @@ class MeClient extends BaseClient
 {
     protected $object;
 
-    public function me()
+    public function me($include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request('me', 'GET');
     }
 
