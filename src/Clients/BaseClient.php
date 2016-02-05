@@ -52,7 +52,6 @@ abstract class BaseClient
 
     public function addFilters(array $filters)
     {
-        dd($filters);
         foreach ($filters as $key => $value) {
             $this->addParameter($key, $value);
         }
