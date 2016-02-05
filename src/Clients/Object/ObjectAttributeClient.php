@@ -3,33 +3,27 @@
 namespace Iza\Datacentralisatie\Clients\Object;
 
 use ArrayAccess;
-use Iza\Datacentralisatie\Clients\BaseClient;
+use Iza\Datacentralisatie\Clients\NestedClient;
+use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ObjectClient extends BaseClient implements ArrayAccess
+class ObjectAttributeClient extends NestedClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function __construct($client, $id)
     {
-        if (!empty($filter)) {
-            $this->addParameter('include', implode(',', $filter));
-        }
-        $this->addParameter('perPage', $this->perPage);
+        parent::__construct($client, $id);
 
-        return $this->request('object', 'GET');
     }
 
     public function byId($id)
     {
-        return $this->request(vsprintf('object/%s', $id), 'GET');
-    }
+        $this->addParameter('perPage', $this->perPage);
 
-    public function create($data)
-    {
-        return $this->request('object', 'POST', $data);
+        return $this->request(vsprintf('object/%s/attribute', $this->selectedId));
     }
 
     public function offsetExists($offset)
@@ -39,7 +33,9 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return new SelectedObjectClient($this->client, $offset);
+        array_push($this->selectedId, $offset);
+
+        return new SelectedObjectAttributeClient($this->client, $this->selectedId);
     }
 
     public function offsetSet($offset, $value)

@@ -3,33 +3,33 @@
 namespace Iza\Datacentralisatie\Clients\Object;
 
 use ArrayAccess;
-use Iza\Datacentralisatie\Clients\BaseClient;
+use Iza\Datacentralisatie\Clients\NestedClient;
+use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ObjectClient extends BaseClient implements ArrayAccess
+class ObjectGeoClient extends NestedClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function __construct($client, $id)
     {
-        if (!empty($filter)) {
-            $this->addParameter('include', implode(',', $filter));
-        }
-        $this->addParameter('perPage', $this->perPage);
+        parent::__construct($client, $id);
 
-        return $this->request('object', 'GET');
     }
 
     public function byId($id)
     {
-        return $this->request(vsprintf('object/%s', $id), 'GET');
+        $this->addParameter('perPage', $this->perPage);
+
+        return $this->request(vsprintf('object/%s/geo', $this->selectedId));
     }
 
     public function create($data)
     {
-        return $this->request('object', 'POST', $data);
+        return $this->request(vsprintf('object/%s/geo', $this->selectedId), 'POST',
+            json_encode($data))->getParsedResponse();
     }
 
     public function offsetExists($offset)
@@ -39,7 +39,9 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return new SelectedObjectClient($this->client, $offset);
+        array_push($this->selectedId, $offset);
+
+        return new SelectedObjectGeoClient($this->client, $this->selectedId);
     }
 
     public function offsetSet($offset, $value)

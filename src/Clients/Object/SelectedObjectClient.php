@@ -12,17 +12,27 @@ class SelectedObjectClient extends NestedClient
     use PerPage;
 
     protected $nestedObjects = [
-        'children' => \Iza\Datacentralisatie\Clients\Object\ChildrenObjectClient::class
+        'action' => \Iza\Datacentralisatie\Clients\Object\ObjectActionClient::class,
+        'attribute' => \Iza\Datacentralisatie\Clients\Object\ObjectAttributeClient::class,
+        'category' => \Iza\Datacentralisatie\Clients\Object\ObjectCategoryClient::class,
+        'children' => \Iza\Datacentralisatie\Clients\Object\ObjectChildrenClient::class,
+        'comment' => \Iza\Datacentralisatie\Clients\Object\ObjectCommentClient::class,
+        'dynamicActionType' => \Iza\Datacentralisatie\Clients\Object\ObjectDynamicActiontypeClient::class,
+        'geo' => \Iza\Datacentralisatie\Clients\Object\ObjectGeoClient::class,
+        'image' => \Iza\Datacentralisatie\Clients\Object\ObjectImageClient::class,
+        'parent' => \Iza\Datacentralisatie\Clients\Object\ObjectParentClient::class,
+        'status' => \Iza\Datacentralisatie\Clients\Object\ObjectStatusClient::class,
+        'type' => \Iza\Datacentralisatie\Clients\Object\ObjectTypeClient::class,
     ];
 
     public function update($data)
     {
-        return $this->request(vsprintf('object/%s', $this->selectedIds), 'PATCH', $data);
+        return $this->request(vsprintf('object/%s', $this->selectedId), 'PATCH', $data);
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('object/%s', $this->selectedIds), 'DELETE', $data);
+        return $this->request(vsprintf('object/%s', $this->selectedId), 'DELETE', $data);
     }
 
     public function byId($id)
