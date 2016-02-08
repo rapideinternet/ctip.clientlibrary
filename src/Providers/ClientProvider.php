@@ -6,7 +6,6 @@ class ClientProvider
 {
     public function clients()
     {
-
         return [
             'action' => \Iza\Datacentralisatie\Clients\Action\ActionClient::class,
             'auth' => \Iza\Datacentralisatie\Clients\AuthClient::class,
@@ -17,6 +16,5 @@ class ClientProvider
             'type' => \Iza\Datacentralisatie\Clients\Type\TypeClient::class,
             'user' => \Iza\Datacentralisatie\Clients\User\UserClient::class,
         ];
-
     }
 }
