@@ -27,7 +27,7 @@ class ActionAttributeClient extends NestedClient
     public function update($data, $id)
     {
         return $this->request(vsprintf('action/%s/attribute/%s', $this->selectedId, $id), 'PATCH',
-            json_encode($data))->getParsedResponse();
+            data)->getParsedResponse();
     }
 
     public function byMapObjectType()

@@ -21,7 +21,7 @@ class SelectedDynamicActionTypeClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s', $this->selectedId), 'PATCH',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 
     public function delete()

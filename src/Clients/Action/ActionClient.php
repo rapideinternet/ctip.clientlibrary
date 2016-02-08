@@ -27,7 +27,7 @@ class ActionClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('action', 'POST', json_encode($data))->getParsedResponse();
+        return $this->request('action', 'POST', $data)->getParsedResponse();
     }
 
     public function offsetExists($offset)

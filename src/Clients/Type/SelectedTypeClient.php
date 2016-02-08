@@ -22,7 +22,7 @@ class SelectedTypeClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('type/%s', $this->selectedId), 'PATCH',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 
     public function delete()

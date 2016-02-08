@@ -26,7 +26,7 @@ class UserClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('user', 'POST', $data);
+        return $this->request('user', 'POST', $data)->getParsedResponse();
     }
 
     public function offsetExists($offset)

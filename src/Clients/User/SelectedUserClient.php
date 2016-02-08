@@ -11,12 +11,12 @@ class SelectedUserClient extends NestedClient
 
     public function update($data)
     {
-        return $this->request(vsprintf('user/%s', $this->selectedId), 'PATCH', $data);
+        return $this->request(vsprintf('user/%s', $this->selectedId), 'PATCH', $data)->getParsedResponse();
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('user/%s', $this->selectedId), 'DELETE', $data);
+        return $this->request(vsprintf('user/%s', $this->selectedId), 'DELETE', $data)->getParsedResponse();
     }
 
     public function byId($id)

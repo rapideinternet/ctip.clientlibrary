@@ -66,6 +66,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         }
 
         $instance = new self('');
+
         return $instance;
     }
 
@@ -179,6 +180,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 }

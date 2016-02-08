@@ -27,13 +27,13 @@ class TypeAttributeClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('type/%s/attribute', $this->selectedId), 'POST',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('type/%s/attribute', $this->selectedId), 'DELETE',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 
 }

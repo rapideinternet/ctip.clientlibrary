@@ -27,6 +27,6 @@ class ObjectImageClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('object/%s/image', $this->selectedId), 'POST',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 }

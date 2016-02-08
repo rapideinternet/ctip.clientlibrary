@@ -29,7 +29,7 @@ class ObjectGeoClient extends NestedClient implements ArrayAccess
     public function create($data)
     {
         return $this->request(vsprintf('object/%s/geo', $this->selectedId), 'POST',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 
     public function offsetExists($offset)

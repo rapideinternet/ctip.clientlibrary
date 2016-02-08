@@ -30,7 +30,7 @@ class ObjectClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('object', 'POST', $data);
+        return $this->request('object', 'POST', $data)->getParsedResponse();
     }
 
     public function offsetExists($offset)

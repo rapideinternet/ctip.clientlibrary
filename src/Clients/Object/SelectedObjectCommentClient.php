@@ -19,7 +19,7 @@ class SelectedObjectCommentClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('object/%s/comment/%s', $this->selectedId), 'PATCH',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 
     public function delete()

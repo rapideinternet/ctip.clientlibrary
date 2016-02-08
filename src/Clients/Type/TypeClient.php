@@ -27,7 +27,7 @@ class TypeClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('type', 'POST', json_encode($data))->getParsedResponse();
+        return $this->request('type', 'POST', $data)->getParsedResponse();
     }
 
     public function offsetExists($offset)

@@ -20,6 +20,6 @@ class SelectedObjectGeoClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('object/%s/geo/%s', $this->selectedId), 'PATCH',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 }

@@ -28,14 +28,17 @@ abstract class BaseClient
 
     public function request($path, $method = 'GET', $data = null, $headers = [])
     {
-        $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data, array_merge($headers, $this->getAuthorizationHeader()))->getResponse();
+        $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data,
+            array_merge($headers, $this->getDefaultHeaders()))->getResponse();
+
         return $this->parseResponse($response);
     }
 
-    protected function getAuthorizationHeader()
+    protected function getDefaultHeaders()
     {
         return [
-            'Authorization' => sprintf('Bearer %s', $this->client->getToken())
+            'Authorization' => sprintf('Bearer %s', $this->client->getToken()),
+            'Content-Type' => 'application/json'
         ];
     }
 

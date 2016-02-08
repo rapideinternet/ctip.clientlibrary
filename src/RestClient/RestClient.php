@@ -50,7 +50,7 @@ class RestClient implements IRestClient
 
         // data
         if ((!is_null($data)) && (!empty($data))) {
-            $request->setOption(self::DATA_KEY, $data);
+            $request->setOption(self::DATA_KEY, json_encode($data));
         }
 
         // headers

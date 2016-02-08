@@ -20,6 +20,6 @@ class SelectedAttributeLookupClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'PATCH',
-            json_encode($data))->getParsedResponse();
+            $data)->getParsedResponse();
     }
 }

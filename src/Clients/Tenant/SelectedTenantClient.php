@@ -11,12 +11,12 @@ class SelectedTenantClient extends NestedClient
 
     public function update($data)
     {
-        return $this->request(vsprintf('tenant/%s', $this->selectedIds), 'PATCH', $data);
+        return $this->request(vsprintf('tenant/%s', $this->selectedId), 'PATCH', $data)->getParsedResponse();
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('tenant/%s', $this->selectedIds), 'DELETE', $data);
+        return $this->request(vsprintf('tenant/%s', $this->selectedId), 'DELETE', $data)->getParsedResponse();
     }
 
     public function byId($id)
