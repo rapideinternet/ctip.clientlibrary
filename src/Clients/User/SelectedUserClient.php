@@ -21,6 +21,6 @@ class SelectedUserClient extends NestedClient
 
     public function byId($id)
     {
-        return $this->request(sprintf('user/%s', $id), 'GET');
+        return $this->request(vsprintf('user/%s', $id), 'GET');
     }
 }
