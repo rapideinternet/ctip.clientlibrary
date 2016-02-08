@@ -1,6 +1,6 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Action;
+namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
@@ -8,7 +8,7 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ActionImageClient extends NestedClient
+class MapObjectImageClient extends NestedClient
 {
     use PerPage;
 
@@ -20,15 +20,12 @@ class ActionImageClient extends NestedClient
 
     public function byId($id)
     {
-        throw new NotImplementedException;
+        $this->addParameter('perPage', $this->perPage);
+
+        return $this->request(vsprintf('object/%s/image', $this->selectedId));
     }
 
     public function create($data)
-    {
-        throw new NotImplementedException;
-    }
-
-    public function delete($data)
     {
         throw new NotImplementedException;
     }

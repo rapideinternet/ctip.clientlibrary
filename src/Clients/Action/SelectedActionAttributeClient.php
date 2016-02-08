@@ -8,28 +8,18 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ActionImageClient extends NestedClient
+class SelectedActionAttributeClient extends NestedClient
 {
     use PerPage;
-
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
 
     public function byId($id)
     {
         throw new NotImplementedException;
     }
 
-    public function create($data)
+    public function update($data)
     {
-        throw new NotImplementedException;
-    }
-
-    public function delete($data)
-    {
-        throw new NotImplementedException;
+        return $this->request(vsprintf('action/%s/attribute/%s', $this->selectedId), 'PATCH',
+            $data)->getParsedResponse();
     }
 }

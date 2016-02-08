@@ -1,6 +1,6 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Attribute;
+namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
@@ -9,7 +9,7 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class AttributeLookupClient extends NestedClient implements ArrayAccess
+class MapObjectGeoClient extends NestedClient implements ArrayAccess
 {
     use PerPage;
 
@@ -23,14 +23,14 @@ class AttributeLookupClient extends NestedClient implements ArrayAccess
     {
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('attribute/%s/lookup', $this->selectedId));
+        return $this->request(vsprintf('object/%s/geo', $this->selectedId));
     }
 
     public function create($data)
     {
-        return $this->request('attribute/%s/lookup', 'POST', $data);
+        return $this->request(vsprintf('object/%s/geo', $this->selectedId), 'POST',
+            $data)->getParsedResponse();
     }
-
 
     public function offsetExists($offset)
     {
@@ -41,7 +41,7 @@ class AttributeLookupClient extends NestedClient implements ArrayAccess
     {
         array_push($this->selectedId, $offset);
 
-        return new SelectedAttributeLookupClient($this->client, $this->selectedId);
+        return new SelectedMapObjectGeoClient($this->client, $this->selectedId);
     }
 
     public function offsetSet($offset, $value)

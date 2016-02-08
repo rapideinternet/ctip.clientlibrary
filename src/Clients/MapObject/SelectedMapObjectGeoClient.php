@@ -1,6 +1,6 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Action;
+namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
@@ -8,28 +8,18 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ActionImageClient extends NestedClient
+class SelectedMapObjectGeoClient extends NestedClient
 {
     use PerPage;
-
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
 
     public function byId($id)
     {
         throw new NotImplementedException;
     }
 
-    public function create($data)
+    public function update($data)
     {
-        throw new NotImplementedException;
-    }
-
-    public function delete($data)
-    {
-        throw new NotImplementedException;
+        return $this->request(vsprintf('object/%s/geo/%s', $this->selectedId), 'PATCH',
+            $data)->getParsedResponse();
     }
 }
