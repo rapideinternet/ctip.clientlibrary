@@ -16,6 +16,7 @@ class ActionClient extends BaseClient implements ArrayAccess
     {
         $this->addParameter('include', implode(',', $filter));
         $this->addParameter('perPage', $this->perPage);
+		$this->addParameter('page', $this->page);
 
         return $this->request('action', 'GET');
     }
