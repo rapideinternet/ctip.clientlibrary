@@ -9,15 +9,9 @@ class SelectedTenantClient extends NestedClient
 {
     use PerPage;
 
-    public function update($data)
-    {
-        return $this->request(vsprintf('tenant/%s', $this->selectedId), 'PATCH', $data)->getParsedResponse();
-    }
-
-    public function delete($data)
-    {
-        return $this->request(vsprintf('tenant/%s', $this->selectedId), 'DELETE', $data)->getParsedResponse();
-    }
+    protected $nestedObjects = [
+        'users' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
+    ];
 
     public function byId($id)
     {
