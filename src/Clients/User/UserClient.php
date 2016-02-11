@@ -11,7 +11,7 @@ class UserClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function all($filter = [])
     {
         $this->addParameter('include', implode(',', $filter));
         $this->addParameter('perPage', $this->perPage);
