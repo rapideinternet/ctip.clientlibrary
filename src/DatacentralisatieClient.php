@@ -24,7 +24,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var array
      */
     protected $credentials = [
-        'token' => null
+        'token' => null,
+        'tenant_id' => null,
     ];
 
     /**
@@ -77,6 +78,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
             $this->setToken($response->getParsedResponse()->data->token);
+            $this->setTenantId($response->getParsedResponse()->data->tenant_id);
         } else {
             //todo this is crappy
             throw new Exception('Something went wrong during authentication');
@@ -88,10 +90,20 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this->getCredentials()[self::TOKEN];
     }
 
+    public function getTenantId()
+    {
+        return $this->getCredentials()[self::TENANT_ID];
+    }
+
     public function setToken($token)
     {
         $this->credentials[self::TOKEN] = $token;
         $this->is_authenticated = true;
+    }
+
+    public function setTenantId($tenant_id)
+    {
+        $this->credentials[self::TENANT_ID] = $tenant_id;
     }
 
     public function isAuthenticated()
