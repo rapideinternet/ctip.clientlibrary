@@ -159,6 +159,11 @@ class Response implements IResponse
         return curl_errno($this->curlResource);
     }
 
+    public function get()
+    {
+        return $this->getParsedResponse();
+    }
+
     /**
      * Get the header key.
      *
