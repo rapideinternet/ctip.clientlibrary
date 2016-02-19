@@ -22,6 +22,7 @@ class ClientProvider
             'geoObject' => \Iza\Datacentralisatie\Clients\GeoObject\GeoObjectClient::class,
             'me' => \Iza\Datacentralisatie\Clients\Me\MeClient::class,
             'object' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectClient::class,
+            'role' => \Iza\Datacentralisatie\Clients\Role\RoleClient::class,
             'tenant' => \Iza\Datacentralisatie\Clients\Tenant\TenantClient::class,
             'type' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeClient::class,
             'user' => \Iza\Datacentralisatie\Clients\User\UserClient::class,
