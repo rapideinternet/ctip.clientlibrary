@@ -26,8 +26,10 @@ class SelectedAttributeGroupClient extends NestedClient
         return $this->request(vsprintf('attribute_group/%s', $this->selectedId), 'DELETE')->getParsedResponse();
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('attribute_group/%s', $id), 'GET');
     }
 }

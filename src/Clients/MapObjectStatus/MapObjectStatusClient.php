@@ -20,8 +20,10 @@ class MapObjectStatusClient extends BaseClient implements ArrayAccess
         return $this->request('map_object_status', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('map_object_status/%s', $id), 'GET');
     }
 

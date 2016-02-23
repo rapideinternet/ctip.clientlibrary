@@ -30,8 +30,10 @@ class SelectedMapObjectTypeClient extends NestedClient
         return $this->request(vsprintf('type/%s', $this->selectedId), 'DELETE')->getParsedResponse();
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('type/%s', $id), 'GET');
     }
 }

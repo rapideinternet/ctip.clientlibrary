@@ -1,13 +1,15 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\DynamicActionType;
+namespace Iza\Datacentralisatie\Clients\MapObjectSelection;
 
+use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class DynamicActionTypeAttributeClient extends NestedClient
+class MapObjectSelectionObjectClient extends NestedClient
 {
     use PerPage;
 
@@ -22,18 +24,19 @@ class DynamicActionTypeAttributeClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('dynamic_action_type/%s/attribute', $this->selectedId));
+        return $this->request(vsprintf('selection/%s/object', $this->selectedId));
     }
 
     public function create($data)
     {
-        return $this->request(vsprintf('dynamic_action_type/%s/attribute', $this->selectedId), 'POST',
+        return $this->request(vsprintf('selection/%s/object', $this->selectedId), 'POST',
             $data)->getParsedResponse();
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('dynamic_action_type/%s/attribute', $this->selectedId), 'DELETE',
+        return $this->request(vsprintf('selection/%s/object', $this->selectedId), 'DELETE',
             $data)->getParsedResponse();
     }
+
 }

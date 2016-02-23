@@ -17,8 +17,9 @@ class ActionGeoObjectClient extends NestedClient
 
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('action/%s/geo', $this->selectedId));

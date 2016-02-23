@@ -11,8 +11,10 @@ class SelectedCountryClient extends NestedClient
 {
     use PerPage;
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('country/%s', $id), 'GET');
     }
 }

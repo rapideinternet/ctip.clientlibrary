@@ -20,8 +20,10 @@ class DynamicActionTypeClient extends BaseClient implements ArrayAccess
         return $this->request('dynamic_action_type', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('dynamic_action_type/%s', $id), 'GET');
     }
 

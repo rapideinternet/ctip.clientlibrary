@@ -11,8 +11,10 @@ class SelectedMapObjectCommentClient extends NestedClient
 {
     use PerPage;
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('object/%s/comment/%s', $this->selectedId), 'GET');
     }
 

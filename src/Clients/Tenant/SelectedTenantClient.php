@@ -13,8 +13,11 @@ class SelectedTenantClient extends NestedClient
         'users' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
     ];
 
-    public function byId($id)
+
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('tenant/%s', $id), 'GET');
     }
 }

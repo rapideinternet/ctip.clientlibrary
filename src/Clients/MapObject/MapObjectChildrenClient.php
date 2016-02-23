@@ -17,8 +17,9 @@ class MapObjectChildrenClient extends NestedClient
 
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('object/%s/children', $this->selectedId));

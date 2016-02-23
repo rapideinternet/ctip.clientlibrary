@@ -20,8 +20,10 @@ class MapObjectTypeClient extends BaseClient implements ArrayAccess
         return $this->request('type', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('type/%s', $id), 'GET');
     }
 

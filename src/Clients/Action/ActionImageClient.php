@@ -18,7 +18,7 @@ class ActionImageClient extends NestedClient
 
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
         throw new NotImplementedException;
     }

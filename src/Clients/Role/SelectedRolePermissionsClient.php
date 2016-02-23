@@ -12,8 +12,11 @@ class SelectedRolePermissionsClient extends NestedClient
 {
     use PerPage;
 
-    public function byId($id)
+
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('role/%s/permissions/%s', $this->selectedId), 'GET');
     }
 }

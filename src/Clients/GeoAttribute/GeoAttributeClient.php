@@ -12,8 +12,10 @@ class GeoAttributeClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('geo_attribute/%s', $id), 'GET');
     }
 

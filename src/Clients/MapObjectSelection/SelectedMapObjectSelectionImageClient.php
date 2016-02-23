@@ -1,6 +1,6 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Attribute;
+namespace Iza\Datacentralisatie\Clients\MapObjectSelection;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
@@ -8,7 +8,7 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class SelectedAttributeLookupClient extends NestedClient
+class SelectedMapObjectSelectionImageClient extends NestedClient
 {
     use PerPage;
 
@@ -16,18 +16,17 @@ class SelectedAttributeLookupClient extends NestedClient
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'GET');
+        return $this->request(vsprintf('selection/%s/image/%s', $this->selectedId), 'GET');
     }
 
     public function update($data)
     {
-        return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'PATCH',
+        return $this->request(vsprintf('selection/%s/image/%s', $this->selectedId), 'PATCH',
             $data)->getParsedResponse();
     }
 
-    public function delete($data)
+    public function delete()
     {
-        return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+        return $this->request(vsprintf('selection/%s/image/%s', $this->selectedId), 'DELETE')->getParsedResponse();
     }
 }
