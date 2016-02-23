@@ -11,17 +11,19 @@ class UserClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter = [])
+    public function all($include = [])
     {
-        $this->addParameter('include', implode(',', $filter));
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
         return $this->request('user', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('user/%s', $id), 'GET');
     }
 
