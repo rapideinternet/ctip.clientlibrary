@@ -41,7 +41,7 @@ class RoleClient extends BaseClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return new SelectedMapObjectClient($this->client, $offset);
+        return new SelectedRoleClient($this->client, $offset);
     }
 
     public function offsetSet($offset, $value)
