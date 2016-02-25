@@ -16,7 +16,16 @@ class MapObjectAttributeClient extends NestedClient implements ArrayAccess
     public function __construct($client, $id)
     {
         parent::__construct($client, $id);
+    }
 
+    public function all($include = [], $filter = [])
+    {
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
+
+        return $this->request('object', 'GET');
     }
 
     public function byId($id)
