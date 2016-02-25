@@ -16,7 +16,7 @@ class MapObjectTypeAttributeClient extends NestedClient
         parent::__construct($client, $id);
 
     }
-    
+
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
