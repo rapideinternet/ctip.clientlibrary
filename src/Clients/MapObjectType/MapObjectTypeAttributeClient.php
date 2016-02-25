@@ -16,6 +16,16 @@ class MapObjectTypeAttributeClient extends NestedClient
         parent::__construct($client, $id);
 
     }
+    
+    public function all($include = [], $filter = [])
+    {
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
+
+        return $this->request(vsprintf('type/%s/attribute', $this->selectedId));
+    }
 
     public function byId($id, $include = [])
     {
