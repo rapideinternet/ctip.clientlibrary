@@ -33,8 +33,10 @@ class SelectedActionClient extends NestedClient
         return $this->request(vsprintf('action/%s', $this->selectedId), 'DELETE')->getParsedResponse();
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action/%s', $id), 'GET');
     }
 }

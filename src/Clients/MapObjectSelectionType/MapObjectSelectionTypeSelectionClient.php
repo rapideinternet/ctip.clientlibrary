@@ -1,13 +1,15 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Action;
+namespace Iza\Datacentralisatie\Clients\MapObjectSelectionType;
 
+use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class ActionMapObjectTypeClient extends NestedClient
+class MapObjectSelectionTypeSelectionClient extends NestedClient
 {
     use PerPage;
 
@@ -22,6 +24,6 @@ class ActionMapObjectTypeClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('action/%s/map_object_type', $this->selectedId));
+        return $this->request(vsprintf('selection_types/%s/selection', $this->selectedId));
     }
 }

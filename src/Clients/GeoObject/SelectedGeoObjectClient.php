@@ -26,8 +26,10 @@ class SelectedGeoObjectClient extends NestedClient
         return $this->request(vsprintf('geo/%s', $this->selectedId), 'DELETE')->getParsedResponse();
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('geo/%s', $id), 'GET');
     }
 }

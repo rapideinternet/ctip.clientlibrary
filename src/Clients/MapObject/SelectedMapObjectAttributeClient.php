@@ -12,7 +12,7 @@ class SelectedMapObjectAttributeClient extends NestedClient
 {
     use PerPage;
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
         throw new NotImplementedException;
     }

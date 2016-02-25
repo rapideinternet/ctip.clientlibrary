@@ -26,8 +26,10 @@ class SelectedActionImageTypeClient extends NestedClient
         return $this->request(vsprintf('action_image_type/%s', $this->selectedId), 'DELETE')->getParsedResponse();
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action_image_type/%s', $id), 'GET');
     }
 }

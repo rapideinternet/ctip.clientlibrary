@@ -25,8 +25,11 @@ class SelectedRoleClient extends NestedClient
         return $this->request(vsprintf('role/%s', $this->selectedId), 'DELETE', $data)->getParsedResponse();
     }
 
-    public function byId($id)
+
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('role/%s', $id), 'GET');
     }
 }

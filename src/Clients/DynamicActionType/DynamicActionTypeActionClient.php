@@ -17,8 +17,9 @@ class DynamicActionTypeActionClient extends NestedClient
 
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('dynamic_action_type/%s/action', $this->selectedId));

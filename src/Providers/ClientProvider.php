@@ -24,6 +24,8 @@ class ClientProvider
             'me' => \Iza\Datacentralisatie\Clients\Me\MeClient::class,
             'object' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectClient::class,
             'role' => \Iza\Datacentralisatie\Clients\Role\RoleClient::class,
+            'selection' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionClient::class,
+            'selectionType' => \Iza\Datacentralisatie\Clients\MapObjectSelectionType\MapObjectSelectionTypeClient::class,
             'tenant' => \Iza\Datacentralisatie\Clients\Tenant\TenantClient::class,
             'type' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeClient::class,
             'user' => \Iza\Datacentralisatie\Clients\User\UserClient::class,

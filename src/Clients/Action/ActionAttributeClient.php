@@ -19,8 +19,9 @@ class ActionAttributeClient extends NestedClient implements ArrayAccess
 
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('action/%s/attribute', $this->selectedId));

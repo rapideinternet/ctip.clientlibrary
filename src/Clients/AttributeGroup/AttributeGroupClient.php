@@ -20,8 +20,10 @@ class AttributeGroupClient extends BaseClient implements ArrayAccess
         return $this->request('attribute_group', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('attribute_group/%s', $id), 'GET');
     }
 

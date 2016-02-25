@@ -28,8 +28,9 @@ class MapObjectAttributeClient extends NestedClient implements ArrayAccess
         return $this->request('object', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('object/%s/attribute', $this->selectedId));

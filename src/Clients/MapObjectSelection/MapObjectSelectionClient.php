@@ -1,6 +1,6 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\MapObjectCategory;
+namespace Iza\Datacentralisatie\Clients\MapObjectSelection;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\BaseClient;
@@ -8,28 +8,30 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class CategoryClient extends BaseClient implements ArrayAccess
+class MapObjectSelectionClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function all($include = [], $filter = [])
     {
-        $this->addParameter('include', implode(',', $filter));
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
 
-        return $this->request('category', 'GET');
+        return $this->request('selection', 'GET');
     }
 
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('category/%s', $id), 'GET');
+        return $this->request(vsprintf('selection/%s', $id), 'GET');
     }
 
     public function create($data)
     {
-        return $this->request('category', 'POST', $data)->getParsedResponse();
+        return $this->request('selection', 'POST', $data)->getParsedResponse();
     }
 
     public function offsetExists($offset)
@@ -39,7 +41,7 @@ class CategoryClient extends BaseClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return new SelectedCategoryClient($this->client, $offset);
+        return new SelectedMapObjectSelectionClient($this->client, $offset);
     }
 
     public function offsetSet($offset, $value)

@@ -19,8 +19,9 @@ class GeoObjectAttributeClient extends NestedClient
 
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('geo/%s/attribute', $this->selectedId));

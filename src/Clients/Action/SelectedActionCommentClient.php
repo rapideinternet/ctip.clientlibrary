@@ -12,8 +12,10 @@ class SelectedActionCommentClient extends NestedClient
 {
     use PerPage;
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action/%s/comment/%s', $this->selectedId), 'GET');
     }
 

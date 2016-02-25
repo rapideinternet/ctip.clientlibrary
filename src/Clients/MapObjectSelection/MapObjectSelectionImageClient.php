@@ -1,35 +1,30 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\MapObjectCategory;
+namespace Iza\Datacentralisatie\Clients\MapObjectSelection;
 
 use ArrayAccess;
-use Iza\Datacentralisatie\Clients\BaseClient;
+use Iza\Datacentralisatie\Clients\NestedClient;
+use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class CategoryClient extends BaseClient implements ArrayAccess
+class MapObjectSelectionImageClient extends NestedClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function __construct($client, $id)
     {
-        $this->addParameter('include', implode(',', $filter));
-        $this->addParameter('perPage', $this->perPage);
+        parent::__construct($client, $id);
 
-        return $this->request('category', 'GET');
     }
 
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('category/%s', $id), 'GET');
-    }
-
-    public function create($data)
-    {
-        return $this->request('category', 'POST', $data)->getParsedResponse();
+        return $this->request(vsprintf('selection/%s/image', $this->selectedId));
     }
 
     public function offsetExists($offset)
@@ -39,7 +34,9 @@ class CategoryClient extends BaseClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return new SelectedCategoryClient($this->client, $offset);
+        array_push($this->selectedId, $offset);
+
+        return new SelectedMapObjectSelectionImageClient($this->client, $this->selectedId);
     }
 
     public function offsetSet($offset, $value)

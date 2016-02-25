@@ -12,8 +12,10 @@ class CommentClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('comment/%s', $id), 'GET');
     }
 

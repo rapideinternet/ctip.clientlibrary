@@ -20,8 +20,10 @@ class ActionImageTypeClient extends BaseClient implements ArrayAccess
         return $this->request('action_image_type', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action_image_type/%s', $id), 'GET');
     }
 

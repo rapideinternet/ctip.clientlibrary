@@ -20,8 +20,10 @@ class GeoObjectClient extends BaseClient implements ArrayAccess
         return $this->request('geo', 'GET');
     }
 
-    public function byId($id)
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('geo/%s', $id), 'GET');
     }
 

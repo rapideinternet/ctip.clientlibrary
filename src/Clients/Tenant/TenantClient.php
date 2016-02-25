@@ -20,8 +20,11 @@ class TenantClient extends BaseClient implements ArrayAccess
         return $this->request('tenant', 'GET');
     }
 
-    public function byId($id)
+
+    public function byId($id, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('tenant/%s', $id), 'GET');
     }
 

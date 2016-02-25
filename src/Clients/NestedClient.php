@@ -80,5 +80,5 @@ abstract class NestedClient extends BaseClient
 
     }
 
-    public abstract function byId($id);
+    public abstract function byId($id, $include = []);
 }
