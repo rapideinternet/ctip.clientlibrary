@@ -22,9 +22,9 @@ class MapObjectGeoClient extends NestedClient implements ArrayAccess
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('perPage', $this->perPage);;
 
-        return $this->request(vsprintf('object/%s/geo', $this->selectedId));
+        return json_decode($this->request(vsprintf('object/%s/geo', $this->selectedId))->getParsedResponse());
     }
 
     public function create($data)
