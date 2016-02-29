@@ -29,7 +29,7 @@ class ActionStatusClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('action_status', 'POST', $data)->getParsedResponse();
+        return $this->request('action_status', 'POST', $data);
     }
 
     public function offsetExists($offset)

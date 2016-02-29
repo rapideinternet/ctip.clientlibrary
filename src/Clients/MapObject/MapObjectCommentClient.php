@@ -30,7 +30,7 @@ class MapObjectCommentClient extends NestedClient implements ArrayAccess
     public function create($data)
     {
         return $this->request(vsprintf('object/%s/comment', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function offsetExists($offset)

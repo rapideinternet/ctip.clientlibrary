@@ -28,13 +28,13 @@ class MapObjectTypeConstraintClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('type/%s/constraint', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('type/%s/constraint', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 
 }

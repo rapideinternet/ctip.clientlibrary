@@ -29,7 +29,7 @@ class CategoryClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('category', 'POST', $data)->getParsedResponse();
+        return $this->request('category', 'POST', $data);
     }
 
     public function offsetExists($offset)

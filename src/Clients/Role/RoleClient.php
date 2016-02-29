@@ -31,7 +31,7 @@ class RoleClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('role', 'POST', $data)->getParsedResponse();
+        return $this->request('role', 'POST', $data);
     }
 
     public function offsetExists($offset)

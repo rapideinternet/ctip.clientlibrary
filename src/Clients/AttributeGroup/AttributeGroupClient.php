@@ -29,7 +29,7 @@ class AttributeGroupClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('attribute_group', 'POST', $data)->getParsedResponse();
+        return $this->request('attribute_group', 'POST', $data);
     }
 
     public function offsetExists($offset)

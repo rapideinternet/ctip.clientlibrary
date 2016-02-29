@@ -30,7 +30,7 @@ class ActionCommentClient extends NestedClient implements ArrayAccess
     public function create($data)
     {
         return $this->request(vsprintf('action/%s/comment', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function offsetExists($offset)

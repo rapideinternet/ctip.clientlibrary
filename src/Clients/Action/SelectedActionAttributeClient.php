@@ -20,6 +20,6 @@ class SelectedActionAttributeClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('action/%s/attribute/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 }

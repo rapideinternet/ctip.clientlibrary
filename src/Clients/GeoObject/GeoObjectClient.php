@@ -17,19 +17,17 @@ class GeoObjectClient extends BaseClient implements ArrayAccess
         $this->addParameter('include', implode(',', $filter));
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request('geo', 'GET');
+        return json_decode($this->request('geo', 'GET')->getParsedResponse());
     }
 
-    public function byId($id, $include = [])
+    public function byId()
     {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('geo/%s', $id), 'GET');
+        throw new NotImplementedException;
     }
 
     public function create($data)
     {
-        return $this->request('geo', 'POST', $data)->getParsedResponse();
+        return $this->request('geo', 'POST', $data);
     }
 
     public function offsetExists($offset)

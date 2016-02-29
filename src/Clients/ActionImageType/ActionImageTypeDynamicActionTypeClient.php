@@ -28,12 +28,12 @@ class ActionImageTypeDynamicActionTypeClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('action_image_type/%s/dynamic_action_type', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('action_image_type/%s/dynamic_action_type', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 }

@@ -28,13 +28,13 @@ class MapObjectTypeStatusClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('type/%s/status', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('type/%s/status', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 
 }

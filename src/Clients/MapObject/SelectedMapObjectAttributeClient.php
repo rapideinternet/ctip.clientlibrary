@@ -20,6 +20,6 @@ class SelectedMapObjectAttributeClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('object/%s/attribute/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 }

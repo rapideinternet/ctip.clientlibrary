@@ -30,7 +30,7 @@ class RolePermissionsClient extends NestedClient implements ArrayAccess
     public function create($data)
     {
         return $this->request(vsprintf('role/%s/permissions', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function offsetExists($offset)

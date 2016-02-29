@@ -17,12 +17,12 @@ class SelectedRoleClient extends NestedClient
 
     public function update($data)
     {
-        return $this->request(vsprintf('role/%s', $this->selectedId), 'PATCH', $data)->getParsedResponse();
+        return $this->request(vsprintf('role/%s', $this->selectedId), 'PATCH', $data);
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('role/%s', $this->selectedId), 'DELETE', $data)->getParsedResponse();
+        return $this->request(vsprintf('role/%s', $this->selectedId), 'DELETE', $data);
     }
 
 

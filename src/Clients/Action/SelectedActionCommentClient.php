@@ -22,13 +22,13 @@ class SelectedActionCommentClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('action/%s/comment/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('action/%s/comment', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 
 }

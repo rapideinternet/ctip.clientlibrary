@@ -30,13 +30,13 @@ class MapObjectSelectionTypeAttributeClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('selection_types/%s/attribute', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('selection_types/%s/attribute', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 
 }

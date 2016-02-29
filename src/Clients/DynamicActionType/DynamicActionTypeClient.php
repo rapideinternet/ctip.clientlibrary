@@ -29,7 +29,7 @@ class DynamicActionTypeClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('dynamic_action_type', 'POST', $data)->getParsedResponse();
+        return $this->request('dynamic_action_type', 'POST', $data);
     }
 
     public function offsetExists($offset)

@@ -31,7 +31,7 @@ class MapObjectClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('object', 'POST', $data)->getParsedResponse();
+        return $this->request('object', 'POST', $data);
     }
 
     public function offsetExists($offset)

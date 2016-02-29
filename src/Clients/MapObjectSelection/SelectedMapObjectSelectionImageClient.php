@@ -22,11 +22,11 @@ class SelectedMapObjectSelectionImageClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('selection/%s/image/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete()
     {
-        return $this->request(vsprintf('selection/%s/image/%s', $this->selectedId), 'DELETE')->getParsedResponse();
+        return $this->request(vsprintf('selection/%s/image/%s', $this->selectedId), 'DELETE');
     }
 }

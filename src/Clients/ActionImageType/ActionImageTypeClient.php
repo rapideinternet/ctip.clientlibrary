@@ -29,7 +29,7 @@ class ActionImageTypeClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('action_image_type', 'POST', $data)->getParsedResponse();
+        return $this->request('action_image_type', 'POST', $data);
     }
 
     public function offsetExists($offset)

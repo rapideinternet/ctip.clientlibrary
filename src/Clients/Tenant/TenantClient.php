@@ -30,7 +30,7 @@ class TenantClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('tenant', 'POST', $data)->getParsedResponse();
+        return $this->request('tenant', 'POST', $data);
     }
 
     public function offsetExists($offset)

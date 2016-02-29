@@ -29,7 +29,7 @@ class ActionPriorityClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('action_priority', 'POST', $data)->getParsedResponse();
+        return $this->request('action_priority', 'POST', $data);
     }
 
     public function offsetExists($offset)

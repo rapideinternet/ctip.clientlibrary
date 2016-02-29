@@ -30,13 +30,13 @@ class MapObjectSelectionObjectClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('selection/%s/object', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('selection/%s/object', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 
 }

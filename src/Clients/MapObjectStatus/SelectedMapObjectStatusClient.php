@@ -18,12 +18,12 @@ class SelectedMapObjectStatusClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('map_object_status/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete()
     {
-        return $this->request(vsprintf('map_object_status/%s', $this->selectedId), 'DELETE')->getParsedResponse();
+        return $this->request(vsprintf('map_object_status/%s', $this->selectedId), 'DELETE');
     }
 
     public function byId($id, $include = [])

@@ -28,12 +28,12 @@ class DynamicActionTypeAttributeClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s/attribute', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s/attribute', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 }

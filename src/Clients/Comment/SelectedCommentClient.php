@@ -14,12 +14,12 @@ class SelectedCommentClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('comment/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete()
     {
-        return $this->request(vsprintf('comment/%s', $this->selectedId), 'DELETE')->getParsedResponse();
+        return $this->request(vsprintf('comment/%s', $this->selectedId), 'DELETE');
     }
 
     public function byId($id, $include = [])

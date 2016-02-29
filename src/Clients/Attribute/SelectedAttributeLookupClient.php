@@ -22,12 +22,12 @@ class SelectedAttributeLookupClient extends NestedClient
     public function update($data)
     {
         return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'PATCH',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 }

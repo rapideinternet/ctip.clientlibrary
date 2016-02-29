@@ -28,12 +28,12 @@ class DynamicActionTypeMapObjectTypeClient extends NestedClient
     public function create($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s/map_object_type', $this->selectedId), 'POST',
-            $data)->getParsedResponse();
+            $data);
     }
 
     public function delete($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s/map_object_type', $this->selectedId), 'DELETE',
-            $data)->getParsedResponse();
+            $data);
     }
 }

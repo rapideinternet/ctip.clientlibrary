@@ -31,7 +31,7 @@ class MapObjectSelectionTypeClient extends BaseClient implements ArrayAccess
 
     public function create($data)
     {
-        return $this->request('selection_types', 'POST', $data)->getParsedResponse();
+        return $this->request('selection_types', 'POST', $data);
     }
 
     public function offsetExists($offset)
