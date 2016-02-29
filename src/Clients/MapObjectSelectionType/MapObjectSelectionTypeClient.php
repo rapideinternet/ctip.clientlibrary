@@ -19,19 +19,19 @@ class MapObjectSelectionTypeClient extends BaseClient implements ArrayAccess
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
-        return $this->request('selection_types', 'GET');
+        return $this->request('selection_type', 'GET');
     }
 
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('selection_types/%s', $id), 'GET');
+        return $this->request(vsprintf('selection_type/%s', $id), 'GET');
     }
 
     public function create($data)
     {
-        return $this->request('selection_types', 'POST', $data);
+        return $this->request('selection_type', 'POST', $data);
     }
 
     public function offsetExists($offset)

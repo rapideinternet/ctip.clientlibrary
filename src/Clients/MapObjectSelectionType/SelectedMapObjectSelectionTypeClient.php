@@ -18,18 +18,18 @@ class SelectedMapObjectSelectionTypeClient extends NestedClient
 
     public function update($data)
     {
-        return $this->request(vsprintf('selection_types/%s', $this->selectedId), 'PATCH', $data);
+        return $this->request(vsprintf('selection_type/%s', $this->selectedId), 'PATCH', $data);
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('selection_types/%s', $this->selectedId), 'DELETE', $data);
+        return $this->request(vsprintf('selection_type/%s', $this->selectedId), 'DELETE', $data);
     }
 
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('selection_types/%s', $id), 'GET');
+        return $this->request(vsprintf('selection_type/%s', $id), 'GET');
     }
 }

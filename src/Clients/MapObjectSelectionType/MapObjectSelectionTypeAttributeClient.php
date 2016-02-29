@@ -24,18 +24,18 @@ class MapObjectSelectionTypeAttributeClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('selection_types/%s/attribute', $this->selectedId));
+        return $this->request(vsprintf('selection_type/%s/attribute', $this->selectedId));
     }
 
     public function create($data)
     {
-        return $this->request(vsprintf('selection_types/%s/attribute', $this->selectedId), 'POST',
+        return $this->request(vsprintf('selection_type/%s/attribute', $this->selectedId), 'POST',
             $data);
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('selection_types/%s/attribute', $this->selectedId), 'DELETE',
+        return $this->request(vsprintf('selection_type/%s/attribute', $this->selectedId), 'DELETE',
             $data);
     }
 

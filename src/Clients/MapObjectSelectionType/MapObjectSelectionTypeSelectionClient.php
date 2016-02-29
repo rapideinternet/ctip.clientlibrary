@@ -24,6 +24,6 @@ class MapObjectSelectionTypeSelectionClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
 
-        return $this->request(vsprintf('selection_types/%s/selection', $this->selectedId));
+        return $this->request(vsprintf('selection_type/%s/selection', $this->selectedId));
     }
 }
