@@ -19,6 +19,16 @@ class MapObjectSelectionObjectClient extends NestedClient
 
     }
 
+    public function all($include = [], $filter = [])
+    {
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
+
+        return $this->request(vsprintf('selection/%s/object', $this->selectedId));
+    }
+
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
