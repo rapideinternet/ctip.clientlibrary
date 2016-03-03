@@ -12,17 +12,14 @@ class GeoObjectClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
-    public function all($filter)
+    public function all($include = [], $filter = [])
     {
-        $this->addParameter('include', implode(',', $filter));
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
 
         return json_decode($this->request('geo', 'GET')->getParsedResponse());
-    }
-
-    public function byId()
-    {
-        throw new NotImplementedException;
     }
 
     public function create($data)

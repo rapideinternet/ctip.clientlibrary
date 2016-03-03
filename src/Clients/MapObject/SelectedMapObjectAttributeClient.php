@@ -10,8 +10,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedMapObjectAttributeClient extends NestedClient
 {
-    use PerPage;
-
     public function byId($id, $include = [])
     {
         throw new NotImplementedException;

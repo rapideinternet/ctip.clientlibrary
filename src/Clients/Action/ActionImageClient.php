@@ -10,14 +10,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class ActionImageClient extends NestedClient
 {
-    use PerPage;
-
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
-
     public function byId($id, $include = [])
     {
         throw new NotImplementedException;

@@ -15,6 +15,13 @@ class SelectedAttributeGroupClient extends NestedClient
         'attribute' => \Iza\Datacentralisatie\Clients\AttributeGroup\AttributeGroupAttributeClient::class,
     ];
 
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('attribute_group/%s', $id), 'GET');
+    }
+
     public function update($data)
     {
         return $this->request(vsprintf('attribute_group/%s', $this->selectedId), 'PATCH',
@@ -24,12 +31,5 @@ class SelectedAttributeGroupClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('attribute_group/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('attribute_group/%s', $id), 'GET');
     }
 }

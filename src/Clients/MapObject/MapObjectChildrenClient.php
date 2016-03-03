@@ -11,12 +11,6 @@ class MapObjectChildrenClient extends NestedClient
 {
     use PerPage;
 
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
-
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -29,11 +23,6 @@ class MapObjectChildrenClient extends NestedClient
 
     public function byId($id, $include = [])
     {
-
-        $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-        $this->addParameter('page', $this->page);
-
-        return $this->request(vsprintf('object/%s/children', $this->selectedId));
+        return $this->all($include);
     }
 }

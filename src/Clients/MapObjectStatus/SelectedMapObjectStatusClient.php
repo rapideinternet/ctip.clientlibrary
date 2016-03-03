@@ -9,11 +9,16 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedMapObjectStatusClient extends NestedClient
 {
-    use PerPage;
-
     protected $nestedObjects = [
         'mapObjectType' => \Iza\Datacentralisatie\Clients\MapObjectStatus\MapObjectStatusTypeClient::class,
     ];
+
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('map_object_status/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -24,12 +29,5 @@ class SelectedMapObjectStatusClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('map_object_status/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('map_object_status/%s', $id), 'GET');
     }
 }

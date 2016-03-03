@@ -9,11 +9,16 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedRoleClient extends NestedClient
 {
-    use PerPage;
-
     protected $nestedObjects = [
         'permissions' => \Iza\Datacentralisatie\Clients\Role\RolePermissionsClient::class,
     ];
+
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('role/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -23,13 +28,5 @@ class SelectedRoleClient extends NestedClient
     public function delete($data)
     {
         return $this->request(vsprintf('role/%s', $this->selectedId), 'DELETE', $data);
-    }
-
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('role/%s', $id), 'GET');
     }
 }

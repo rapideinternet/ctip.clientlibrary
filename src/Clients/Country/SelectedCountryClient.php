@@ -9,8 +9,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedCountryClient extends NestedClient
 {
-    use PerPage;
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));

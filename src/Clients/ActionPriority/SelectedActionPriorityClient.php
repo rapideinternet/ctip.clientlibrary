@@ -9,7 +9,12 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedActionPriorityClient extends NestedClient
 {
-    use PerPage;
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('action_priority/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -20,12 +25,5 @@ class SelectedActionPriorityClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('action_priority/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('action_priority/%s', $id), 'GET');
     }
 }

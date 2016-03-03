@@ -1,24 +1,20 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\DynamicActionType;
+namespace Iza\Datacentralisatie\Clients\MapObjectType;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class DynamicActionTypeMapObjectTypeClient extends NestedClient
+class MapObjectTypeActionStatusClient extends NestedClient
 {
-    use PerPage;
-
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-        $this->addParameter('page', $this->page);
 
-        return $this->request(vsprintf('dynamic_action_type/%s/map_object_type', $this->selectedId));
+        return $this->request(vsprintf('type/%s/action_status', $this->selectedId));
     }
 
     public function byId($id, $include = [])
@@ -28,13 +24,13 @@ class DynamicActionTypeMapObjectTypeClient extends NestedClient
 
     public function create($data)
     {
-        return $this->request(vsprintf('dynamic_action_type/%s/map_object_type', $this->selectedId), 'POST',
+        return $this->request(vsprintf('type/%s/action_status', $this->selectedId), 'POST',
             $data);
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('dynamic_action_type/%s/map_object_type', $this->selectedId), 'DELETE',
+        return $this->request(vsprintf('type/%s/action_status', $this->selectedId), 'DELETE',
             $data);
     }
 }

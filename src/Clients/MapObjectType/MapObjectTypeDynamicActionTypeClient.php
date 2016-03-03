@@ -9,19 +9,16 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class MapObjectTypeDynamicActionTypeClient extends NestedClient
 {
-    use PerPage;
-
-    public function __construct($client, $id)
+    public function all($include = [], $filter = [])
     {
-        parent::__construct($client, $id);
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
 
+        return $this->request(vsprintf('type/%s/dynamic', $this->selectedId));
     }
 
     public function byId($id, $include = [])
     {
-        $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-
-        return $this->request(vsprintf('type/%s/dynamic', $this->selectedId));
+        return $this->all($include);
     }
 }

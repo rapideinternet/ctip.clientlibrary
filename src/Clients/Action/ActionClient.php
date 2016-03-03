@@ -14,18 +14,12 @@ class ActionClient extends BaseClient implements ArrayAccess
 
     public function all($filter)
     {
+        $this->addFilters($filter);
         $this->addParameter('include', implode(',', $filter));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
         return $this->request('action', 'GET');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('action/%s', $id), 'GET');
     }
 
     public function create($data)

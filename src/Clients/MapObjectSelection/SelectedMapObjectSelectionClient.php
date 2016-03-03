@@ -9,13 +9,18 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedMapObjectSelectionClient extends NestedClient
 {
-    use PerPage;
-
     protected $nestedObjects = [
         'object' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionObjectClient::class,
         'type' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionTypeClient::class,
         'image' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionImageClient::class,
     ];
+
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('selection/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -25,12 +30,5 @@ class SelectedMapObjectSelectionClient extends NestedClient
     public function delete($data)
     {
         return $this->request(vsprintf('selection/%s', $this->selectedId), 'DELETE', $data);
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('selection/%s', $id), 'GET');
     }
 }

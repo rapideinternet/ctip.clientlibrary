@@ -13,18 +13,19 @@ class ActionCommentClient extends NestedClient implements ArrayAccess
 {
     use PerPage;
 
-    public function __construct($client, $id)
+    public function all($include = [], $filter = [])
     {
-        parent::__construct($client, $id);
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
 
+        return $this->request(vsprintf('action/%s/comment', $this->selectedId));
     }
 
     public function byId($id, $include = [])
     {
-        $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-
-        return $this->request(vsprintf('action/%s/comment', $this->selectedId));
+        return $this->all($include);
     }
 
     public function create($data)

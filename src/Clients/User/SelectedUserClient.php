@@ -7,7 +7,12 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedUserClient extends NestedClient
 {
-    use PerPage;
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('user/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -17,12 +22,5 @@ class SelectedUserClient extends NestedClient
     public function delete($data)
     {
         return $this->request(vsprintf('user/%s', $this->selectedId), 'DELETE', $data);
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('user/%s', $id), 'GET');
     }
 }

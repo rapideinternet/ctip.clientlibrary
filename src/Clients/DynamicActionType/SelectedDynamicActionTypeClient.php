@@ -18,6 +18,13 @@ class SelectedDynamicActionTypeClient extends NestedClient
         'mapObjectType' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeMapObjectTypeClient::class,
     ];
 
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('dynamic_action_type/%s', $id), 'GET');
+    }
+
     public function update($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s', $this->selectedId), 'PATCH',
@@ -27,12 +34,5 @@ class SelectedDynamicActionTypeClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('dynamic_action_type/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('dynamic_action_type/%s', $id), 'GET');
     }
 }

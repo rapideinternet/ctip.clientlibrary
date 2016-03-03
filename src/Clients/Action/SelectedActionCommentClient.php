@@ -10,8 +10,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedActionCommentClient extends NestedClient
 {
-    use PerPage;
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -30,5 +28,4 @@ class SelectedActionCommentClient extends NestedClient
         return $this->request(vsprintf('action/%s/comment', $this->selectedId), 'DELETE',
             $data);
     }
-
 }

@@ -13,12 +13,6 @@ class MapObjectSelectionObjectClient extends NestedClient
 {
     use PerPage;
 
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
-
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -31,10 +25,7 @@ class MapObjectSelectionObjectClient extends NestedClient
 
     public function byId($id, $include = [])
     {
-        $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-
-        return $this->request(vsprintf('selection/%s/object', $this->selectedId));
+        return $this->all($include);
     }
 
     public function create($data)

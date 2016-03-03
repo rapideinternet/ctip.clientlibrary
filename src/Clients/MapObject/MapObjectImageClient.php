@@ -10,23 +10,24 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class MapObjectImageClient extends NestedClient
 {
-    use PerPage;
-
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('object/%s/image', $this->selectedId));
     }
 
     public function create($data)
+    {
+        throw new NotImplementedException;
+    }
+
+    public function update($data)
+    {
+        throw new NotImplementedException;
+    }
+
+    public function delete($data)
     {
         throw new NotImplementedException;
     }

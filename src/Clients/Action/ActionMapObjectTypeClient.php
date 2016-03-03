@@ -9,18 +9,9 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class ActionMapObjectTypeClient extends NestedClient
 {
-    use PerPage;
-
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
 
         return $this->request(vsprintf('action/%s/map_object_type', $this->selectedId));
     }

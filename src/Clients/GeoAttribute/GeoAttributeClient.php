@@ -10,7 +10,13 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class GeoAttributeClient extends BaseClient implements ArrayAccess
 {
-    use PerPage;
+    public function all($include = [], $filter = [])
+    {
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request('geo_attribute', 'GET');
+    }
 
     public function byId($id, $include = [])
     {

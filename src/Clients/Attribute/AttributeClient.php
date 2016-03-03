@@ -17,6 +17,7 @@ class AttributeClient extends BaseClient implements ArrayAccess
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
 
         return $this->request('attribute', 'GET');
     }

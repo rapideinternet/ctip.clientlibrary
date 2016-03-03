@@ -9,11 +9,16 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedActionImageTypeClient extends NestedClient
 {
-    use PerPage;
-
     protected $nestedObjects = [
         'dynamicActionType' => \Iza\Datacentralisatie\Clients\ActionImageType\ActionImageTypeDynamicActionTypeClient::class,
     ];
+
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('action_image_type/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -24,12 +29,5 @@ class SelectedActionImageTypeClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('action_image_type/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('action_image_type/%s', $id), 'GET');
     }
 }

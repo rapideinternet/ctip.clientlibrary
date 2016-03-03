@@ -7,21 +7,22 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class CommentClient extends NestedClient
+class CategoryTypeClient extends NestedClient
 {
     use PerPage;
 
-    public function __construct($client, $id)
+    public function all($include = [], $filter = [])
     {
-        parent::__construct($client, $id);
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
 
+        return $this->request(vsprintf('category/%s/type', $this->selectedId));
     }
 
     public function byId($id, $include = [])
     {
-        $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-
-        return $this->request(vsprintf('category/%s/type', $this->selectedId));
+        return $this->all($include);
     }
 }

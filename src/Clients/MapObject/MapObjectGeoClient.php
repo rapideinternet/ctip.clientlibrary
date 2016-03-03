@@ -9,48 +9,12 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
-class MapObjectGeoClient extends NestedClient implements ArrayAccess
+class MapObjectGeoClient extends NestedClient
 {
-    use PerPage;
-
-    public function __construct($client, $id)
-    {
-        parent::__construct($client, $id);
-
-    }
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);;
 
         return json_decode($this->request(vsprintf('object/%s/geo', $this->selectedId))->getParsedResponse());
-    }
-
-    public function create($data)
-    {
-        return $this->request(vsprintf('object/%s/geo', $this->selectedId), 'POST', $data);
-    }
-
-    public function offsetExists($offset)
-    {
-        throw new NotImplementedException;
-    }
-
-    public function offsetGet($offset)
-    {
-        array_push($this->selectedId, $offset);
-
-        return new SelectedMapObjectGeoClient($this->client, $this->selectedId);
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        throw new NotImplementedException;
-    }
-
-    public function offsetUnset($offset)
-    {
-        throw new NotImplementedException;
     }
 }

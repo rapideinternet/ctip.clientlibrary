@@ -9,11 +9,16 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedCategoryClient extends NestedClient
 {
-    use PerPage;
-
     protected $nestedObjects = [
-        'attribute' => \Iza\Datacentralisatie\Clients\MapObjectCategory\CategoryTypeClient::class,
+        'type' => \Iza\Datacentralisatie\Clients\MapObjectCategory\CategoryTypeClient::class,
     ];
+
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('category/%s', $id), 'GET');
+    }
 
     public function update($data)
     {
@@ -24,12 +29,5 @@ class SelectedCategoryClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('category/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('category/%s', $id), 'GET');
     }
 }

@@ -9,8 +9,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedActionClient extends NestedClient
 {
-    use PerPage;
-
     protected $nestedObjects = [
         'attribute' => \Iza\Datacentralisatie\Clients\Action\ActionAttributeClient::class,
         'comment' => \Iza\Datacentralisatie\Clients\Action\ActionCommentClient::class,
@@ -22,6 +20,13 @@ class SelectedActionClient extends NestedClient
         'priority' => \Iza\Datacentralisatie\Clients\Action\ActionPriorityClient::class,
     ];
 
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('action/%s', $id), 'GET');
+    }
+
     public function update($data)
     {
         return $this->request(vsprintf('action/%s', $this->selectedId), 'PATCH',
@@ -31,12 +36,5 @@ class SelectedActionClient extends NestedClient
     public function delete()
     {
         return $this->request(vsprintf('action/%s', $this->selectedId), 'DELETE');
-    }
-
-    public function byId($id, $include = [])
-    {
-        $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('action/%s', $id), 'GET');
     }
 }

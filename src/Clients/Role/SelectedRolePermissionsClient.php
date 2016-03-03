@@ -10,9 +10,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedRolePermissionsClient extends NestedClient
 {
-    use PerPage;
-
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));

@@ -10,8 +10,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedMapObjectSelectionImageClient extends NestedClient
 {
-    use PerPage;
-
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
