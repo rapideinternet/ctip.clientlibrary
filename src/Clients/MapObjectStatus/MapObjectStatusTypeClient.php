@@ -8,9 +8,12 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 class MapObjectStatusTypeClient extends NestedClient
 {
+    use Sync;
+
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -26,6 +29,10 @@ class MapObjectStatusTypeClient extends NestedClient
 
     public function create($data)
     {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
         return $this->request(vsprintf('map_object_status/%s/map_object_type', $this->selectedId), 'POST',
             $data);
     }

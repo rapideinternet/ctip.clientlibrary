@@ -8,18 +8,16 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 use Iza\Datacentralisatie\Traits\Sync;
 
-class MapObjectTypeConstraintClient extends NestedClient
+class MapObjectTypeSettingClient extends NestedClient
 {
-    use PerPage, Sync;
+    use Sync;
 
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
-        $this->addParameter('perPage', $this->perPage);
-        $this->addParameter('page', $this->page);
 
-        return $this->request(vsprintf('type/%s/constraint', $this->selectedId));
+        return $this->request(vsprintf('type/%s/setting', $this->selectedId));
     }
 
     public function byId($id, $include = [])
@@ -33,13 +31,14 @@ class MapObjectTypeConstraintClient extends NestedClient
             $this->addParameter('sync', $this->sync);
         }
 
-        return $this->request(vsprintf('type/%s/constraint', $this->selectedId), 'POST',
+        return $this->request(vsprintf('type/%s/setting', $this->selectedId), 'POST',
             $data);
     }
 
     public function delete($data)
     {
-        return $this->request(vsprintf('type/%s/constraint', $this->selectedId), 'DELETE',
+        return $this->request(vsprintf('type/%s/setting', $this->selectedId), 'DELETE',
             $data);
     }
+
 }

@@ -6,9 +6,12 @@ use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 class MapObjectTypeAttributeClient extends NestedClient
 {
+    use Sync;
+
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -24,6 +27,10 @@ class MapObjectTypeAttributeClient extends NestedClient
 
     public function create($data)
     {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
         return $this->request(vsprintf('type/%s/attribute', $this->selectedId), 'POST',
             $data);
     }

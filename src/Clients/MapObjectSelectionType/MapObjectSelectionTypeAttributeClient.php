@@ -8,9 +8,12 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 class MapObjectSelectionTypeAttributeClient extends NestedClient
 {
+    use Sync;
+
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -26,6 +29,10 @@ class MapObjectSelectionTypeAttributeClient extends NestedClient
 
     public function create($data)
     {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
         return $this->request(vsprintf('selection_type/%s/attribute', $this->selectedId), 'POST',
             $data);
     }

@@ -15,6 +15,7 @@ class SelectedMapObjectTypeClient extends NestedClient
         'attribute' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeAttributeClient::class,
         'constraint' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeConstraintClient::class,
         'dynamicActionType' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeDynamicActionTypeClient::class,
+        'setting' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeSettingClient::class,
         'status' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeStatusClient::class,
     ];
 

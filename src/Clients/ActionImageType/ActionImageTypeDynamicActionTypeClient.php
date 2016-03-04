@@ -6,10 +6,11 @@ use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 class ActionImageTypeDynamicActionTypeClient extends NestedClient
 {
-    use PerPage;
+    use PerPage, Sync;
 
     public function all($include = [], $filter = [])
     {
@@ -28,6 +29,10 @@ class ActionImageTypeDynamicActionTypeClient extends NestedClient
 
     public function create($data)
     {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
         return $this->request(vsprintf('action_image_type/%s/dynamic_action_type', $this->selectedId), 'POST',
             $data);
     }
