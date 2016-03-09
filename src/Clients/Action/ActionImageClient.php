@@ -10,6 +10,11 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class ActionImageClient extends NestedClient
 {
+    public function all($include = [], $filter = [])
+    {
+        throw new NotImplementedException;
+    }
+
     public function byId($id, $include = [])
     {
         throw new NotImplementedException;

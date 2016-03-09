@@ -23,9 +23,8 @@ class SelectedActionCommentClient extends NestedClient
             $data);
     }
 
-    public function delete($data)
+    public function delete()
     {
-        return $this->request(vsprintf('action/%s/comment', $this->selectedId), 'DELETE',
-            $data);
+        return $this->request(vsprintf('action/%s/comment/%s', $this->selectedId), 'DELETE');
     }
 }

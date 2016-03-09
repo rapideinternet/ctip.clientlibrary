@@ -22,6 +22,13 @@ class ActionClient extends BaseClient implements ArrayAccess
         return $this->request('action', 'GET');
     }
 
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('action/%s', $id), 'GET');
+    }
+
     public function create($data)
     {
         return $this->request('action', 'POST', $data);
