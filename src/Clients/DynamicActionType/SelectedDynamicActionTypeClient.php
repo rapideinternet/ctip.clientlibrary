@@ -15,6 +15,7 @@ class SelectedDynamicActionTypeClient extends NestedClient
         'action' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeActionClient::class,
         'actionImageType' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeActionImageTypeClient::class,
         'attribute' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeAttributeClient::class,
+        'dynamicActionTypeCategory' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeDynamicActionTypeCategoryClient::class,
         'mapObjectType' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeMapObjectTypeClient::class,
     ];
 

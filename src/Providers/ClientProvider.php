@@ -15,6 +15,7 @@ class ClientProvider
             'attributeGroup' => \Iza\Datacentralisatie\Clients\AttributeGroup\AttributeGroupClient::class,
             'auth' => \Iza\Datacentralisatie\Clients\AuthClient::class,
             'dynamicActionType' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeClient::class,
+            'dynamicActionTypeCategory' => \Iza\Datacentralisatie\Clients\DynamicActionTypeCategory\DynamicActionTypeCategoryClient::class,
             'category' => \Iza\Datacentralisatie\Clients\MapObjectCategory\CategoryClient::class,
             'comment' => \Iza\Datacentralisatie\Clients\Comment\CommentClient::class,
             'country' => \Iza\Datacentralisatie\Clients\Country\CountryClient::class,
