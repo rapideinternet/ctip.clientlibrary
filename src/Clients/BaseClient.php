@@ -4,6 +4,7 @@ namespace Iza\Datacentralisatie\Clients;
 
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\RestClient\RestClient;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class BaseClient
 {
@@ -26,12 +27,22 @@ abstract class BaseClient
         $this->restClient = RestClient::instance($client->getUrl());
     }
 
-    public function request($path, $method = 'GET', $data = null, $headers = [])
+    public function request($path, $method = 'GET', $data = null, $headers = [], $isJson = true)
     {
         $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data,
-            array_merge($headers, $this->getDefaultHeaders()))->getResponse();
+            array_merge($this->getDefaultHeaders(), $headers), $isJson)->getResponse();
 
         return $this->parseResponse($response);
+    }
+
+    public function fileRequest($path, UploadedFile $file)
+    {
+        $data = array(
+            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
+        );
+        $headers = array("Content-Type" => "multipart/form-data");
+
+        return $this->request($path, 'POST', $data, $headers, false);
     }
 
     protected function getDefaultHeaders()

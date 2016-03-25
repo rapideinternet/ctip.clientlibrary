@@ -30,11 +30,80 @@ class RestClient implements IRestClient
      * @param string $method
      * @param string $data
      * @param array $headers
+     * @param bool $isJson
      * @return IRequest
      */
-    public function newRequest($url, $method = 'GET', $data = null, $headers = [])
+    public function newRequest($url, $method = 'GET', $data = null, $headers = [], $isJson = true)
     {
 
+        // clone request
+        $request = clone $this->request;
+
+        // configure URL
+        $baseUrl = rtrim($this->request->getOption(self::BASE_URL_KEY, ''), '/');
+        if ('' != $baseUrl) {
+            $url = sprintf("%s/%s", $baseUrl, ltrim($url, '/'));
+        }
+        $request->setOption(self::BASE_URL_KEY, $url);
+
+        // method
+        $request->setOption(self::METHOD_KEY, $method);
+
+        // data
+        if ((!is_null($data)) && (!empty($data))) {
+            $request->setOption(self::DATA_KEY, ($isJson ? json_encode($data) : $data));
+        }
+
+        // headers
+        if (!empty($headers)) {
+            $request->setOption(self::HEADERS_KEY, $headers);
+        }
+
+        return $request;
+
+    }
+
+    /**
+     * @param IRequest $request
+     * @param $filesize
+     * @param $postfields
+     * @return mixed
+     */
+    public function makeFileRequest($url, $method = 'GET', $data = null, $headers = [], $filesize, $postfields)
+    {
+
+        //dd($url);
+        $baseUrl = rtrim($this->request->getOption(self::BASE_URL_KEY, ''), '/');
+        if ('' != $baseUrl) {
+            $url = sprintf("%s/%s", $baseUrl, ltrim($url, '/'));
+        }
+        $url .= "token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0bnQiOiIxIiwic3ViIjoxLCJpc3MiOiJodHRwOlwvXC9ob21lc3RlYWQuYXBwXC92MVwvYXV0aCIsImlhdCI6MTQ1ODgzNjEwNiwiZXhwIjoxNDU4OTIyNTA2LCJuYmYiOjE0NTg4MzYxMDYsImp0aSI6IjhjZDJjMWZmNTlmNzc3MjA1YWYzOGZmZjkwNThiYjgwIn0.Ft1y6DJwqdeH5kkrqDio4y9RfF2oWb8A3DohYcwPr9o";
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            //CURLOPT_INFILESIZE => $filesize,
+            CURLOPT_RETURNTRANSFER => true
+        ); // cURL options
+        curl_setopt_array($ch, $options);
+        dd($options);
+        echo(curl_exec($ch));
+
+
+        if (!curl_errno($ch)) {
+            $info = curl_getinfo($ch);
+            dd($info);
+            if ($info['http_code'] == 200) {
+                $errmsg = "File uploaded successfully";
+            }
+        } else {
+            $errmsg = curl_error($ch);
+            dd($errmsg);
+        }
+        curl_close($ch);
         // clone request
         $request = clone $this->request;
 
@@ -59,7 +128,6 @@ class RestClient implements IRestClient
         }
 
         return $request;
-
     }
 
     /**

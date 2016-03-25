@@ -7,22 +7,25 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ActionImageClient extends NestedClient
 {
-    public function all($include = [], $filter = [])
+    public function all($include = [])
     {
-        throw new NotImplementedException;
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('action/%s/image', $this->selectedId));
     }
 
     public function byId($id, $include = [])
     {
-        throw new NotImplementedException;
+        return $this->all($include);
     }
 
-    public function create($data)
+    public function create(UploadedFile $file)
     {
-        throw new NotImplementedException;
+        return $this->fileRequest(vsprintf('action/%s/image', $this->selectedId), $file);
     }
 
     public function delete($data)

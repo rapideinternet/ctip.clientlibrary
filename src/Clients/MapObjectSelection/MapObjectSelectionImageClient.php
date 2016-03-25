@@ -8,6 +8,7 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MapObjectSelectionImageClient extends NestedClient implements ArrayAccess
 {
@@ -16,12 +17,17 @@ class MapObjectSelectionImageClient extends NestedClient implements ArrayAccess
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('object/%s/image', $this->selectedId));
+        return $this->request(vsprintf('selection/%s/image', $this->selectedId));
     }
 
     public function byId($id, $include = [])
     {
         return $this->all($include);
+    }
+
+    public function create(UploadedFile $file)
+    {
+        return $this->fileRequest(vsprintf('selection/%s/image', $this->selectedId), $file);
     }
 
     public function offsetExists($offset)
@@ -46,3 +52,4 @@ class MapObjectSelectionImageClient extends NestedClient implements ArrayAccess
         throw new NotImplementedException;
     }
 }
+

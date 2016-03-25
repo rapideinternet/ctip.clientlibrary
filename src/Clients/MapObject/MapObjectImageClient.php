@@ -7,19 +7,25 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MapObjectImageClient extends NestedClient
 {
-    public function byId($id, $include = [])
+    public function all($include = [])
     {
         $this->addParameter('include', implode(',', $include));
 
         return $this->request(vsprintf('object/%s/image', $this->selectedId));
     }
 
-    public function create($data)
+    public function byId($id, $include = [])
     {
-        throw new NotImplementedException;
+        return $this->all($include);
+    }
+
+    public function create(UploadedFile $file)
+    {
+        return $this->fileRequest(vsprintf('object/%s/image', $this->selectedId), $file);
     }
 
     public function update($data)
