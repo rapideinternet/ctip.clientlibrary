@@ -11,7 +11,7 @@ class SelectedMapObjectTypeClient extends NestedClient
 {
     protected $nestedObjects = [
         'action' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeActionClient::class,
-        'action_status' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeActionStatusClient::class,
+        'actionStatus' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeActionStatusClient::class,
         'attribute' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeAttributeClient::class,
         'constraint' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeConstraintClient::class,
         'dynamicActionType' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeDynamicActionTypeClient::class,
