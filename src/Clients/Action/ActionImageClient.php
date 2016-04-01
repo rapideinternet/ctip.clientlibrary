@@ -2,14 +2,14 @@
 
 namespace Iza\Datacentralisatie\Clients\Action;
 
+use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
-use Iza\Datacentralisatie\Traits\PerPage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class ActionImageClient extends NestedClient
+class ActionImageClient extends NestedClient implements ArrayAccess
 {
     public function all($include = [])
     {
@@ -28,7 +28,24 @@ class ActionImageClient extends NestedClient
         return $this->fileRequest(vsprintf('action/%s/image', $this->selectedId), $file);
     }
 
-    public function delete($data)
+    public function offsetExists($offset)
+    {
+        throw new NotImplementedException;
+    }
+
+    public function offsetGet($offset)
+    {
+        array_push($this->selectedId, $offset);
+
+        return new SelectedActionImageClient($this->client, $this->selectedId);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        throw new NotImplementedException;
+    }
+
+    public function offsetUnset($offset)
     {
         throw new NotImplementedException;
     }
