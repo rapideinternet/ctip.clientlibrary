@@ -4,8 +4,6 @@ namespace Iza\Datacentralisatie\Clients\Action;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -23,9 +21,9 @@ class ActionImageClient extends NestedClient implements ArrayAccess
         return $this->all($include);
     }
 
-    public function create(UploadedFile $file)
+    public function create(UploadedFile $file, $data)
     {
-        return $this->fileRequest(vsprintf('action/%s/image', $this->selectedId), $file);
+        return $this->fileRequest(vsprintf('action/%s/image', $this->selectedId), $file, $data);
     }
 
     public function offsetExists($offset)

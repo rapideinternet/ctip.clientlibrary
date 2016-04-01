@@ -35,14 +35,15 @@ abstract class BaseClient
         return $this->parseResponse($response);
     }
 
-    public function fileRequest($path, UploadedFile $file)
+    public function fileRequest($path, UploadedFile $file, $data)
     {
-        $data = array(
-            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
+        $formData = array(
+            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName()),
+            $data
         );
         $headers = array("Content-Type" => "multipart/form-data");
 
-        return $this->request($path, 'POST', $data, $headers, false);
+        return $this->request($path, 'POST', $formData, $headers, false);
     }
 
     protected function getDefaultHeaders()

@@ -25,9 +25,9 @@ class MapObjectSelectionImageClient extends NestedClient implements ArrayAccess
         return $this->all($include);
     }
 
-    public function create(UploadedFile $file)
+    public function create(UploadedFile $file, $data)
     {
-        return $this->fileRequest(vsprintf('selection/%s/image', $this->selectedId), $file);
+        return $this->fileRequest(vsprintf('selection/%s/image', $this->selectedId), $file, $data);
     }
 
     public function offsetExists($offset)
