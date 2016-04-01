@@ -38,9 +38,9 @@ abstract class BaseClient
     public function fileRequest($path, UploadedFile $file, $data)
     {
         $formData = array(
-            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName()),
-            $data
+            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
         );
+        $formData = array_merge($formData, $data);
         $headers = array("Content-Type" => "multipart/form-data");
 
         return $this->request($path, 'POST', $formData, $headers, false);
