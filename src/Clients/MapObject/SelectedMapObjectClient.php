@@ -20,6 +20,7 @@ class SelectedMapObjectClient extends NestedClient
         'image' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectImageClient::class,
         'parent' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentClient::class,
         'parents' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentsClient::class,
+        'selection' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectMapObjectSelectionClient::class,
         'status' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectStatusClient::class,
         'type' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectTypeClient::class,
     ];
