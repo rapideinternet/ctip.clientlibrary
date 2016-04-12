@@ -7,6 +7,10 @@ use Iza\Datacentralisatie\Traits\PerPage;
 
 class SelectedUserClient extends NestedClient
 {
+    protected $nestedObjects = [
+        'tenant' => \Iza\Datacentralisatie\Clients\User\UserTenantClient::class,
+    ];
+
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
