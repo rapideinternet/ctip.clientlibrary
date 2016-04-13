@@ -10,7 +10,7 @@ use Iza\Datacentralisatie\Traits\PerPage;
 class SelectedRoleClient extends NestedClient
 {
     protected $nestedObjects = [
-        'permissions' => \Iza\Datacentralisatie\Clients\Role\RolePermissionsClient::class,
+        'permission' => \Iza\Datacentralisatie\Clients\Role\RolePermissionsClient::class,
     ];
 
     public function byId($id, $include = [])

@@ -8,7 +8,7 @@ use Iza\Datacentralisatie\Traits\PerPage;
 class SelectedTenantClient extends NestedClient
 {
     protected $nestedObjects = [
-        'users' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
+        'user' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
     ];
 
     public function byId($id, $include = [])
