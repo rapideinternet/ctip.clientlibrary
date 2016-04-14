@@ -10,4 +10,10 @@ class PermissionClient extends BaseClient
     {
         return $this->request('permission', 'GET');
     }
+
+    public function byId($id)
+    {
+        return $this->request(vsprintf('permission/%s', $id), 'GET');
+    }
+
 }
