@@ -34,6 +34,12 @@ class RolePermissionsClient extends NestedClient implements ArrayAccess
             $data);
     }
 
+    public function delete($data)
+    {
+        return $this->request(vsprintf('role/%s/permissions', $this->selectedId), 'DELETE',
+            $data);
+    }
+
     public function offsetExists($offset)
     {
         throw new NotImplementedException;
