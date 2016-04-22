@@ -14,7 +14,7 @@ class MapObjectTypeDynamicActionTypeClient extends NestedClient
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('type/%s/dynamic', $this->selectedId));
+        return $this->request(vsprintf('type/%s/dynamic_action_type', $this->selectedId));
     }
 
     public function byId($id, $include = [])
