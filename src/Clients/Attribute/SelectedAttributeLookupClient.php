@@ -23,9 +23,8 @@ class SelectedAttributeLookupClient extends NestedClient
             $data);
     }
 
-    public function delete($data)
+    public function delete()
     {
-        return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'DELETE',
-            $data);
+        return $this->request(vsprintf('attribute/%s/lookup/%s', $this->selectedId), 'DELETE');
     }
 }
