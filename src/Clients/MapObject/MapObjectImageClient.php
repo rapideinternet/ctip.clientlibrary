@@ -38,7 +38,7 @@ class MapObjectImageClient extends NestedClient implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        array_push($this->selectedId, $offset);
+        $this->selectedId[] = $offset;
 
         return new SelectedMapObjectImageClient($this->client, $this->selectedId);
     }
