@@ -5,10 +5,18 @@ namespace Iza\Datacentralisatie\Clients\MapObjectType;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class MapObjectTypeDynamicActionTypeClient
+ * @package Iza\Datacentralisatie\Clients\MapObjectType
+ */
 class MapObjectTypeDynamicActionTypeClient extends NestedClient
 {
+    /**
+     * @param array $include
+     * @param array $filter
+     * @return mixed
+     */
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -17,6 +25,11 @@ class MapObjectTypeDynamicActionTypeClient extends NestedClient
         return $this->request(vsprintf('type/%s/dynamic_action_type', $this->selectedId));
     }
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         return $this->all($include);

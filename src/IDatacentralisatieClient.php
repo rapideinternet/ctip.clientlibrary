@@ -1,5 +1,9 @@
 <?php namespace Iza\Datacentralisatie;
 
+/**
+ * Interface IDatacentralisatieClient
+ * @package Iza\Datacentralisatie
+ */
 interface IDatacentralisatieClient
 {
     CONST EMAIL = 'email';

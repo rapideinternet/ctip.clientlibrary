@@ -2,8 +2,15 @@
 
 namespace Iza\Datacentralisatie\Providers;
 
+/**
+ * Class ClientProvider
+ * @package Iza\Datacentralisatie\Providers
+ */
 class ClientProvider
 {
+    /**
+     * @return array
+     */
     public function clients()
     {
         return [

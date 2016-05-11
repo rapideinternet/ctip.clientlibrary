@@ -4,8 +4,15 @@ namespace Iza\Datacentralisatie\Clients;
 
 use Iza\Datacentralisatie\IDatacentralisatieClient;
 
+/**
+ * Class AuthClient
+ * @package Iza\Datacentralisatie\Clients
+ */
 class AuthClient extends BaseClient
 {
+    /**
+     * @return mixed
+     */
     public function login()
     {
         $credentials = $this->client->getCredentials();

@@ -5,8 +5,11 @@ namespace Iza\Datacentralisatie\Clients\MapObjectSelectionType;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class SelectedMapObjectSelectionTypeClient
+ * @package Iza\Datacentralisatie\Clients\MapObjectSelectionType
+ */
 class SelectedMapObjectSelectionTypeClient extends NestedClient
 {
     protected $nestedObjects = [
@@ -14,6 +17,11 @@ class SelectedMapObjectSelectionTypeClient extends NestedClient
         'selection' => \Iza\Datacentralisatie\Clients\MapObjectSelectionType\MapObjectSelectionTypeSelectionClient::class,
     ];
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -21,11 +29,18 @@ class SelectedMapObjectSelectionTypeClient extends NestedClient
         return $this->request(vsprintf('selection_type/%s', $id), 'GET');
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function update($data)
     {
         return $this->request(vsprintf('selection_type/%s', $this->selectedId), 'PATCH', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function delete()
     {
         return $this->request(vsprintf('selection_type/%s', $this->selectedId), 'DELETE');

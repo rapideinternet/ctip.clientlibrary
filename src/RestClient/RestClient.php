@@ -98,6 +98,7 @@ class RestClient implements IRestClient
     }
 
     /**
+     * @param array $config
      * @return RestClient
      */
     public static function instance($config = [])

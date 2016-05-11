@@ -7,10 +7,19 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class DynamicActionTypeActionClient
+ * @package Iza\Datacentralisatie\Clients\DynamicActionType
+ */
 class DynamicActionTypeActionClient extends NestedClient
 {
     use PerPage;
 
+    /**
+     * @param array $include
+     * @param array $filter
+     * @return mixed
+     */
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -21,6 +30,11 @@ class DynamicActionTypeActionClient extends NestedClient
         return $this->request(vsprintf('dynamic_action_type/%s/action', $this->selectedId));
     }
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         return $this->all($include);

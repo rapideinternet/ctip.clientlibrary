@@ -3,7 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\Me;
 
 use Iza\Datacentralisatie\Clients\BaseClient;
-use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 
 /**
@@ -14,6 +13,10 @@ class MeClient extends BaseClient
 {
     protected $object;
 
+    /**
+     * @param array $include
+     * @return mixed
+     */
     public function me($include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -21,16 +24,25 @@ class MeClient extends BaseClient
         return $this->request('me', 'GET');
     }
 
+    /**
+     * @return mixed
+     */
     public function roles()
     {
         return $this->request('me/role', 'GET');
     }
 
+    /**
+     * @return mixed
+     */
     public function tenants()
     {
         return $this->request('me/tenant', 'GET');
     }
 
+    /**
+     * @return mixed
+     */
     public function getObject()
     {
         if (is_null($this->object)) {
@@ -40,11 +52,21 @@ class MeClient extends BaseClient
         return $this->object;
     }
 
+    /**
+     * @param $parameter
+     * @return mixed
+     */
     public function __get($parameter)
     {
         return $this->getObject()->{$parameter};
     }
 
+    /**
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     * @throws Exception
+     */
     public function __call($method, $arguments)
     {
         if (method_exists($this, $method)) {

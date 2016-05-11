@@ -3,14 +3,22 @@
 namespace Iza\Datacentralisatie\Clients\Tenant;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class SelectedTenantClient
+ * @package Iza\Datacentralisatie\Clients\Tenant
+ */
 class SelectedTenantClient extends NestedClient
 {
     protected $nestedObjects = [
         'user' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
     ];
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -18,11 +26,18 @@ class SelectedTenantClient extends NestedClient
         return $this->request(vsprintf('tenant/%s', $id), 'GET');
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function update($data)
     {
         return $this->request(vsprintf('tenant/%s', $this->selectedId), 'PATCH', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function delete()
     {
         return $this->request(vsprintf('tenant/%s', $this->selectedId), 'DELETE');

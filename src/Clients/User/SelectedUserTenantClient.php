@@ -5,11 +5,18 @@ namespace Iza\Datacentralisatie\Clients\User;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Exceptions\NotImplementedException;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class SelectedUserTenantClient
+ * @package Iza\Datacentralisatie\Clients\User
+ */
 class SelectedUserTenantClient extends NestedClient
 {
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));

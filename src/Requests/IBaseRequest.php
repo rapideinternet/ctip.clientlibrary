@@ -2,6 +2,10 @@
 
 namespace Iza\Datacentralisatie;
 
+/**
+ * Interface IBaseRequest
+ * @package Iza\Datacentralisatie
+ */
 interface IBaseRequest
 {
     public function getMethod();

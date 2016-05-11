@@ -1,5 +1,9 @@
 <?php namespace Iza\Datacentralisatie;
 
+/**
+ * Class Authenticate
+ * @package Iza\Datacentralisatie
+ */
 class Authenticate extends BaseRequest
 {
 
@@ -8,6 +12,9 @@ class Authenticate extends BaseRequest
         // TODO: Implement getMethod() method.
     }
 
+    /**
+     * @return string
+     */
     function getPath()
     {
         return 'auth';

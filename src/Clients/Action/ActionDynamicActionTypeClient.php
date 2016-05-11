@@ -5,10 +5,18 @@ namespace Iza\Datacentralisatie\Clients\Action;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class ActionDynamicActionTypeClient
+ * @package Iza\Datacentralisatie\Clients\Action
+ */
 class ActionDynamicActionTypeClient extends NestedClient
 {
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));

@@ -90,6 +90,7 @@ class Response implements IResponse
      * Parse a line of $this->returnedTransfer
      *
      * Write an entry into $this->headers
+     * @param $line
      */
     private function parseResponseHeaderLine($line)
     {
@@ -159,6 +160,9 @@ class Response implements IResponse
         return curl_errno($this->curlResource);
     }
 
+    /**
+     * @return string
+     */
     public function get()
     {
         return $this->getParsedResponse();
@@ -182,6 +186,10 @@ class Response implements IResponse
         return null;
     }
 
+    /**
+     * @param $name
+     * @return null
+     */
     public function __get($name)
     {
         if (property_exists($this->getInfo(), $name)) {

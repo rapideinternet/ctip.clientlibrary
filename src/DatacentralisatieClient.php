@@ -95,12 +95,18 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this->getCredentials()[self::TENANT_ID];
     }
 
+    /**
+     * @param $token
+     */
     public function setToken($token)
     {
         $this->credentials[self::TOKEN] = $token;
         $this->is_authenticated = true;
     }
 
+    /**
+     * @param $tenant_id
+     */
     public function setTenantId($tenant_id)
     {
         $this->credentials[self::TENANT_ID] = $tenant_id;
@@ -118,6 +124,9 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $this->clients = (new ClientProvider())->clients();
     }
 
+    /**
+     * @return array
+     */
     public function getCredentials()
     {
         return $this->credentials;
@@ -147,6 +156,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this;
     }
 
+    /**
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     * @throws \Exception
+     */
     public function __call($method, $arguments)
     {
         if (!isset($this->clients[$method]) && !method_exists($this, $method)) {
@@ -165,6 +180,11 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         }
     }
 
+    /**
+     * @param $property
+     * @return mixed
+     * @throws \Exception
+     */
     public function __get($property)
     {
         if (property_exists($this, $property)) {
@@ -180,6 +200,9 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         throw new \Exception("unknown method [$property]");
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return $this->url;

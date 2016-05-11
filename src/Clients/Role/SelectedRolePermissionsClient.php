@@ -5,11 +5,18 @@ namespace Iza\Datacentralisatie\Clients\Role;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Exceptions\NotImplementedException;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class SelectedRolePermissionsClient
+ * @package Iza\Datacentralisatie\Clients\Role
+ */
 class SelectedRolePermissionsClient extends NestedClient
 {
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));

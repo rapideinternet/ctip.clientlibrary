@@ -5,6 +5,10 @@ namespace Iza\Datacentralisatie\Clients;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 
+/**
+ * Class NestedClient
+ * @package Iza\Datacentralisatie\Clients
+ */
 abstract class NestedClient extends BaseClient
 {
     protected $selectedId = [];
@@ -13,6 +17,10 @@ abstract class NestedClient extends BaseClient
 
     protected $nestedObjects = [];
 
+    /**
+     * @param DatacentralisatieClient $client
+     * @param $id
+     */
     public function __construct(DatacentralisatieClient $client, $id)
     {
         parent::__construct($client);
@@ -20,6 +28,9 @@ abstract class NestedClient extends BaseClient
         $this->setSelectedIds($id);
     }
 
+    /**
+     * @param $ids
+     */
     public function setSelectedIds($ids)
     {
         if (is_array($ids)) {
@@ -40,6 +51,9 @@ abstract class NestedClient extends BaseClient
         }
     }
 
+    /**
+     * @return mixed|null
+     */
     public function getObject()
     {
         if (is_null($this->object)) {
@@ -49,6 +63,10 @@ abstract class NestedClient extends BaseClient
         return $this->object;
     }
 
+    /**
+     * @param $parameter
+     * @return mixed
+     */
     public function __get($parameter)
     {
         //TODO maybe confusing
@@ -60,11 +78,20 @@ abstract class NestedClient extends BaseClient
         return $this->getObject()->{$parameter};
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string)$this->getObject();
     }
 
+    /**
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     * @throws Exception
+     */
     public function __call($method, $arguments)
     {
         if (method_exists($this, $method)) {
@@ -80,5 +107,10 @@ abstract class NestedClient extends BaseClient
 
     }
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public abstract function byId($id, $include = []);
 }

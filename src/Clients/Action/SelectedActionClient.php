@@ -5,8 +5,11 @@ namespace Iza\Datacentralisatie\Clients\Action;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class SelectedActionClient
+ * @package Iza\Datacentralisatie\Clients\Action
+ */
 class SelectedActionClient extends NestedClient
 {
     protected $nestedObjects = [
@@ -20,6 +23,11 @@ class SelectedActionClient extends NestedClient
         'priority' => \Iza\Datacentralisatie\Clients\Action\ActionPriorityClient::class,
     ];
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -27,12 +35,19 @@ class SelectedActionClient extends NestedClient
         return $this->request(vsprintf('action/%s', $id), 'GET');
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function update($data)
     {
         return $this->request(vsprintf('action/%s', $this->selectedId), 'PATCH',
             $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function delete()
     {
         return $this->request(vsprintf('action/%s', $this->selectedId), 'DELETE');

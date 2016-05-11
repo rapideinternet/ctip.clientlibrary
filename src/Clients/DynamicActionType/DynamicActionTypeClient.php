@@ -8,10 +8,19 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class DynamicActionTypeClient
+ * @package Iza\Datacentralisatie\Clients\DynamicActionType
+ */
 class DynamicActionTypeClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
+    /**
+     * @param array $include
+     * @param array $filter
+     * @return mixed
+     */
     public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
@@ -22,6 +31,11 @@ class DynamicActionTypeClient extends BaseClient implements ArrayAccess
         return $this->request('dynamic_action_type', 'GET');
     }
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -29,26 +43,48 @@ class DynamicActionTypeClient extends BaseClient implements ArrayAccess
         return $this->request(vsprintf('dynamic_action_type/%s', $id), 'GET');
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function create($data)
     {
         return $this->request('dynamic_action_type', 'POST', $data);
     }
 
+    /**
+     * @param mixed $offset
+     * @return bool|void
+     * @throws NotImplementedException
+     */
     public function offsetExists($offset)
     {
         throw new NotImplementedException;
     }
 
+    /**
+     * @param mixed $offset
+     * @return SelectedDynamicActionTypeClient
+     */
     public function offsetGet($offset)
     {
         return new SelectedDynamicActionTypeClient($this->client, $offset);
     }
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @throws NotImplementedException
+     */
     public function offsetSet($offset, $value)
     {
         throw new NotImplementedException;
     }
 
+    /**
+     * @param mixed $offset
+     * @throws NotImplementedException
+     */
     public function offsetUnset($offset)
     {
         throw new NotImplementedException;

@@ -7,6 +7,10 @@ use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 
+/**
+ * Class SelectedDynamicActionTypeClient
+ * @package Iza\Datacentralisatie\Clients\DynamicActionType
+ */
 class SelectedDynamicActionTypeClient extends NestedClient
 {
     use PerPage;
@@ -19,6 +23,11 @@ class SelectedDynamicActionTypeClient extends NestedClient
         'mapObjectType' => \Iza\Datacentralisatie\Clients\DynamicActionType\DynamicActionTypeMapObjectTypeClient::class,
     ];
 
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
     public function byId($id, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
@@ -26,12 +35,19 @@ class SelectedDynamicActionTypeClient extends NestedClient
         return $this->request(vsprintf('dynamic_action_type/%s', $id), 'GET');
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function update($data)
     {
         return $this->request(vsprintf('dynamic_action_type/%s', $this->selectedId), 'PATCH',
             $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function delete()
     {
         return $this->request(vsprintf('dynamic_action_type/%s', $this->selectedId), 'DELETE');
