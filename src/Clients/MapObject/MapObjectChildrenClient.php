@@ -5,6 +5,7 @@ namespace Iza\Datacentralisatie\Clients\MapObject;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Traits\Depth;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
@@ -13,7 +14,7 @@ use Iza\Datacentralisatie\Traits\PerPage;
  */
 class MapObjectChildrenClient extends NestedClient
 {
-    use PerPage;
+    use PerPage, Depth;
 
     /**
      * @param array $include
@@ -26,6 +27,7 @@ class MapObjectChildrenClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
+        $this->addParameter('depth', $this->depth);
 
         return $this->request(vsprintf('object/%s/children', $this->selectedId));
     }
