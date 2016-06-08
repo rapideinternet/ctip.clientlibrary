@@ -38,18 +38,24 @@ class ActionAttributeClient extends NestedClient implements ArrayAccess
     }
 
     /**
+     * @param array $include
      * @return mixed
      */
-    public function byMapObjectType()
+    public function byMapObjectType($include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action/%s/attribute/map_object_type', $this->selectedId));
     }
 
     /**
+     * @param array $include
      * @return mixed
      */
-    public function byDynamicActionType()
+    public function byDynamicActionType($include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action/%s/attribute/dynamic_action_type', $this->selectedId));
     }
 
