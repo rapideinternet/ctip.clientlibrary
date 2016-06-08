@@ -43,7 +43,7 @@ class AttributeLookupClient extends NestedClient implements ArrayAccess
      */
     public function create($data)
     {
-        return $this->request('attribute/%s/lookup', 'POST', $data);
+        return $this->request(vsprintf('attribute/%s/lookup', $this->selectedId), 'POST', $data);
     }
 
 
