@@ -13,6 +13,7 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 class SelectedMapObjectSelectionClient extends NestedClient
 {
     protected $nestedObjects = [
+        'attribute' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionAttributeClient::class,
         'object' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionObjectClient::class,
         'type' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionTypeClient::class,
         'image' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionImageClient::class,
