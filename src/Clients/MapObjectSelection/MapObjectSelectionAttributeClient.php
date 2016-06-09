@@ -24,7 +24,7 @@ class MapObjectSelectionAttributeClient extends NestedClient implements ArrayAcc
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('object/%s/attribute', $this->selectedId));
+        return $this->request(vsprintf('selection/%s/attribute', $this->selectedId));
     }
 
     /**
@@ -36,7 +36,7 @@ class MapObjectSelectionAttributeClient extends NestedClient implements ArrayAcc
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('object/%s/attribute', $this->selectedId));
+        return $this->request(vsprintf('selection/%s/attribute', $this->selectedId));
     }
 
     /**
