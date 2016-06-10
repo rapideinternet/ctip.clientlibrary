@@ -4,12 +4,7 @@ namespace Iza\Datacentralisatie\Clients;
 
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\RestClient\RestClient;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * Class BaseClient
- * @package Iza\Datacentralisatie\Clients
- */
 abstract class BaseClient
 {
     /**
@@ -21,55 +16,24 @@ abstract class BaseClient
      */
     protected $restClient;
     /**
-     * @var string
+     * @var array
      */
     protected $parameters = [];
 
-    /**
-     * @param DatacentralisatieClient $client
-     */
     public function __construct(DatacentralisatieClient $client)
     {
         $this->client = $client;
         $this->restClient = RestClient::instance($client->getUrl());
     }
 
-    /**
-     * @param $path
-     * @param string $method
-     * @param null $data
-     * @param array $headers
-     * @param bool $isJson
-     * @return mixed
-     */
-    public function request($path, $method = 'GET', $data = null, $headers = [], $isJson = true)
+    public function request($path, $method = 'GET', $data = null, $headers = [])
     {
         $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data,
-            array_merge($this->getDefaultHeaders(), $headers), $isJson)->getResponse();
+            array_merge($headers, $this->getDefaultHeaders()))->getResponse();
 
         return $this->parseResponse($response);
     }
 
-    /**
-     * @param $path
-     * @param UploadedFile $file
-     * @param $data
-     * @return mixed
-     */
-    public function fileRequest($path, UploadedFile $file, $data)
-    {
-        $formData = array(
-            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
-        );
-        $formData = array_merge($formData, $data);
-        $headers = array("Content-Type" => "multipart/form-data");
-
-        return $this->request($path, 'POST', $formData, $headers, false);
-    }
-
-    /**
-     * @return array
-     */
     protected function getDefaultHeaders()
     {
         return [
@@ -78,28 +42,17 @@ abstract class BaseClient
         ];
     }
 
-    /**
-     * @param $response
-     * @return mixed
-     */
     public function parseResponse($response)
     {
         //Run response through some kind of transformer to determine if it was good
         return $response;
     }
 
-    /**
-     * @param $key
-     * @param $value
-     */
     public function addParameter($key, $value)
     {
         $this->parameters[$key] = $value;
     }
 
-    /**
-     * @param array $filters
-     */
     public function addFilters(array $filters)
     {
         foreach ($filters as $key => $value) {
@@ -107,20 +60,19 @@ abstract class BaseClient
         }
     }
 
-    /**
-     * @return mixed
-     */
     public function getParameters()
     {
         return $this->getParameters();
     }
 
-    /**
-     * @param $path
-     * @return string
-     */
     public function formatUrl($path)
     {
+        foreach ($this->parameters as $key => $value) {
+            if (is_array($value)) {
+                $parameters[$key] = '(' . implode(',', $value) . ')';
+            }
+        }
+
         $parameter_string = http_build_query($this->parameters);
 
         return sprintf('%s/%s?%s', $this->client->version, ltrim($path, '/'), $parameter_string);
