@@ -39,4 +39,29 @@ class MapObjectMapObjectSelectionClient extends NestedClient
     {
         return $this->all($include);
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data)
+    {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
+        return $this->request(vsprintf('object/%s/selection', $this->selectedId), 'POST',
+            $data);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function delete($data)
+    {
+        return $this->request(vsprintf('object/%s/selection', $this->selectedId), 'DELETE',
+            $data);
+    }
+
 }
