@@ -6,6 +6,7 @@ use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sort;
 
 /**
  * Class MapObjectActionClient
@@ -13,7 +14,7 @@ use Iza\Datacentralisatie\Traits\PerPage;
  */
 class MapObjectActionClient extends NestedClient
 {
-    use PerPage;
+    use PerPage, Sort;
 
     /**
      * @param array $include
@@ -26,6 +27,7 @@ class MapObjectActionClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
+        $this->addParameter('sort', $this->sort);
 
         return $this->request(vsprintf('object/%s/action', $this->selectedId));
     }
