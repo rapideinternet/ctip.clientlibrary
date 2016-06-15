@@ -13,6 +13,7 @@ use Iza\Datacentralisatie\Exceptions\Exception;
 class SelectedRoleClient extends NestedClient
 {
     protected $nestedObjects = [
+        'action_status' => \Iza\Datacentralisatie\Clients\Role\RoleActionStatusClient::class,
         'permission' => \Iza\Datacentralisatie\Clients\Role\RolePermissionsClient::class,
     ];
 
