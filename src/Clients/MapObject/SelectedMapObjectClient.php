@@ -14,6 +14,7 @@ class SelectedMapObjectClient extends NestedClient
 {
     protected $nestedObjects = [
         'action' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectActionClient::class,
+        'attachment' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectAttachmentClient::class,
         'attribute' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectAttributeClient::class,
         'category' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectCategoryClient::class,
         'children' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectChildrenClient::class,

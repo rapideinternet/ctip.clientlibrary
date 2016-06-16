@@ -67,6 +67,20 @@ abstract class BaseClient
         return $this->request($path, 'POST', $formData, $headers, false);
     }
 
+
+    /**
+     * @param $path
+     * @param UploadedFile $file
+     * @return mixed
+     */
+    public function binaryRequest($path, UploadedFile $file)
+    {
+        $formData = file_get_contents($file->getRealPath());
+        $headers = array("Content-Type" => "application/json");
+
+        return $this->request($path, 'POST', $formData, $headers, false);
+    }
+
     /**
      * @return array
      */

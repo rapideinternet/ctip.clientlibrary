@@ -39,7 +39,7 @@ abstract class NestedClient extends BaseClient
             }
         }
 
-        if (is_int($ids)) {
+        if(is_int($ids) || is_string($ids)){
             $this->selectedId[0] = $ids;
         }
     }
