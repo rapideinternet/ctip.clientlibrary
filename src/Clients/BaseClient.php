@@ -21,7 +21,7 @@ abstract class BaseClient
      */
     protected $restClient;
     /**
-     * @var string
+     * @var array
      */
     protected $parameters = [];
 
@@ -121,6 +121,12 @@ abstract class BaseClient
      */
     public function formatUrl($path)
     {
+        foreach ($this->parameters as $key => $value) {
+            if (is_array($value)) {
+                $parameters[$key] = '(' . implode(',', $value) . ')';
+            }
+        }
+
         $parameter_string = http_build_query($this->parameters);
 
         return sprintf('%s/%s?%s', $this->client->version, ltrim($path, '/'), $parameter_string);
