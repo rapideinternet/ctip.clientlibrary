@@ -56,6 +56,16 @@ class RoleActionStatusClient extends NestedClient
      * @param $data
      * @return mixed
      */
+    public function update($data)
+    {
+        return $this->request(vsprintf('role/%s/action_status', $this->selectedId), 'PATCH',
+            $data);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
     public function delete($data)
     {
         return $this->request(vsprintf('role/%s/action_status', $this->selectedId), 'DELETE',
