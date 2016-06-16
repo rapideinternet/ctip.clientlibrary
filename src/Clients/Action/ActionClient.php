@@ -7,6 +7,7 @@ use Iza\Datacentralisatie\Clients\BaseClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sort;
 
 /**
  * Class ActionClient
@@ -14,7 +15,7 @@ use Iza\Datacentralisatie\Traits\PerPage;
  */
 class ActionClient extends BaseClient implements ArrayAccess
 {
-    use PerPage;
+    use PerPage, Sort;
 
     /**
      * @param $filter
@@ -26,6 +27,7 @@ class ActionClient extends BaseClient implements ArrayAccess
         $this->addParameter('include', implode(',', $filter));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
+        $this->addParameter('sort', $this->sort);
 
         return $this->request('action', 'GET');
     }
