@@ -5,6 +5,7 @@ namespace Iza\Datacentralisatie\Clients\Action;
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
+use Iza\Datacentralisatie\Traits\PerPage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class ActionImageClient extends NestedClient implements ArrayAccess
 {
+    use PerPage;
+
     /**
      * @param array $include
      * @return mixed
@@ -20,6 +23,8 @@ class ActionImageClient extends NestedClient implements ArrayAccess
     public function all($include = [])
     {
         $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
 
         return $this->request(vsprintf('action/%s/image', $this->selectedId));
     }
