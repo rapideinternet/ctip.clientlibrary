@@ -11,6 +11,7 @@ use Iza\Datacentralisatie\Clients\NestedClient;
 class SelectedTenantClient extends NestedClient
 {
     protected $nestedObjects = [
+        'authorization' => \Iza\Datacentralisatie\Clients\Tenant\TenantAuthorizationClient::class,
         'user' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
     ];
 
