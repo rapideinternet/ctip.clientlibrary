@@ -22,6 +22,7 @@ class SelectedMapObjectClient extends NestedClient
         'dynamicActionType' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectDynamicActiontypeClient::class,
         'geo' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectGeoClient::class,
         'image' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectImageClient::class,
+        'linestring' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectLinestringClient::class,
         'parent' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentClient::class,
         'parents' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentsClient::class,
         'selection' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectMapObjectSelectionClient::class,
