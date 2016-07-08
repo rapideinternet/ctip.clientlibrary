@@ -28,6 +28,7 @@ class ClientProvider
             'country' => \Iza\Datacentralisatie\Clients\Country\CountryClient::class,
             'geoAttribute' => \Iza\Datacentralisatie\Clients\GeoAttribute\GeoAttributeClient::class,
             'geoObject' => \Iza\Datacentralisatie\Clients\GeoObject\GeoObjectClient::class,
+            'keyValue' => \Iza\Datacentralisatie\Clients\KeyValue\KeyValueClient::class,
             'mapObjectStatus' => \Iza\Datacentralisatie\Clients\MapObjectStatus\MapObjectStatusClient::class,
             'me' => \Iza\Datacentralisatie\Clients\Me\MeClient::class,
             'network' => \Iza\Datacentralisatie\Clients\Network\NetworkClient::class,
