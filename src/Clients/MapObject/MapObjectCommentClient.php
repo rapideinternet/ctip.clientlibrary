@@ -7,6 +7,7 @@ use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
+use Iza\Datacentralisatie\Traits\IsNested;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
@@ -15,7 +16,7 @@ use Iza\Datacentralisatie\Traits\PerPage;
  */
 class MapObjectCommentClient extends NestedClient implements ArrayAccess
 {
-    use PerPage;
+    use PerPage, IsNested;
 
     /**
      * @param array $include
@@ -28,6 +29,7 @@ class MapObjectCommentClient extends NestedClient implements ArrayAccess
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
+        $this->addParameter('nested', $this->isNested);
 
         return $this->request(vsprintf('object/%s/comment', $this->selectedId));
     }
