@@ -27,7 +27,7 @@ class MapObjectTypeSettingClient extends BaseClient implements ArrayAccess
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
-        return $this->request('type', 'GET');
+        return $this->request('type_setting', 'GET');
     }
 
     /**
@@ -39,7 +39,7 @@ class MapObjectTypeSettingClient extends BaseClient implements ArrayAccess
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('type/%s', $id), 'GET');
+        return $this->request(vsprintf('type_setting/%s', $id), 'GET');
     }
 
     /**
@@ -48,7 +48,7 @@ class MapObjectTypeSettingClient extends BaseClient implements ArrayAccess
      */
     public function create($data)
     {
-        return $this->request('type', 'POST', $data);
+        return $this->request('type_setting', 'POST', $data);
     }
 
     /**
