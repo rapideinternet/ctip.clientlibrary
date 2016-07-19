@@ -39,6 +39,7 @@ class ClientProvider
             'selectionType' => \Iza\Datacentralisatie\Clients\MapObjectSelectionType\MapObjectSelectionTypeClient::class,
             'tenant' => \Iza\Datacentralisatie\Clients\Tenant\TenantClient::class,
             'type' => \Iza\Datacentralisatie\Clients\MapObjectType\MapObjectTypeClient::class,
+            'typeSetting' => \Iza\Datacentralisatie\Clients\MapObjectTypeSetting\MapObjectTypeSettingClient::class,
             'user' => \Iza\Datacentralisatie\Clients\User\UserClient::class,
         ];
     }
