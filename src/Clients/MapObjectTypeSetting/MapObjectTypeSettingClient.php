@@ -1,19 +1,17 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Role;
+namespace Iza\Datacentralisatie\Clients\MapObjectTypeSetting;
 
 use ArrayAccess;
-use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Clients\BaseClient;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
- * Class RolePermissionsClient
- * @package Iza\Datacentralisatie\Clients\Role
+ * Class MapObjectTypeSettingClient
+ * @package Iza\Datacentralisatie\Clients\MapObjectTypeSetting
  */
-class RolePermissionsClient extends NestedClient implements ArrayAccess
+class MapObjectTypeSettingClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
@@ -22,14 +20,14 @@ class RolePermissionsClient extends NestedClient implements ArrayAccess
      * @param array $filter
      * @return mixed
      */
-    function all($include = [], $filter = [])
+    public function all($include = [], $filter = [])
     {
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
-        return $this->request(vsprintf('role/%s/permissions', $this->selectedId));
+        return $this->request('type', 'GET');
     }
 
     /**
@@ -39,7 +37,9 @@ class RolePermissionsClient extends NestedClient implements ArrayAccess
      */
     public function byId($id, $include = [])
     {
-        return $this->all($include);
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('type/%s', $id), 'GET');
     }
 
     /**
@@ -48,18 +48,7 @@ class RolePermissionsClient extends NestedClient implements ArrayAccess
      */
     public function create($data)
     {
-        return $this->request(vsprintf('role/%s/permissions', $this->selectedId), 'POST',
-            $data);
-    }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    public function delete($data)
-    {
-        return $this->request(vsprintf('role/%s/permissions', $this->selectedId), 'DELETE',
-            $data);
+        return $this->request('type', 'POST', $data);
     }
 
     /**
@@ -74,13 +63,11 @@ class RolePermissionsClient extends NestedClient implements ArrayAccess
 
     /**
      * @param mixed $offset
-     * @return SelectedRolePermissionsClient
+     * @return SelectedMapObjectTypeSettingClient
      */
     public function offsetGet($offset)
     {
-        array_push($this->selectedId, $offset);
-
-        return new SelectedRolePermissionsClient($this->client, $this->selectedId);
+        return new SelectedMapObjectTypeSettingClient($this->client, $offset);
     }
 
     /**
