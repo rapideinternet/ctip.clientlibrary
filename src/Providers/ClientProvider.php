@@ -35,6 +35,7 @@ class ClientProvider
             'object' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectClient::class,
             'permission' => \Iza\Datacentralisatie\Clients\Permission\PermissionClient::class,
             'role' => \Iza\Datacentralisatie\Clients\Role\RoleClient::class,
+            'session' => \Iza\Datacentralisatie\Clients\Session\SessionClient::class,
             'selection' => \Iza\Datacentralisatie\Clients\MapObjectSelection\MapObjectSelectionClient::class,
             'selectionType' => \Iza\Datacentralisatie\Clients\MapObjectSelectionType\MapObjectSelectionTypeClient::class,
             'tenant' => \Iza\Datacentralisatie\Clients\Tenant\TenantClient::class,

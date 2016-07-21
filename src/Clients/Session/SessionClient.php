@@ -1,18 +1,15 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\Role;
+namespace Iza\Datacentralisatie\Clients\Session;
 
-use ArrayAccess;
 use Iza\Datacentralisatie\Clients\BaseClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
-use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
  * Class SessionClient
  * @package Iza\Datacentralisatie\Clients\Role
  */
-class SessionClient extends BaseClient implements ArrayAccess
+class SessionClient extends BaseClient
 {
     use PerPage;
 
@@ -21,10 +18,10 @@ class SessionClient extends BaseClient implements ArrayAccess
      * @param array $include
      * @return mixed
      */
-    public function byId($id, $include = [])
+    public function tenant($include = [])
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('session/%s', $id), 'GET');
+        return $this->request('session/tenant', 'GET');
     }
 }
