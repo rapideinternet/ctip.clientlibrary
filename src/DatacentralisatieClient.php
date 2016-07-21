@@ -147,6 +147,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this->getCredentials()[self::TOKEN];
     }
 
+    public function getRefreshToken()
+    {
+        return $this->getCredentials()[self::REFRESH_TOKEN];
+
+    }
+
     /**
      * @param $token
      */
