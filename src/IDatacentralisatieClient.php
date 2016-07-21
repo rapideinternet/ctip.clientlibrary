@@ -6,9 +6,11 @@
  */
 interface IDatacentralisatieClient
 {
-    CONST EMAIL = 'email';
+    CONST USERNAME = 'username';
     CONST PASSWORD = 'password';
-    CONST TENANT_ID = 'tenant_id';
     CONST TOKEN = 'token';
+    CONST CLIENT_ID = 'client_id';
+    CONST CLIENT_SECRET = 'client_secret';
+    CONST REFRESH_TOKEN = 'refresh_token';
 
 }

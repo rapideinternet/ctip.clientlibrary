@@ -24,8 +24,11 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var array
      */
     protected $credentials = [
-        'token' => null,
-        'tenant_id' => null,
+        self::USERNAME => null,
+        self::PASSWORD => null,
+        self::TOKEN => null,
+        self::CLIENT_ID => null,
+        self::CLIENT_SECRET => null
     ];
 
     /**
@@ -36,6 +39,22 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var bool
      */
     protected $is_authenticated = false;
+
+    /**
+     * @var bool
+     */
+    protected $use_refresh = false;
+
+    /**
+     * @var int
+     */
+    protected $refresh_counter = 0;
+
+    /**
+     * @var int
+     */
+    public $refresh_tries = 1;
+
     /**
      * @var array
      */
@@ -76,23 +95,56 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         /** @var Response $response */
         $response = (new AuthClient($this))->login();
 
-        if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->token)) {
-            $this->setToken($response->getParsedResponse()->data->token);
-            $this->setTenantId($response->getParsedResponse()->data->tenant_id);
-        } else {
-            //todo this is crappy
-            throw new Exception('Something went wrong during authentication');
+        $this->authRequest($response);
+    }
+
+    public function refresh()
+    {
+        /** @var Response $response */
+        $response = (new AuthClient($this))->refresh();
+
+        $this->authRequest($response);
+    }
+
+    public function handleError($data)
+    {
+        switch ($data->error) {
+            case 'access_denied':
+                if ($this->use_refresh && ($this->refresh_counter < $this->refresh_tries)) {
+                    $this->refresh_counter++;
+                    $this->refresh();
+                    return;
+                }
+                break;
         }
+
+        throw new Exception($data->detail);
+
+    }
+
+    public function authRequest(Response $response)
+    {
+
+        if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->access_token)) {
+
+            $this->setToken($response->getParsedResponse()->data->access_token);
+
+            if (isset($response->getParsedResponse()->data->refresh_token)) {
+                $this->setRefreshToken($response->getParsedResponse()->data->refresh_token);
+            }
+        } else {
+            if ($response->getInfo()->http_code >= 300 && isset($response->getParsedResponse()->data->error)) {
+                $this->handleError($response->getParsedResponse()->data);
+            }
+
+            throw new Exception('Received an invalid response');
+        }
+
     }
 
     public function getToken()
     {
         return $this->getCredentials()[self::TOKEN];
-    }
-
-    public function getTenantId()
-    {
-        return $this->getCredentials()[self::TENANT_ID];
     }
 
     /**
@@ -105,11 +157,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     }
 
     /**
-     * @param $tenant_id
+     * @param $token
      */
-    public function setTenantId($tenant_id)
+    public function setRefreshToken($refreshToken)
     {
-        $this->credentials[self::TENANT_ID] = $tenant_id;
+        $this->credentials[self::REFRESH_TOKEN] = $refreshToken;
+        $this->use_refresh = true;
     }
 
     public function isAuthenticated()
@@ -141,8 +194,16 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     {
         $this->credentials = array_merge($this->credentials, $credentials);
 
+        if (!isset($credentials[self::CLIENT_ID])) {
+            throw new FormatException('No oauth client id set');
+        }
+
+        if (!isset($credentials[self::CLIENT_SECRET])) {
+            throw new FormatException('No oauth client secret set');
+        }
+
         if (!isset($credentials[self::TOKEN])) {
-            if (!isset($credentials[self::EMAIL])) {
+            if (!isset($credentials[self::USERNAME])) {
                 throw new FormatException('No email/username set');
             }
 
