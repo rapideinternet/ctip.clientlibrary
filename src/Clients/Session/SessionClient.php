@@ -24,4 +24,9 @@ class SessionClient extends BaseClient
 
         return $this->request('session/tenant', 'GET');
     }
+
+    public function setTenant($tenantId)
+    {
+        return $this->request(sprintf('session/tenant/%d', $tenantId), 'POST');
+    }
 }
