@@ -118,8 +118,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
                 break;
         }
 
-        throw new Exception($data->detail);
-
+        throw new Exception($data->error_description);
     }
 
     public function authRequest(Response $response)
