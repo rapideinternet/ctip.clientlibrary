@@ -125,16 +125,16 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     public function authRequest(Response $response)
     {
 
-        if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->data->access_token)) {
+        if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->access_token)) {
 
-            $this->setToken($response->getParsedResponse()->data->access_token);
+            $this->setToken($response->getParsedResponse()->access_token);
 
-            if (isset($response->getParsedResponse()->data->refresh_token)) {
-                $this->setRefreshToken($response->getParsedResponse()->data->refresh_token);
+            if (isset($response->getParsedResponse()->refresh_token)) {
+                $this->setRefreshToken($response->getParsedResponse()->refresh_token);
             }
         } else {
-            if ($response->getInfo()->http_code >= 300 && isset($response->getParsedResponse()->data->error)) {
-                $this->handleError($response->getParsedResponse()->data);
+            if ($response->getInfo()->http_code >= 300 && isset($response->getParsedResponse()->error)) {
+                $this->handleError($response->getParsedResponse());
             }
 
             throw new Exception('Received an invalid response');
