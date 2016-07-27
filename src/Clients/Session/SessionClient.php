@@ -3,7 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\Session;
 
 use Iza\Datacentralisatie\Clients\BaseClient;
-use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
  * Class SessionClient
@@ -11,8 +10,6 @@ use Iza\Datacentralisatie\Traits\PerPage;
  */
 class SessionClient extends BaseClient
 {
-    use PerPage;
-
     /**
      * @param $id
      * @param array $include

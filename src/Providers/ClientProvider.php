@@ -14,6 +14,7 @@ class ClientProvider
     public function clients()
     {
         return [
+            'account' => \Iza\Datacentralisatie\Clients\Account\AccountClient::class,
             'action' => \Iza\Datacentralisatie\Clients\Action\ActionClient::class,
             'actionImageType' => \Iza\Datacentralisatie\Clients\ActionImageType\ActionImageTypeClient::class,
             'actionPriority' => \Iza\Datacentralisatie\Clients\ActionPriority\ActionPriorityClient::class,
