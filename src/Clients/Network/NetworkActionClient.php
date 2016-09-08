@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\Network;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 use Iza\Datacentralisatie\Traits\Sort;
 
@@ -30,6 +28,21 @@ class NetworkActionClient extends NestedClient
         $this->addParameter('sort', $this->sort);
 
         return $this->request(vsprintf('network/%s/action', $this->selectedId));
+    }
+
+    /**
+     * @param int $updated_at
+     * @param array $include
+     * @param bool $deleted_at
+     * @return mixed
+     */
+    public function web($updated_at = 0, $include = [], $deleted_at = false)
+    {
+        $this->addParameter('include', implode(',', $include));
+        $this->addParameter('updated_at', $updated_at);
+        $this->addParameter('deleted_at', $deleted_at);
+
+        return $this->request(vsprintf('network/%s/action/web', $this->selectedId));
     }
 
     /**
