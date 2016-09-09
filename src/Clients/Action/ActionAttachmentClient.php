@@ -4,8 +4,6 @@ namespace Iza\Datacentralisatie\Clients\Action;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -18,8 +16,10 @@ class ActionAttachmentClient extends NestedClient implements ArrayAccess
     /**
      * @return mixed
      */
-    public function all()
+    public function all($include = [])
     {
+        $this->addParameter('include', implode(',', $include));
+
         return $this->request(vsprintf('action/%s/attachment', $this->selectedId));
     }
 
