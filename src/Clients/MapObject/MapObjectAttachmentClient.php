@@ -40,7 +40,7 @@ class MapObjectAttachmentClient extends NestedClient implements ArrayAccess
      */
     public function create($data, UploadedFile $file)
     {
-        $data['size'] = $file->getClientSize();
+        $data['size'] = $file->getSize();
         $response = $this->request(vsprintf('object/%s/attachment', $this->selectedId), 'POST', $data);
 
         if ($response->getInfo()->http_code != 200 || !isset($response->data->upload_url)) {
