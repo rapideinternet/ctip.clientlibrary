@@ -12,5 +12,6 @@ interface IDatacentralisatieClient
     CONST CLIENT_ID = 'client_id';
     CONST CLIENT_SECRET = 'client_secret';
     CONST REFRESH_TOKEN = 'refresh_token';
-
+    CONST EXPIRE_TIME = 'expire_time';
+    CONST EXPIRE_THRESHOLD = 'expire_threshold';
 }

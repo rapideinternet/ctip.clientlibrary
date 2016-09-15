@@ -28,7 +28,9 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         self::PASSWORD => null,
         self::TOKEN => null,
         self::CLIENT_ID => null,
-        self::CLIENT_SECRET => null
+        self::CLIENT_SECRET => null,
+        self::EXPIRE_TIME => null,
+        self::EXPIRE_THRESHOLD => 600
     ];
 
     /**
@@ -131,6 +133,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
             if (isset($response->getParsedResponse()->refresh_token)) {
                 $this->setRefreshToken($response->getParsedResponse()->refresh_token);
             }
+
+            $this->setExpired($response->getParsedResponse()->expires_in)
         } else {
             if ($response->getInfo()->http_code >= 300 && isset($response->getParsedResponse()->error)) {
                 $this->handleError($response->getParsedResponse());
@@ -141,15 +145,20 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getToken()
     {
         return $this->getCredentials()[self::TOKEN];
     }
 
+    /**
+     * @return mixed
+     */
     public function getRefreshToken()
     {
         return $this->getCredentials()[self::REFRESH_TOKEN];
-
     }
 
     /**
@@ -159,6 +168,50 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     {
         $this->credentials[self::TOKEN] = $token;
         $this->is_authenticated = true;
+    }
+
+    /**
+     * @return null|int
+     */
+    public function getExpired()
+    {
+        return $this->credentials[self::EXPIRE_TIME];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExpired()
+    {
+        if (is_null($this->credentials[self::EXPIRE_TIME])) {
+            return false;
+        }
+
+        return time() < ($this->credentials[self::EXPIRE_TIME] - $this->credentials[self::EXPIRE_THRESHOLD]);
+    }
+
+    /**
+     * @param $expired int Expiration time in seconds
+     */
+    public function setExpired($expired)
+    {
+        $this->credentials[self::EXPIRE_TIME] = time() + $expired;
+    }
+
+    /**
+     * @return int
+     */
+    public function getExpireThreshold()
+    {
+        return $this->credentials[self::EXPIRE_THRESHOLD];
+    }
+
+    /**
+     * @param $threshold int Set expire threshold before refreshing
+     */
+    public function setExprieThreshold($threshold)
+    {
+        $this->credentials[self::EXPIRE_THRESHOLD] = $threshold;
     }
 
     /**

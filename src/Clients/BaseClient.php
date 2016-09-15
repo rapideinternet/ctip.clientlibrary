@@ -34,6 +34,13 @@ abstract class BaseClient
         $this->restClient = RestClient::instance($client->getUrl());
     }
 
+    private function beforeRequest()
+    {
+        if ($this->client->isExpired()) {
+            $this->client->refresh();
+        }
+    }
+
     /**
      * @param $path
      * @param string $method
@@ -44,6 +51,7 @@ abstract class BaseClient
      */
     public function request($path, $method = 'GET', $data = null, $headers = [], $isJson = true)
     {
+        $this->beforeRequest();
         $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data,
             array_merge($this->getDefaultHeaders(), $headers), $isJson)->getResponse();
 
@@ -58,6 +66,7 @@ abstract class BaseClient
      */
     public function fileRequest($path, UploadedFile $file, $data)
     {
+        $this->beforeRequest();
         $formData = array(
             'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
         );
@@ -75,6 +84,7 @@ abstract class BaseClient
      */
     public function binaryRequest($path, UploadedFile $file)
     {
+        $this->beforeRequest();
         $formData = file_get_contents($file->getRealPath());
         $headers = array("Content-Type" => "application/json");
 
