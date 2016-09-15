@@ -134,7 +134,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
                 $this->setRefreshToken($response->getParsedResponse()->refresh_token);
             }
 
-            $this->setExpired($response->getParsedResponse()->expires_in)
+            $this->setExpired($response->getParsedResponse()->expires_in);
         } else {
             if ($response->getInfo()->http_code >= 300 && isset($response->getParsedResponse()->error)) {
                 $this->handleError($response->getParsedResponse());
