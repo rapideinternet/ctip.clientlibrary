@@ -184,7 +184,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     public function isExpired()
     {
         if (is_null($this->credentials[self::EXPIRE_TIME])) {
-            return false;
+            return true;
         }
 
         return time() < ($this->credentials[self::EXPIRE_TIME] - $this->credentials[self::EXPIRE_THRESHOLD]);

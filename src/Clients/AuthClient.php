@@ -2,6 +2,7 @@
 
 namespace Iza\Datacentralisatie\Clients;
 
+use Iza\Datacentralisatie\DatacentralisatieClient;
 use Iza\Datacentralisatie\IDatacentralisatieClient;
 
 /**
@@ -10,6 +11,15 @@ use Iza\Datacentralisatie\IDatacentralisatieClient;
  */
 class AuthClient extends BaseClient
 {
+    /**
+     * @param DatacentralisatieClient $client
+     */
+    public function __construct(DatacentralisatieClient $client)
+    {
+        parent::__construct($client);
+        $this->setRaw();
+    }
+
     /**
      * @return mixed
      */

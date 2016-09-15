@@ -26,6 +26,11 @@ abstract class BaseClient
     protected $parameters = [];
 
     /**
+     * @var bool
+     */
+    protected $raw = false;
+
+    /**
      * @param DatacentralisatieClient $client
      */
     public function __construct(DatacentralisatieClient $client)
@@ -34,8 +39,15 @@ abstract class BaseClient
         $this->restClient = RestClient::instance($client->getUrl());
     }
 
+    /**
+     *
+     */
     private function beforeRequest()
     {
+        if ($this->raw) {
+            return;
+        }
+
         if ($this->client->isExpired()) {
             $this->client->refresh();
         }
@@ -154,5 +166,14 @@ abstract class BaseClient
         $parameter_string = http_build_query($this->parameters);
 
         return sprintf('%s/%s?%s', $this->client->version, ltrim($path, '/'), $parameter_string);
+    }
+
+    /**
+     * @return BaseClient
+     */
+    public function setRaw()
+    {
+        $this->raw = true;
+        return $this;
     }
 }
