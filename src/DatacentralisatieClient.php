@@ -192,7 +192,7 @@ class DatacentralisatieClient implements IDatacentralisatieClient
             return true;
         }
 
-        return time() < ($this->credentials[self::EXPIRE_TIME] - $this->credentials[self::EXPIRE_THRESHOLD]);
+        return time() > ($this->credentials[self::EXPIRE_TIME] - $this->credentials[self::EXPIRE_THRESHOLD]);
     }
 
     /**
