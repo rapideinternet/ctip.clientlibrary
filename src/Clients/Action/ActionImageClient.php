@@ -30,6 +30,14 @@ class ActionImageClient extends NestedClient implements ArrayAccess
     }
 
     /**
+     * @return mixed
+     */
+    public function promote()
+    {
+        return $this->request(vsprintf('action/%s/image/promote', $this->selectedId));
+    }
+
+    /**
      * @param $id
      * @param array $include
      * @return mixed
