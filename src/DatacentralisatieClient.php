@@ -106,6 +106,12 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $response = (new AuthClient($this))->refresh();
 
         $this->authRequest($response);
+        $this->callback($this);
+    }
+
+    public function setRefreshCallback($next)
+    {
+        $this->callback = $next;
     }
 
     public function handleError($data)
@@ -125,7 +131,6 @@ class DatacentralisatieClient implements IDatacentralisatieClient
 
     public function authRequest(Response $response)
     {
-
         if ($response->getInfo()->http_code == 200 && isset($response->getParsedResponse()->access_token)) {
 
             $this->setToken($response->getParsedResponse()->access_token);
