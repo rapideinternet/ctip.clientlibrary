@@ -62,6 +62,9 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      */
     protected $clients = [];
 
+    /**
+     * @var null
+     */
     protected $callback = null;
 
     /**
@@ -114,7 +117,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
     public function fireCallback()
     {
         if (is_callable($this->callback)) {
-            call_user_func_array([$this, 'callback'], [$this]);
+            $store = $this->callback;
+            $store($this);
         }
     }
 
