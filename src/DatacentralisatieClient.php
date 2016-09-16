@@ -33,6 +33,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         self::EXPIRE_THRESHOLD => 600
     ];
 
+    const DEFAULT_HANDLER = 'default';
+
     /**
      * @var string
      */
@@ -66,6 +68,11 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      * @var null
      */
     protected $callback = null;
+
+    /**
+     * @var array
+     */
+    protected $errorEvents = [];
 
     /**
      * DatacentralisatieClient constructor
@@ -114,6 +121,37 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $this->fireCallback();
     }
 
+    /**
+     * @param $key
+     * @param $next
+     */
+    public function setEventErrorHandler($key, $next)
+    {
+        $this->errorEvents[$key] = $next;
+    }
+
+    /**
+     * @param $next
+     */
+    public function setDefaultEventErrorHandler($next)
+    {
+        $this->errorEvents[self::DEFAULT_HANDLER] = $next;
+    }
+
+    /**
+     * @param $key
+     */
+    public function fireErrorEvent($key)
+    {
+        if (is_callable($this->errorEvents[$key])) {
+            $store = $this->errorEvents[$key];
+            $store($key, $this);
+        }
+    }
+
+    /**
+     *
+     */
     public function fireCallback()
     {
         if (is_callable($this->callback)) {
@@ -122,11 +160,18 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         }
     }
 
+    /**
+     * @param $next Callable function
+     */
     public function setRefreshCallback($next)
     {
         $this->callback = $next;
     }
 
+    /**
+     * @param $data
+     * @throws Exception
+     */
     public function handleError($data)
     {
         switch ($data->error) {
@@ -139,7 +184,18 @@ class DatacentralisatieClient implements IDatacentralisatieClient
                 break;
         }
 
+        $this->handleErrorEvents($data->error);
+
         throw new Exception($data->error_description);
+    }
+
+    public function handleErrorEvents($event)
+    {
+        if (isset($this->errorEvents[$event])) {
+            $this->fireErrorEvent($event);
+        } elseif (isset($this->errorEvents[self::DEFAULT_HANDLER])) {
+            $this->fireErrorEvent(self::DEFAULT_HANDLER);
+        }
     }
 
     public function authRequest(Response $response)

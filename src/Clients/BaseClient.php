@@ -79,11 +79,11 @@ abstract class BaseClient
     public function fileRequest($path, UploadedFile $file, $data)
     {
         $this->beforeRequest();
-        $formData = array(
+        $formData = [
             'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
-        );
+        ];
         $formData = array_merge($formData, $data);
-        $headers = array("Content-Type" => "multipart/form-data");
+        $headers = ["Content-Type" => "multipart/form-data"];
 
         return $this->request($path, 'POST', $formData, $headers, false);
     }
@@ -98,7 +98,7 @@ abstract class BaseClient
     {
         $this->beforeRequest();
         $formData = file_get_contents($file->getRealPath());
-        $headers = array("Content-Type" => "application/json");
+        $headers = ["Content-Type" => "application/json"];
 
         return $this->request($path, 'POST', $formData, $headers, false);
     }
