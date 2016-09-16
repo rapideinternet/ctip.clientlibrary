@@ -30,14 +30,6 @@ class ActionImageClient extends NestedClient implements ArrayAccess
     }
 
     /**
-     * @return mixed
-     */
-    public function promote()
-    {
-        return $this->request(vsprintf('action/%s/image/promote', $this->selectedId));
-    }
-
-    /**
      * @param $id
      * @param array $include
      * @return mixed
@@ -95,5 +87,19 @@ class ActionImageClient extends NestedClient implements ArrayAccess
     public function offsetUnset($offset)
     {
         throw new NotImplementedException;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function promote($mapObjectId = null)
+    {
+        dd($mapObjectId);
+
+        if (is_null($mapObjectId)) {
+            return $this->request(vsprintf('action/%s/image/promote', $this->selectedId));
+        } else {
+            return $this->request(vsprintf('action/%s/image/promote/%s', array_push($this->selectedId, $mapObjectId)));
+        }
     }
 }
