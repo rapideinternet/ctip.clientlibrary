@@ -62,6 +62,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      */
     protected $clients = [];
 
+    protected $callback = null;
+
     /**
      * DatacentralisatieClient constructor
      * @param $url
@@ -106,7 +108,14 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         $response = (new AuthClient($this))->refresh();
 
         $this->authRequest($response);
-        $this->callback($this);
+        $this->fireCallback();
+    }
+
+    public function fireCallback()
+    {
+        if (is_callable($this->callback)) {
+            call_user_func([$this, $this->callback], [$this]);
+        }
     }
 
     public function setRefreshCallback($next)
