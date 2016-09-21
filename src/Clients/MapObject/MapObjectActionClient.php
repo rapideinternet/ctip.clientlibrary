@@ -26,7 +26,7 @@ class MapObjectActionClient extends NestedClient
         $this->addParameter('include', implode(',', $include));
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
-        $this->addParameter('sort', $this->sort);
+        $this->addParameter('sort', $this->getSort());
         $this->addParameter('nested', $this->isNested);
 
         return $this->request(vsprintf('object/%s/action', $this->selectedId));
