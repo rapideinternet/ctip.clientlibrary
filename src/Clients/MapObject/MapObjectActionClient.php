@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\IsNested;
 use Iza\Datacentralisatie\Traits\PerPage;
 use Iza\Datacentralisatie\Traits\Sort;

@@ -6,16 +6,24 @@
  */
 trait Sort
 {
-    protected $sort = "";
+    protected $sort = [];
 
     /**
      * @param $sort
      * @return $this
      */
-    public function setSort($sort)
+    public function setSort(array $sort = [])
     {
         $this->sort = $sort;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSort()
+    {
+        return implode(',', $this->sort);
     }
 }
