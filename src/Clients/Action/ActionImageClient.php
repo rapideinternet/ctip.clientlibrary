@@ -97,7 +97,8 @@ class ActionImageClient extends NestedClient implements ArrayAccess
         if (is_null($mapObjectId)) {
             return $this->request(vsprintf('action/%s/image/promote', $this->selectedId));
         } else {
-            return $this->request(vsprintf('action/%s/image/promote/%s', array_push($this->selectedId, $mapObjectId)));
+            array_push($this->selectedId, $mapObjectId);
+            return $this->request(vsprintf('action/%s/image/promote/%s', $this->selectedId));
         }
     }
 }
