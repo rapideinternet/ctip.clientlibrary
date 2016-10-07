@@ -2,16 +2,16 @@
 
 namespace Iza\Datacentralisatie\Clients\MapObjectType;
 
+use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\Sync;
 
 /**
  * Class MapObjectTypeAttributeClient
  * @package Iza\Datacentralisatie\Clients\MapObjectType
  */
-class MapObjectTypeAttributeClient extends NestedClient
+class MapObjectTypeAttributeClient extends NestedClient implements ArrayAccess
 {
     use Sync;
 
@@ -62,4 +62,44 @@ class MapObjectTypeAttributeClient extends NestedClient
             $data);
     }
 
+
+    /**
+     * @param mixed $offset
+     * @return bool|void
+     * @throws NotImplementedException
+     */
+    public function offsetExists($offset)
+    {
+        throw new NotImplementedException;
+    }
+
+    /**
+     * @param mixed $offset
+     * @return SelectedMapObjectTypeAttributeClient
+     */
+    public function offsetGet($offset)
+    {
+        array_push($this->selectedId, $offset);
+
+        return new SelectedMapObjectTypeAttributeClient($this->client, $this->selectedId);
+    }
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @throws NotImplementedException
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new NotImplementedException;
+    }
+
+    /**
+     * @param mixed $offset
+     * @throws NotImplementedException
+     */
+    public function offsetUnset($offset)
+    {
+        throw new NotImplementedException;
+    }
 }
