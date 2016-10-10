@@ -24,7 +24,9 @@ class SelectedMapObjectTypeAttributeClient extends NestedClient
      */
     public function byId($id, $include = [])
     {
-        $this->addParameter('default', $this->defaultAttribute);
+        if($this->defaultAttribute){
+            $this->addParameter('default', $this->defaultAttribute);
+        }
         return $this->request(vsprintf('type/%s/attribute/%s', $this->selectedId), 'GET');
     }
 

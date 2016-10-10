@@ -25,6 +25,9 @@ class MapObjectTypeAttributeClient extends NestedClient implements ArrayAccess
     {
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
+        if($this->defaultAttribute){
+            $this->addParameter('default', $this->defaultAttribute);
+        }
 
         return $this->request(vsprintf('type/%s/attribute', $this->selectedId));
     }
