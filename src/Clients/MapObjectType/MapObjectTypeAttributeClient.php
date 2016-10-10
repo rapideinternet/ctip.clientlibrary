@@ -5,6 +5,7 @@ namespace Iza\Datacentralisatie\Clients\MapObjectType;
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
+use Iza\Datacentralisatie\Traits\DefaultAttribute;
 use Iza\Datacentralisatie\Traits\Sync;
 
 /**
@@ -13,7 +14,7 @@ use Iza\Datacentralisatie\Traits\Sync;
  */
 class MapObjectTypeAttributeClient extends NestedClient implements ArrayAccess
 {
-    use Sync;
+    use Sync, DefaultAttribute;
 
     /**
      * @param array $include
