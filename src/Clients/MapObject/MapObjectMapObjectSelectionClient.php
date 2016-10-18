@@ -3,9 +3,8 @@
 namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 /**
  * Class MapObjectMapObjectSelectionClient
@@ -13,7 +12,17 @@ use Iza\Datacentralisatie\Traits\PerPage;
  */
 class MapObjectMapObjectSelectionClient extends NestedClient
 {
-    use PerPage;
+    use PerPage, Sync;
+
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
+    public function byId($id, $include = [])
+    {
+        return $this->all($include);
+    }
 
     /**
      * @param array $include
@@ -28,16 +37,6 @@ class MapObjectMapObjectSelectionClient extends NestedClient
         $this->addParameter('page', $this->page);
 
         return $this->request(vsprintf('object/%s/selection', $this->selectedId));
-    }
-
-    /**
-     * @param $id
-     * @param array $include
-     * @return mixed
-     */
-    public function byId($id, $include = [])
-    {
-        return $this->all($include);
     }
 
     /**
