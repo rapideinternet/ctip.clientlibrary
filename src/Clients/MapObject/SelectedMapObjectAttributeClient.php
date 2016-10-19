@@ -3,9 +3,8 @@
 namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
+use Iza\Datacentralisatie\Traits\DefaultAttribute;
 
 /**
  * Class SelectedMapObjectAttributeClient
@@ -13,6 +12,8 @@ use Iza\Datacentralisatie\Exceptions\NotImplementedException;
  */
 class SelectedMapObjectAttributeClient extends NestedClient
 {
+    use DefaultAttribute;
+
     /**
      * @param $id
      * @param array $include
@@ -21,7 +22,10 @@ class SelectedMapObjectAttributeClient extends NestedClient
      */
     public function byId($id, $include = [])
     {
-        throw new NotImplementedException;
+        if($this->defaultAttribute){
+            $this->addParameter('default', $this->defaultAttribute);
+        }
+        return $this->request(vsprintf('object/%s/attribute/%s', $this->selectedId), 'GET');
     }
 
     /**
