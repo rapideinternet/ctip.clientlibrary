@@ -80,7 +80,7 @@ abstract class BaseClient
     {
         $this->beforeRequest();
         $formData = [
-            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getClientOriginalName())
+            'image' => new \CURLFile($file->getRealPath(), $file->getMimeType(), $file->getFilename())
         ];
         $formData = array_merge($formData, $data);
         $headers = ["Content-Type" => "multipart/form-data"];
