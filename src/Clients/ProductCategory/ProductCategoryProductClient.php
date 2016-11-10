@@ -1,15 +1,15 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\DynamicActionTypeCategory;
+namespace Iza\Datacentralisatie\Clients\ProductCategory;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
- * Class DynamicActionTypeCategoryDynamicActionTypeClient
- * @package Iza\Datacentralisatie\Clients\DynamicActionTypeCategory
+ * Class ProductCategoryProductClient
+ * @package Iza\Datacentralisatie\Clients\ProductCategory
  */
-class DynamicActionTypeCategoryDynamicActionTypeClient extends NestedClient
+class ProductCategoryProductClient extends NestedClient
 {
     use PerPage;
 
@@ -35,6 +35,6 @@ class DynamicActionTypeCategoryDynamicActionTypeClient extends NestedClient
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
-        return $this->request(vsprintf('dynamic_action_type_category/%s/dynamic_action_type', $this->selectedId));
+        return $this->request(vsprintf('product_category/%s/product', $this->selectedId));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\DynamicActionTypeCategory;
+namespace Iza\Datacentralisatie\Clients\ProductCategory;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\BaseClient;
@@ -8,10 +8,10 @@ use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
- * Class DynamicActionTypeCategoryClient
- * @package Iza\Datacentralisatie\Clients\DynamicActionTypeCategory
+ * Class ProductCategoryClient
+ * @package Iza\Datacentralisatie\Clients\ProductCategory
  */
-class DynamicActionTypeCategoryClient extends BaseClient implements ArrayAccess
+class ProductCategoryClient extends BaseClient implements ArrayAccess
 {
     use PerPage;
 
@@ -27,7 +27,7 @@ class DynamicActionTypeCategoryClient extends BaseClient implements ArrayAccess
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
-        return $this->request('dynamic_action_type_category', 'GET');
+        return $this->request('product_category', 'GET');
     }
 
     /**
@@ -39,7 +39,7 @@ class DynamicActionTypeCategoryClient extends BaseClient implements ArrayAccess
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('dynamic_action_type_category/%s', $id), 'GET');
+        return $this->request(vsprintf('product_category/%s', $id), 'GET');
     }
 
     /**
@@ -48,7 +48,7 @@ class DynamicActionTypeCategoryClient extends BaseClient implements ArrayAccess
      */
     public function create($data)
     {
-        return $this->request('dynamic_action_type_category', 'POST', $data);
+        return $this->request('product_category', 'POST', $data);
     }
 
     /**
@@ -63,11 +63,11 @@ class DynamicActionTypeCategoryClient extends BaseClient implements ArrayAccess
 
     /**
      * @param mixed $offset
-     * @return SelectedDynamicActionTypeCategoryClient
+     * @return SelectedProductCategoryClient
      */
     public function offsetGet($offset)
     {
-        return new SelectedDynamicActionTypeCategoryClient($this->client, $offset);
+        return new SelectedProductCategoryClient($this->client, $offset);
     }
 
     /**

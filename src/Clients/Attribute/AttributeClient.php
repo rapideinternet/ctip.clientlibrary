@@ -4,7 +4,6 @@ namespace Iza\Datacentralisatie\Clients\Attribute;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\BaseClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
 

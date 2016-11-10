@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\DynamicActionTypeCategory;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 
 /**
  * Class SelectedDynamicActionTypeCategoryClient

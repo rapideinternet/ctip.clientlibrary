@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\DynamicActionType;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Traits\PerPage;
 
 /**
@@ -34,7 +32,7 @@ class SelectedDynamicActionTypeClient extends NestedClient
 
         return $this->request(vsprintf('dynamic_action_type/%s', $id), 'GET');
     }
-
+    
     /**
      * @param $data
      * @return mixed
