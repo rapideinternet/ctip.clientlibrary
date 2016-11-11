@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 
 /**
  * Class SelectedMapObjectClient
@@ -25,6 +23,7 @@ class SelectedMapObjectClient extends NestedClient
         'linestring' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectLinestringClient::class,
         'parent' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentClient::class,
         'parents' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentsClient::class,
+        'product' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectProductClient::class,
         'selection' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectMapObjectSelectionClient::class,
         'status' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectStatusClient::class,
         'type' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectTypeClient::class,
