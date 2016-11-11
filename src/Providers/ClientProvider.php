@@ -34,6 +34,8 @@ class ClientProvider
             'me' => \Iza\Datacentralisatie\Clients\Me\MeClient::class,
             'network' => \Iza\Datacentralisatie\Clients\Network\NetworkClient::class,
             'object' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectClient::class,
+            'product' => \Iza\Datacentralisatie\Clients\Product\ProductClient::class,
+            'productCategory' => \Iza\Datacentralisatie\Clients\ProductCategory\ProductCategoryClient::class,
             'permission' => \Iza\Datacentralisatie\Clients\Permission\PermissionClient::class,
             'role' => \Iza\Datacentralisatie\Clients\Role\RoleClient::class,
             'session' => \Iza\Datacentralisatie\Clients\Session\SessionClient::class,
