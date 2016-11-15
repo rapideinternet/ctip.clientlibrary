@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\Network;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 
 /**
@@ -16,7 +14,8 @@ class SelectedNetworkClient extends NestedClient
     protected $nestedObjects = [
         'action' => \Iza\Datacentralisatie\Clients\Network\NetworkActionClient::class,
         'actionAttributeValues' => \Iza\Datacentralisatie\Clients\Network\NetworkActionAttributeValuesClient::class,
-        'children' => \Iza\Datacentralisatie\Clients\Network\NetworkChildrenClient::class
+        'children' => \Iza\Datacentralisatie\Clients\Network\NetworkChildrenClient::class,
+        'products' => \Iza\Datacentralisatie\Clients\Network\NetworkProductsClient::class
     ];
 
     /**
