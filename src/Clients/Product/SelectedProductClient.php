@@ -14,6 +14,7 @@ class SelectedProductClient extends NestedClient
     use PerPage;
 
     protected $nestedObjects = [
+        'image' => \Iza\Datacentralisatie\Clients\Product\ProductImageClient::class,
         'productCategory' => \Iza\Datacentralisatie\Clients\Product\ProductCategoryClient::class,
     ];
 
