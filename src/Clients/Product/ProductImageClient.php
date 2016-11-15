@@ -5,7 +5,6 @@ namespace Iza\Datacentralisatie\Clients\Product;
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
-use Iza\Datacentralisatie\Traits\PerPage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -14,7 +13,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class ProductImageClient extends NestedClient implements ArrayAccess
 {
-    use PerPage;
 
     /**
      * @param $id
@@ -24,6 +22,15 @@ class ProductImageClient extends NestedClient implements ArrayAccess
     public function byId($id, $include = [])
     {
         return $this->all($include);
+    }
+
+    /**
+     * @param array $include
+     * @return mixed
+     */
+    public function all()
+    {
+        return $this->request(vsprintf('product/%s/image', $this->selectedId));
     }
 
     /**
