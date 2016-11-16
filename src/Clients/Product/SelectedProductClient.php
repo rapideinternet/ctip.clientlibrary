@@ -16,6 +16,7 @@ class SelectedProductClient extends NestedClient
     protected $nestedObjects = [
         'image' => \Iza\Datacentralisatie\Clients\Product\ProductImageClient::class,
         'productCategory' => \Iza\Datacentralisatie\Clients\Product\ProductCategoryClient::class,
+        'stock' => \Iza\Datacentralisatie\Clients\Product\ProductStockClient::class,
     ];
 
     /**
