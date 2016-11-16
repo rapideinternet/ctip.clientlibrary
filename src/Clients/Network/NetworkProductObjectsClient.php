@@ -5,10 +5,10 @@ namespace Iza\Datacentralisatie\Clients\Network;
 use Iza\Datacentralisatie\Clients\NestedClient;
 
 /**
- * Class NetworkProductsClient
+ * Class NetworkProductObjectsClient
  * @package Iza\Datacentralisatie\Clients\Network
  */
-class NetworkProductsClient extends NestedClient
+class NetworkProductObjectsClient extends NestedClient
 {
     /**
      * @param $id
@@ -29,7 +29,6 @@ class NetworkProductsClient extends NestedClient
     {
         $this->addFilters($filter);
         $this->addParameter('include', implode(',', $include));
-
-        return $this->request(vsprintf('network/%s/product', $this->selectedId));
+        return $this->request(vsprintf('network/%s/product/object', $this->selectedId));
     }
 }

@@ -15,7 +15,8 @@ class SelectedNetworkClient extends NestedClient
         'action' => \Iza\Datacentralisatie\Clients\Network\NetworkActionClient::class,
         'actionAttributeValues' => \Iza\Datacentralisatie\Clients\Network\NetworkActionAttributeValuesClient::class,
         'children' => \Iza\Datacentralisatie\Clients\Network\NetworkChildrenClient::class,
-        'products' => \Iza\Datacentralisatie\Clients\Network\NetworkProductsClient::class
+        'productActions' => \Iza\Datacentralisatie\Clients\Network\NetworkProductActionsClient::class,
+        'productObjects' => \Iza\Datacentralisatie\Clients\Network\NetworkProductObjectsClient::class
     ];
 
     /**
