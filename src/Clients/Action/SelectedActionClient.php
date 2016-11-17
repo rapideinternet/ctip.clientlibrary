@@ -3,8 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\Action;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 
 /**
  * Class SelectedActionClient
@@ -21,6 +19,7 @@ class SelectedActionClient extends NestedClient
         'mapObjectType' => \Iza\Datacentralisatie\Clients\Action\ActionMapObjectTypeClient::class,
         'mapObject' => \Iza\Datacentralisatie\Clients\Action\ActionMapObjectClient::class,
         'priority' => \Iza\Datacentralisatie\Clients\Action\ActionPriorityClient::class,
+        'product' => \Iza\Datacentralisatie\Clients\Action\ActionProductsClient::class,
     ];
 
     /**
