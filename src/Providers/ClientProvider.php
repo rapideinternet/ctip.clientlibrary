@@ -36,6 +36,7 @@ class ClientProvider
             'object' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectClient::class,
             'product' => \Iza\Datacentralisatie\Clients\Product\ProductClient::class,
             'productCategory' => \Iza\Datacentralisatie\Clients\ProductCategory\ProductCategoryClient::class,
+            'productStock' => \Iza\Datacentralisatie\Clients\ProductStock\ProductStockClient::class,
             'permission' => \Iza\Datacentralisatie\Clients\Permission\PermissionClient::class,
             'role' => \Iza\Datacentralisatie\Clients\Role\RoleClient::class,
             'session' => \Iza\Datacentralisatie\Clients\Session\SessionClient::class,
