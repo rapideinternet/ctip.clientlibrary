@@ -2,18 +2,17 @@
 
 namespace Iza\Datacentralisatie\Clients\Action;
 
-use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 /**
  * Class ActionProductsClient
  * @package Iza\Datacentralisatie\Clients\Action
  */
-class ActionProductsClient extends NestedClient implements ArrayAccess
+class ActionProductsClient extends NestedClient
 {
-    use PerPage;
+    use PerPage, Sync;
 
     /**
      * @param $id
@@ -46,6 +45,10 @@ class ActionProductsClient extends NestedClient implements ArrayAccess
      */
     public function create($data)
     {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
         return $this->request(vsprintf('action/%s/product', $this->selectedId), 'POST',
             $data);
     }
@@ -58,45 +61,5 @@ class ActionProductsClient extends NestedClient implements ArrayAccess
     {
         return $this->request(vsprintf('action/%s/product', $this->selectedId), 'DELETE',
             $data);
-    }
-
-    /**
-     * @param mixed $offset
-     * @return bool|void
-     * @throws NotImplementedException
-     */
-    public function offsetExists($offset)
-    {
-        throw new NotImplementedException;
-    }
-
-    /**
-     * @param mixed $offset
-     * @return SelectedActionProductsClient
-     */
-    public function offsetGet($offset)
-    {
-        array_push($this->selectedId, $offset);
-
-        return new SelectedActionProductsClient($this->client, $this->selectedId);
-    }
-
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     * @throws NotImplementedException
-     */
-    public function offsetSet($offset, $value)
-    {
-        throw new NotImplementedException;
-    }
-
-    /**
-     * @param mixed $offset
-     * @throws NotImplementedException
-     */
-    public function offsetUnset($offset)
-    {
-        throw new NotImplementedException;
     }
 }

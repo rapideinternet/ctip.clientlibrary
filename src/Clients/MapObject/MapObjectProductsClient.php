@@ -2,18 +2,17 @@
 
 namespace Iza\Datacentralisatie\Clients\MapObject;
 
-use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sync;
 
 /**
  * Class MapObjectProductsClient
  * @package Iza\Datacentralisatie\Clients\MapObject
  */
-class MapObjectProductsClient extends NestedClient implements ArrayAccess
+class MapObjectProductsClient extends NestedClient
 {
-    use PerPage;
+    use PerPage, Sync;
 
     /**
      * @param $id
@@ -46,6 +45,9 @@ class MapObjectProductsClient extends NestedClient implements ArrayAccess
      */
     public function create($data)
     {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
         return $this->request(vsprintf('object/%s/product', $this->selectedId), 'POST',
             $data);
     }
@@ -58,45 +60,5 @@ class MapObjectProductsClient extends NestedClient implements ArrayAccess
     {
         return $this->request(vsprintf('object/%s/product', $this->selectedId), 'DELETE',
             $data);
-    }
-
-    /**
-     * @param mixed $offset
-     * @return bool|void
-     * @throws NotImplementedException
-     */
-    public function offsetExists($offset)
-    {
-        throw new NotImplementedException;
-    }
-
-    /**
-     * @param mixed $offset
-     * @return SelectedMapObjectProductsClient
-     */
-    public function offsetGet($offset)
-    {
-        array_push($this->selectedId, $offset);
-
-        return new SelectedMapObjectProductsClient($this->client, $this->selectedId);
-    }
-
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     * @throws NotImplementedException
-     */
-    public function offsetSet($offset, $value)
-    {
-        throw new NotImplementedException;
-    }
-
-    /**
-     * @param mixed $offset
-     * @throws NotImplementedException
-     */
-    public function offsetUnset($offset)
-    {
-        throw new NotImplementedException;
     }
 }
