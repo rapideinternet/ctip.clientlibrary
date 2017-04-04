@@ -53,6 +53,15 @@ class MapObjectClient extends BaseClient implements ArrayAccess
     }
 
     /**
+     * @param $data
+     * @return mixed
+     */
+    public function findByAttribute($data)
+    {
+        return $this->request('object/find', 'POST', $data);
+    }
+
+    /**
      * @param mixed $offset
      * @return bool|void
      * @throws NotImplementedException
