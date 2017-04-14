@@ -1,0 +1,93 @@
+<?php
+
+namespace Iza\Datacentralisatie\Clients\RecurringAction;
+
+use ArrayAccess;
+use Iza\Datacentralisatie\Clients\BaseClient;
+use Iza\Datacentralisatie\Exceptions\Exception;
+use Iza\Datacentralisatie\Exceptions\NotImplementedException;
+use Iza\Datacentralisatie\Traits\PerPage;
+use Iza\Datacentralisatie\Traits\Sort;
+
+/**
+ * Class RecurringActionClient
+ * @package Iza\Datacentralisatie\Clients\RecurringAction
+ */
+class RecurringActionClient extends BaseClient implements ArrayAccess
+{
+    use PerPage, Sort;
+
+    /**
+     * @param $filter
+     * @return mixed
+     */
+    public function all($filter)
+    {
+        $this->addFilters($filter);
+        $this->addParameter('include', implode(',', $filter));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
+        $this->addParameter('sort', $this->sort);
+
+        return $this->request('action', 'GET');
+    }
+
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('recurring_action/%s', $id), 'GET');
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data)
+    {
+        return $this->request('recurring_action', 'POST', $data);
+    }
+
+    /**
+     * @param mixed $offset
+     * @return bool|void
+     * @throws NotImplementedException
+     */
+    public function offsetExists($offset)
+    {
+        throw new NotImplementedException;
+    }
+
+    /**
+     * @param mixed $offset
+     * @return SelectedRecurringActionClient
+     */
+    public function offsetGet($offset)
+    {
+        return new SelectedRecurringActionClient($this->client, $offset);
+    }
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @throws NotImplementedException
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new NotImplementedException;
+    }
+
+    /**
+     * @param mixed $offset
+     * @throws NotImplementedException
+     */
+    public function offsetUnset($offset)
+    {
+        throw new NotImplementedException;
+    }
+}
