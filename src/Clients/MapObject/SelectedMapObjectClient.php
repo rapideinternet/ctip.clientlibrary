@@ -24,6 +24,7 @@ class SelectedMapObjectClient extends NestedClient
         'parent' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentClient::class,
         'parents' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectParentsClient::class,
         'product' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectProductsClient::class,
+        'recurringAction' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectRecurringActionClient::class,
         'selection' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectMapObjectSelectionClient::class,
         'status' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectStatusClient::class,
         'type' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectTypeClient::class,
