@@ -42,7 +42,7 @@ class NetworkChildrenClient extends NestedClient
         $this->addParameter('updated_at', $updated_at);
         $this->addParameter('deleted_at', $deleted_at);
 
-        return $this->request(vsprintf('network/%s/children/web', $this->selectedId));
+        return $this->request(vsprintf('network/%s/children/web2', $this->selectedId));
     }
 
     /**
