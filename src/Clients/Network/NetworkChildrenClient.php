@@ -32,13 +32,13 @@ class NetworkChildrenClient extends NestedClient
 
     /**
      * @param int $updated_at
-     * @param array $include
+     * @param array $filter
      * @param bool $deleted_at
      * @return mixed
      */
-    public function web($updated_at = 0, $include = [], $deleted_at = false)
+    public function web($updated_at = 0, $filter = [], $deleted_at = false)
     {
-        $this->addParameter('include', implode(',', $include));
+        $this->addFilters($filter);
         $this->addParameter('updated_at', $updated_at);
         $this->addParameter('deleted_at', $deleted_at);
 
