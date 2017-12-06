@@ -136,6 +136,9 @@ class Request implements IRequest
         $curlOptions[CURLOPT_RETURNTRANSFER] = true;
         $curlOptions[CURLOPT_USERAGENT] = $this->getOption(self::USER_AGENT_KEY);
         $curlOptions[CURLOPT_URL] = $this->getOption(self::BASE_URL_KEY);
+        $curlOptions[CURLOPT_RETURNTRANSFER] = true;
+        $curlOptions[CURLOPT_USERAGENT] = $this->getOption(self::USER_AGENT_KEY);
+        $curlOptions[CURLOPT_URL] = $this->getOption(self::BASE_URL_KEY);
 //        $curlOptions[CURLOPT_FOLLOWLOCATION] = true;
 
         return $curlOptions;
