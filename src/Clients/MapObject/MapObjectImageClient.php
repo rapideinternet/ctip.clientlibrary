@@ -50,6 +50,15 @@ class MapObjectImageClient extends NestedClient implements ArrayAccess
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function copy($target_id)
+    {
+        return $this->request(vsprintf('object/%s/image/copy/%s', array_merge($this->selectedId, [$target_id])),'POST');
+    }
+
+    /**
      * @param mixed $offset
      * @return bool|void
      * @throws NotImplementedException
