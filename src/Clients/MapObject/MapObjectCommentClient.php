@@ -57,7 +57,7 @@ class MapObjectCommentClient extends NestedClient implements ArrayAccess
      */
     public function copy($target_id)
     {
-        return $this->request(vsprintf('object/%s/comment/copy/%s', array_merge($this->selectedId, [$target_id])), 'POST');
+        return $this->request(vsprintf('object/%s/comment/copy/%s', [$this->selectedId[0], $target_id]), 'POST');
     }
 
     /**
