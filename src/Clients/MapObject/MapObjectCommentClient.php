@@ -4,8 +4,6 @@ namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use ArrayAccess;
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\DatacentralisatieClient;
-use Iza\Datacentralisatie\Exceptions\Exception;
 use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 use Iza\Datacentralisatie\Traits\IsNested;
 use Iza\Datacentralisatie\Traits\PerPage;
@@ -50,8 +48,16 @@ class MapObjectCommentClient extends NestedClient implements ArrayAccess
      */
     public function create($data)
     {
-        return $this->request(vsprintf('object/%s/comment', $this->selectedId), 'POST',
-            $data);
+        return $this->request(vsprintf('object/%s/comment', $this->selectedId), 'POST', $data);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function copy($target_id)
+    {
+        return $this->request(vsprintf('object/%s/comment/copy/%s', [$this->selectedId[0], $target_id]), 'POST');
     }
 
     /**
@@ -93,4 +99,6 @@ class MapObjectCommentClient extends NestedClient implements ArrayAccess
     {
         throw new NotImplementedException;
     }
+
+
 }
