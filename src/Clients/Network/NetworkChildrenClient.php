@@ -47,10 +47,12 @@ class NetworkChildrenClient extends NestedClient
 
     /**
      * @param $data
+     * @param array $include
      * @return mixed
      */
-    public function find($data)
+    public function find($data, $include = [])
     {
+        $this->addParameter('include', implode(',', $include));
         return $this->request(vsprintf('network/%s/children/find', $this->selectedId), 'POST', $data);
     }
 
