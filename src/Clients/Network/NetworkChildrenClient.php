@@ -46,6 +46,22 @@ class NetworkChildrenClient extends NestedClient
     }
 
     /**
+     * @param int $map_object_type_id
+     * @param int $updated_at
+     * @param bool $deleted_at
+     * @return mixed
+     */
+    public function findByType($map_object_type_id = 0, $updated_at = 0, $deleted_at = false)
+    {
+        $this->addParameter('updated_at', $updated_at);
+        $this->addParameter('deleted_at', $deleted_at);
+
+        array_push($this->selectedId, $map_object_type_id);
+
+        return $this->request(vsprintf('network/%s/children/type/%s', $this->selectedId));
+    }
+
+    /**
      * @param $data
      * @param array $include
      * @return mixed
