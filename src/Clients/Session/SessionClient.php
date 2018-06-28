@@ -11,7 +11,6 @@ use Iza\Datacentralisatie\Clients\BaseClient;
 class SessionClient extends BaseClient
 {
     /**
-     * @param $id
      * @param array $include
      * @return mixed
      */
@@ -22,8 +21,43 @@ class SessionClient extends BaseClient
         return $this->request('session/tenant', 'GET');
     }
 
+    /**
+     * @param $tenantId
+     * @return mixed
+     */
     public function setTenant($tenantId)
     {
         return $this->request(sprintf('session/tenant/%d', $tenantId), 'POST');
+    }
+
+    /**
+     * @param array $include
+     * @return mixed
+     */
+    public function user($include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request('session/user', 'GET');
+    }
+
+    /**
+     * @param array $include
+     * @return mixed
+     */
+    public function network($include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request('session/network', 'GET');
+    }
+
+    /**
+     * @param $networkId
+     * @return mixed
+     */
+    public function setNetwork($networkId)
+    {
+        return $this->request(sprintf('session/network/%d', $networkId), 'POST');
     }
 }
