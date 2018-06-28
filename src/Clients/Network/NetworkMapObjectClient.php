@@ -1,16 +1,16 @@
 <?php
 
-namespace Iza\Datacentralisatie\Clients\MapObject;
+namespace Iza\Datacentralisatie\Clients\Network;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
 use Iza\Datacentralisatie\Traits\PerPage;
 use Iza\Datacentralisatie\Traits\Sync;
 
 /**
- * Class MapObjectNetworkClient
+ * Class NetworkMapObjectClient
  * @package Iza\Datacentralisatie\Clients\MapObject
  */
-class MapObjectNetworkClient extends NestedClient
+class NetworkMapObjectClient extends NestedClient
 {
     use PerPage, Sync;
 
@@ -36,7 +36,31 @@ class MapObjectNetworkClient extends NestedClient
         $this->addParameter('perPage', $this->perPage);
         $this->addParameter('page', $this->page);
 
-        return $this->request(vsprintf('object/%s/network', $this->selectedId));
+        return $this->request(vsprintf('network/%s/map_object', $this->selectedId));
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data)
+    {
+        if ($this->sync) {
+            $this->addParameter('sync', $this->sync);
+        }
+
+        return $this->request(vsprintf('network/%s/map_object', $this->selectedId), 'POST',
+            $data);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function delete($data)
+    {
+        return $this->request(vsprintf('network/%s/map_object', $this->selectedId), 'DELETE',
+            $data);
     }
 
 }
