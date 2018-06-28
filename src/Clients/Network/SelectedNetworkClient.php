@@ -3,7 +3,6 @@
 namespace Iza\Datacentralisatie\Clients\Network;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
-use Iza\Datacentralisatie\Exceptions\NotImplementedException;
 
 /**
  * Class SelectedNetworkClient
@@ -21,15 +20,17 @@ class SelectedNetworkClient extends NestedClient
         'productObjects' => \Iza\Datacentralisatie\Clients\Network\NetworkProductObjectsClient::class
     ];
 
+
     /**
      * @param $id
      * @param array $include
-     * @return mixed|void
-     * @throws NotImplementedException
+     * @return mixed
      */
     public function byId($id, $include = [])
     {
-        throw new NotImplementedException;
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('network/%s', $id), 'GET');
     }
 
 }
