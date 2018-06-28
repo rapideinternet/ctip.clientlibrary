@@ -32,6 +32,18 @@ class NetworkClient extends BaseClient implements ArrayAccess
     }
 
     /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
+    public function byId($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('network/%s', $id), 'GET');
+    }
+
+    /**
      * @param mixed $offset
      * @return bool|void
      * @throws NotImplementedException
