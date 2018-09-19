@@ -60,15 +60,16 @@ class NetworkChildrenClient extends NestedClient
 
         return $this->request(vsprintf('network/%s/children/type/%s', $this->selectedId));
     }
-    
+
     /**
      * @return mixed
      */
     public function allChildren()
     {
         $this->addParameter('perPage', PHP_INT_MAX);
+        $this->addParameter('page', 1);
 
-        return $this->request(vsprintf('object/%s/children/all', $this->selectedId));
+        return $this->request(vsprintf('network/%s/children/all', $this->selectedId));
     }
 
     /**
