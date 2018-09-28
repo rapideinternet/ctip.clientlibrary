@@ -11,6 +11,7 @@ use Iza\Datacentralisatie\Clients\NestedClient;
 class SelectedUserClient extends NestedClient
 {
     protected $nestedObjects = [
+        'network' => \Iza\Datacentralisatie\Clients\User\UserNetworkClient::class,
         'role' => \Iza\Datacentralisatie\Clients\User\UserRoleClient::class,
         'tenant' => \Iza\Datacentralisatie\Clients\User\UserTenantClient::class,
     ];
