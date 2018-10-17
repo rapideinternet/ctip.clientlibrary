@@ -18,6 +18,7 @@ class SelectedNetworkClient extends NestedClient
         'map_object_selection' => \Iza\Datacentralisatie\Clients\Network\NetworkMapObjectSelectionClient::class,
         'productActions' => \Iza\Datacentralisatie\Clients\Network\NetworkProductActionsClient::class,
         'productObjects' => \Iza\Datacentralisatie\Clients\Network\NetworkProductObjectsClient::class,
+        'recurring_action' => \Iza\Datacentralisatie\Clients\Network\NetworkRecurringActionClient::class,
         'user' => \Iza\Datacentralisatie\Clients\Network\NetworkUserClient::class,
     ];
 
