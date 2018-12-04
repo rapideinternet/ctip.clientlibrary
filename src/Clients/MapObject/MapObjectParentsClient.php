@@ -19,6 +19,16 @@ class MapObjectParentsClient extends NestedClient
      */
     public function byId($id, $include = [])
     {
+        return $this->all($include);
+    }
+
+
+    /**
+     * @param array $include
+     * @return mixed
+     */
+    public function all($include = [])
+    {
         $this->addParameter('include', implode(',', $include));
 
         return $this->request(vsprintf('object/%s/parents', $this->selectedId));
