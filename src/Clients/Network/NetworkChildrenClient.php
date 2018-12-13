@@ -80,6 +80,8 @@ class NetworkChildrenClient extends NestedClient
     public function find($data, $include = [])
     {
         $this->addParameter('include', implode(',', $include));
+        $this->addParameter('perPage', $this->perPage);
+        $this->addParameter('page', $this->page);
         return $this->request(vsprintf('network/%s/children/find', $this->selectedId), 'POST', $data);
     }
 
