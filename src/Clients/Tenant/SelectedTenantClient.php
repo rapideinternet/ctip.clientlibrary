@@ -12,6 +12,7 @@ class SelectedTenantClient extends NestedClient
 {
     protected $nestedObjects = [
         'authorization' => \Iza\Datacentralisatie\Clients\Tenant\TenantAuthorizationClient::class,
+        'network' => \Iza\Datacentralisatie\Clients\Tenant\TenantNetworkClient::class,
         'user' => \Iza\Datacentralisatie\Clients\Tenant\TenantUserClient::class,
     ];
 

@@ -44,6 +44,15 @@ class NetworkClient extends BaseClient implements ArrayAccess
     }
 
     /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data)
+    {
+        return $this->request('network', 'POST', $data);
+    }
+
+    /**
      * @param mixed $offset
      * @return bool|void
      * @throws NotImplementedException
