@@ -81,7 +81,7 @@ class Response implements IResponse
         }
         $this->parsedResponse = strtok("");
 
-        if ($this->getHeader(self::CONTENT_TYPE) == self::JSON_TYPE) {
+        if (strpos($this->getHeader(self::CONTENT_TYPE), self::JSON_TYPE) !== false) {
             $this->parsedResponse = json_decode($this->parsedResponse);
         }
     }
