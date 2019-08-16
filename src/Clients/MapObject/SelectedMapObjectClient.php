@@ -3,6 +3,7 @@
 namespace Iza\Datacentralisatie\Clients\MapObject;
 
 use Iza\Datacentralisatie\Clients\NestedClient;
+use Iza\Datacentralisatie\Traits\RemoveActions;
 
 /**
  * Class SelectedMapObjectClient
@@ -10,6 +11,8 @@ use Iza\Datacentralisatie\Clients\NestedClient;
  */
 class SelectedMapObjectClient extends NestedClient
 {
+    use RemoveActions;
+
     protected $nestedObjects = [
         'action' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectActionClient::class,
         'attachment' => \Iza\Datacentralisatie\Clients\MapObject\MapObjectAttachmentClient::class,
@@ -57,6 +60,9 @@ class SelectedMapObjectClient extends NestedClient
      */
     public function delete()
     {
+        if($this->removeActions === true) {
+            $this->addParameter('remove_actions', $this->removeActions);
+        }
         return $this->request(vsprintf('object/%s', $this->selectedId), 'DELETE');
     }
 }
