@@ -31,6 +31,14 @@ class NetworkChildrenClient extends NestedClient
     }
 
     /**
+     * @return mixed
+     */
+    public function deletedChildren()
+    {
+        return $this->request(vsprintf('network/%s/children/deleted', $this->selectedId));
+    }
+
+    /**
      * @param int $updated_at
      * @param array $filter
      * @param bool $deleted_at
