@@ -13,6 +13,7 @@ class SelectedNetworkClient extends NestedClient
     protected $nestedObjects = [
         'action' => \Iza\Datacentralisatie\Clients\Network\NetworkActionClient::class,
         'actionAttributeValues' => \Iza\Datacentralisatie\Clients\Network\NetworkActionAttributeValuesClient::class,
+        'attachment' => \Iza\Datacentralisatie\Clients\Network\NetworkAttachmentClient::class,
         'children' => \Iza\Datacentralisatie\Clients\Network\NetworkChildrenClient::class,
         'map_object' => \Iza\Datacentralisatie\Clients\Network\NetworkMapObjectClient::class,
         'map_object_selection' => \Iza\Datacentralisatie\Clients\Network\NetworkMapObjectSelectionClient::class,
