@@ -46,6 +46,14 @@ class NetworkActionClient extends NestedClient
     }
 
     /**
+     * @return mixed
+     */
+    public function city_district()
+    {
+        return $this->request(vsprintf('network/%s/action/city_district', $this->selectedId));
+    }
+
+    /**
      * @param $id
      * @param array $include
      * @return mixed
