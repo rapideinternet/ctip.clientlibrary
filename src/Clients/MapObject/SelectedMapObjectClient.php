@@ -47,15 +47,14 @@ class SelectedMapObjectClient extends NestedClient
     }
 
     /**
-     * @param $id
      * @param array $include
      * @return mixed
      */
-    public function deleted($id, $include = [])
+    public function deleted($include = [])
     {
         $this->addParameter('include', implode(',', $include));
 
-        return $this->request(vsprintf('object/%s/deleted', $id), 'GET');
+        return $this->request(vsprintf('object/%s/deleted', $this->selectedId), 'GET');
     }
 
     /**

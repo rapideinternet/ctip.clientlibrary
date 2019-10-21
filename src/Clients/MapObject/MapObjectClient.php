@@ -42,6 +42,17 @@ class MapObjectClient extends BaseClient implements ArrayAccess
 
         return $this->request(vsprintf('object/%s', $id), 'GET');
     }
+    /**
+     * @param $id
+     * @param array $include
+     * @return mixed
+     */
+    public function deleted($id, $include = [])
+    {
+        $this->addParameter('include', implode(',', $include));
+
+        return $this->request(vsprintf('object/%s/deleted', $id), 'GET');
+    }
 
     /**
      * @param $data
