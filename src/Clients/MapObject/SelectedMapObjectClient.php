@@ -67,6 +67,15 @@ class SelectedMapObjectClient extends NestedClient
     }
 
     /**
+     * @param $data
+     * @return mixed
+     */
+    public function split($data)
+    {
+        return $this->request(vsprintf('object/%s/split', $this->selectedId), 'POST', $data, [], true, 'v2');
+    }
+
+    /**
      * @return mixed
      */
     public function delete()

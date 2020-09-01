@@ -77,12 +77,13 @@ abstract class BaseClient
      * @param null $data
      * @param array $headers
      * @param bool $isJson
+     * @param null|string $version
      * @return mixed
      */
-    public function request($path, $method = 'GET', $data = null, $headers = [], $isJson = true)
+    public function request($path, $method = 'GET', $data = null, $headers = [], $isJson = true, $version = null)
     {
         $this->beforeRequest();
-        $response = $this->restClient->newRequest($this->formatUrl($path), $method, $data,
+        $response = $this->restClient->newRequest($this->formatUrl($path, $version), $method, $data,
             array_merge($this->getDefaultHeaders(), $headers), $isJson)->getResponse();
 
         return $this->parseResponse($response);
@@ -181,9 +182,10 @@ abstract class BaseClient
 
     /**
      * @param $path
+     * @param null $version
      * @return string
      */
-    public function formatUrl($path)
+    public function formatUrl($path, $version = null)
     {
         foreach ($this->parameters as $key => $value) {
             if (is_array($value)) {
@@ -192,6 +194,10 @@ abstract class BaseClient
         }
 
         $parameter_string = http_build_query($this->parameters);
+
+        if($version !== null) {
+            return sprintf('%s/%s?%s', $version, ltrim($path, '/'), $parameter_string);
+        }
 
         return sprintf('%s/%s?%s', $this->client->version, ltrim($path, '/'), $parameter_string);
     }
