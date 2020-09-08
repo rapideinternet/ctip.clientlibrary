@@ -53,23 +53,23 @@ abstract class BaseClient
         }
     }
 
-    public function setTenantId($tenant_id)
-    {
-        if(is_int($tenant_id)) {
-            $this->client->setTenantId($tenant_id);
-        }
-
-        return $this;
-    }
-
-    public function setNetworkId($network_id)
-    {
-        if(is_int($network_id)) {
-            $this->client->setNetworkId($network_id);
-        }
-
-        return $this;
-    }
+//    public function setTenantId($tenant_id)
+//    {
+//        if(is_int($tenant_id)) {
+//            $this->client->setTenantId($tenant_id);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function setNetworkId($network_id)
+//    {
+//        if(is_int($network_id)) {
+//            $this->client->setNetworkId($network_id);
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * @param $path
@@ -132,13 +132,13 @@ abstract class BaseClient
             'Content-Type' => 'application/json'
         ];
 
-        if($this->client->getTenantId() > 0) {
-            $defaultHeaders['x-tenant'] = $this->client->getTenantId();
-        }
-
-        if($this->client->getNetworkId() > 0) {
-            $defaultHeaders['x-network'] = $this->client->getNetworkId();
-        }
+//        if($this->client->getTenantId() > 0) {
+//            $defaultHeaders['x-tenant'] = $this->client->getTenantId();
+//        }
+//
+//        if($this->client->getNetworkId() > 0) {
+//            $defaultHeaders['x-network'] = $this->client->getNetworkId();
+//        }
 
         return $defaultHeaders;
     }

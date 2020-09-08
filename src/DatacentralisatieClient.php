@@ -74,8 +74,8 @@ class DatacentralisatieClient implements IDatacentralisatieClient
      */
     protected $errorEvents = [];
 
-    protected $tenant_id = 0;
-    protected $network_id = 0;
+//    protected $tenant_id = 0;
+//    protected $network_id = 0;
 
     /**
      * DatacentralisatieClient constructor
@@ -415,41 +415,41 @@ class DatacentralisatieClient implements IDatacentralisatieClient
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getTenantId()
-    {
-        return $this->tenant_id;
-    }
-
-    /**
-     * @param $tenant_id
-     * @return $this
-     */
-    public function setTenantId($tenant_id)
-    {
-        $this->tenant_id = $tenant_id;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNetworkId()
-    {
-        return $this->network_id;
-    }
-
-    /**
-     * @param $network_id
-     * @return $this
-     */
-    public function setNetworkId($network_id)
-    {
-        $this->network_id = $network_id;
-
-        return $this;
-    }
+//    /**
+//     * @return int
+//     */
+//    public function getTenantId()
+//    {
+//        return $this->tenant_id;
+//    }
+//
+//    /**
+//     * @param $tenant_id
+//     * @return $this
+//     */
+//    public function setTenantId($tenant_id)
+//    {
+//        $this->tenant_id = $tenant_id;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return int
+//     */
+//    public function getNetworkId()
+//    {
+//        return $this->network_id;
+//    }
+//
+//    /**
+//     * @param $network_id
+//     * @return $this
+//     */
+//    public function setNetworkId($network_id)
+//    {
+//        $this->network_id = $network_id;
+//
+//        return $this;
+//    }
 }

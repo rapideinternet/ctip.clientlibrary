@@ -27,8 +27,8 @@ class SessionClient extends BaseClient
      */
     public function setTenant($tenantId)
     {
-        return $this->setTenantId($tenantId);
-//        return $this->request(sprintf('session/tenant/%d', $tenantId), 'POST');
+//        return $this->setTenantId($tenantId);
+        return $this->request(sprintf('session/tenant/%d', $tenantId), 'POST');
     }
 
     /**
@@ -59,7 +59,7 @@ class SessionClient extends BaseClient
      */
     public function setNetwork($networkId)
     {
-        return $this->setNetworkId($networkId);
-//        return $this->request(sprintf('session/network/%d', $networkId), 'POST');
+//        return $this->setNetworkId($networkId);
+        return $this->request(sprintf('session/network/%d', $networkId), 'POST');
     }
 }
